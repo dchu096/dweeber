@@ -7,7 +7,7 @@ Memubot is a bot i make for the Memu discord server, designed for tech support i
 
 # Bugs
 
-This bot is still in a public test build in server, there will be bugs all over the code as i have been working on to repair some already, btu still a lot of repair in the future, if you do like to test out this bot please join the Memubot Development discord server to do so. 
+This bot is still in a public test build in server, there will be bugs all over the code as i have been working on to repair some already, but still a lot of repair in the future, if you do like to test out this bot please join the Memubot Development discord server to do so. 
 
 
 # Self-hosting??
