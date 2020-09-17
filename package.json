@@ -1,0 +1,29 @@
+{
+  "name": "bot096",
+  "version": "1.0.0",
+  "description": "my bot using filesystem",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "dchu096",
+  "license": "ISC",
+  "dependencies": {
+    "apextab-api": "^1.0.5",
+    "async": "^3.1.1",
+    "common-tags": "^1.8.0",
+    "cpu-stat": "^2.0.1",
+    "dateformat": "^3.0.3",
+    "discord.js": "^11.5.1",
+    "erela.js": "^1.0.8",
+    "fs": "0.0.1-security",
+    "lavalink": "^2.9.0",
+    "node-fetch": "^2.6.0",
+    "nodemon": "^2.0.2",
+    "overwatch-api": "^0.8.2",
+    "simple-fortnite-api": "^0.1.9",
+    "urban": "^0.3.2",
+    "moment": "^2.27.0"
+  }
+}
