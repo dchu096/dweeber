@@ -3,15 +3,15 @@ const { cyan } = require("../../colours.json");
 
 module.exports = {
     config: {
-        name: "lenny",
-        description: "post the lenny face",
-        usage: "^2lenny",
+        name: "shrug",
+        description: "post the shrug emoji",
+        usage: "^2shrug",
         category: "other",
         accessableby: "Members",
-        aliases: ["lny",]
+        aliases: ["bruh",]
     },
     run: async (bot, message, args) => {
-        message.channel.send("( ͡° ͜ʖ ͡°)");
+        message.channel.send("¯\\_\(ツ)\_\/¯");
 
         message.delete();
 
