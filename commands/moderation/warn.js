@@ -40,9 +40,8 @@ module.exports = {
         mentioned.send(warningEmbed); // DMs the user the above embed!
         var warnSuccessfulEmbed = new Discord.RichEmbed() // Creates the embed thats returned to the person warning if its sent.
             .setColor(embedColor)
-            .setTitle(`Warned ${mentioned.user.tag} successfully! [reason: ${reason}]`);
+            .setTitle(`${mentioned.user.tag} has been warned`);
         message.channel.send(warnSuccessfulEmbed); // Sends the warn successful embed
-
-        message.delete().catch(O_o=>{});
+        
     }
 }
