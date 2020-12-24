@@ -1,5 +1,4 @@
-const { RichEmbed } = require("discord.js")
-const { redlight } = require("../../colours.json");
+const Discord = require("discord.js");
 
 module.exports = {
     config: {
@@ -7,41 +6,63 @@ module.exports = {
         description: "Unban a user from the guild!",
         usage: "!unban",
         category: "moderation",
-        accessableby: "Administrators",
-        aliases: ["ub", "unbanish"]
+        accessableby: "Moderators",
     },
     run: async (bot, message, args) => {
+        let embedColor = '#00ff00' // color: green, change the hex for different color
+        let bannedMember = await bot.fetchUser(args[0])
+        let reason = args.slice(1).join(' ')
 
-    if(!message.member.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR"])) return message.channel.send("You dont have permission to perform this command!")
+        // MESSAGES
+        if(!bannedMember) {
+            return message.channel.send("You did not provide someone to unban");
+        }
 
-		
-	if(isNaN(args[0])) return message.channel.send("You need to provide an ID.")
-    let bannedMember = await bot.fetchUser(args[0])
-        if(!bannedMember) return message.channel.send("Please provide a user id to unban someone!")
+        if (isNaN(args[0])) {
+            return message.channel.send("You need to provide an ID.");
+        }
 
-    let reason = args.slice(1).join(" ")
         if(!reason) reason = "No reason given!"
 
-    if(!message.guild.me.hasPermission(["BAN_MEMBERS", "ADMINISTRATOR"])) return message.channel.send("I dont have permission to perform this command!")|
+        if (!message.member.permissions.has("BAN_MEMBERS")) {
+            let nopermsembed = new Discord.RichEmbed()
+                .setDescription(
+                    "You do not have permission to unban members"
+                )
+                .setColor(embedColor);
+            return message.channel.send(nopermsembed);
+        }
+
+        if (!message.guild.me.permissions.has("BAN_MEMBERS")) {
+            let botnopermsembed = new Discord.RichEmbed()
+                .setDescription(
+                    "Missing `BAN_MEMBERS` permission for bot."
+                )
+                .setColor(embedColor);
+            return message.channel.send(botnopermsembed);
+        }
+
     message.delete()
+
     try {
-        message.guild.unban(bannedMember, reason)
-        message.channel.send(`${bannedMember.tag} has been unbanned from the guild!`)
+        let unbanembed = new Discord.RichEmbed()
+            .setColor(embedColor)
+            .setAuthor(message.author.username, message.author.avatarURL)
+            .setTitle(`You've been unbanned in ${message.guild.name}`)
+            .addField('unbanned by', message.author.tag)
+            .addField('Reason', reason)
+            .setTimestamp();
+        bannedMember.send(unbanembed).then(() =>
+        message.guild.unban(bannedMember, reason))
     } catch(e) {
         console.log(e.message)
     }
+        let successfullyembed = new Discord.RichEmbed()
+            .setDescription(`User has been unbanned.`)
+            .setColor(embedColor);
 
-    let embed = new RichEmbed()
-    .setColor(redlight)
-    .setAuthor(`${message.guild.name} Modlogs`, message.guild.iconURL)
-    .addField("Moderation:", "unban")
-    .addField("Moderated on:", `${bannedMember.username} (${bannedMember.id})`)
-    .addField("Moderator:", message.author.username)
-    .addField("Reason:", reason)
-    .addField("Date:", message.createdAt.toLocaleString())
-    
-        let sChannel = message.guild.channels.find(c => c.name === "tut-modlogs")
-        sChannel.send(embed)
+        message.channel.send(successfullyembed)
+
 
     }
 }

@@ -4,8 +4,8 @@ module.exports= {
     config: {
         name: 'kick',
         description: 'kick a member from the guild',
-        usage: "^2ban",
-        category: 'moderation',
+        usage: "^2kick [user/ID] [reason]",
+        category: "moderation",
         accessableby: "Moderators",
 
 },
@@ -18,7 +18,7 @@ module.exports= {
         // MESSAGES
 
         if (!kicked) {
-           return message.channel.send("You did not select a user or give a reason");
+           return message.channel.send("You did not select a user to kick");
         }
 
         if (message.author === kicked) {
@@ -48,6 +48,8 @@ module.exports= {
                 .setColor(embedColor);
             return message.channel.send(botnopermsembed);
         }
+
+        message.delete() //delete the command msg
 
         let kickembed = new Discord.RichEmbed()
             .setColor(embedColor)

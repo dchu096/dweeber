@@ -6,7 +6,7 @@ module.exports = {
         description: "Unmutes a member in the discord!",
         usage: "^2unmute <user> <reason>",
         category: "moderation",
-        accessableby: "Members",
+        accessableby: "Moderators",
         aliases: ["unm", "speak"]
     },
     run: async (bot, message, args) => {
@@ -26,6 +26,8 @@ if(!reason) reason = "No reason given!"
 //define mute role and if the mute role doesnt exist then send a message
 let muterole = message.guild.roles.find(r => r.name === "Muted")
 if(!muterole) return message.channel.send("There is no mute role to remove!")
+
+        message.delete()
 
 //remove role to the mentioned user and also send the user a dm explaing where and why they were unmuted
         let unmuteembed = new Discord.RichEmbed()
