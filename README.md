@@ -9,8 +9,7 @@ https://user096.online <- bot's webpage
 
 # Bugs
 
-This bot is still in a public test build in server, there will be bugs all over the code as i have been working on to repair some already, but still a lot of repair in the future, if you do like to test out this bot please join the Memubot Development discord server to do so. 
-
+There wis bugs all over the code as i always going for the most features as possible.I have been working on to repair some already, but still a lot of repair in the future, if you do like to help please do submit pull requests.
 
 # Self-hosting??
 
