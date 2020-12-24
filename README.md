@@ -3,7 +3,7 @@
 
 # About Memu-bot
 
-Memubot is a bot i make for the Memu discord server, designed for tech support in mind, but with auto reply and moderations to replace dyno's job in server.
+Memubot is abot designed specifically for Memu server, mainly targeted at tech support uses but with moderation features to replace dyno's job in memu server
 
 # Bugs
 
