@@ -3,7 +3,9 @@
 
 # About Memu-bot
 
-Memubot is abot designed specifically for Memu server, mainly targeted at tech support uses but with moderation features to replace dyno's job in memu server
+Memubot is abot designed specifically for Memu server, mainly targeted at tech support uses but with moderation features to replace dyno's job and roles commands to replace carl's job in memu server
+
+https://user096.online <- bot's webpage
 
 # Bugs
 
