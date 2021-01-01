@@ -4,7 +4,7 @@ module.exports= {
     config: {
         name: 'kick',
         description: 'kick a member from the guild',
-        usage: "^2kick [user/ID] [reason]",
+        usage: "[user/ID] [reason]",
         category: "moderation",
         accessableby: "Moderators",
 
@@ -64,8 +64,15 @@ module.exports= {
         let successfullyembed = new Discord.RichEmbed()
             .setDescription(`${kicked.user.tag} has been kicked.`)
             .setColor(embedColor);
-
         message.channel.send(successfullyembed);
+
+        //modlogs
+        let doneembed = new Discord.RichEmbed()
+            .setTitle(`Moderation: Kick`)
+            .setColor(embedColor)
+            .setDescription(`${kicked.user.tag} has been kicked by ${message.author.tag} because of ${reason}`)
+        let sChannel = message.guild.channels.find(c => c.name === "shame-stream")
+        sChannel.send(doneembed)
 
 
     }

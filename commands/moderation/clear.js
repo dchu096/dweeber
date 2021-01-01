@@ -5,7 +5,7 @@ module.exports = {
     config: {
         name: "clear",
         description: "clears a message",
-        usage: "^2clear <amount>",
+        usage: "[amount]",
         category: "moderation",
         accessableby: "moderator",
         aliases: ["clr"]

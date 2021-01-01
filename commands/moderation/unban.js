@@ -4,7 +4,7 @@ module.exports = {
     config: {
         name: "unban",
         description: "Unban a user from the guild!",
-        usage: "!unban",
+        usage: "[user/ID] {reason}",
         category: "moderation",
         accessableby: "Moderators",
     },
@@ -60,8 +60,15 @@ module.exports = {
         let successfullyembed = new Discord.RichEmbed()
             .setDescription(`User has been unbanned.`)
             .setColor(embedColor);
+        message.channel.send(successfullyembed);
 
-        message.channel.send(successfullyembed)
+        //modlogs
+        let doneembed = new Discord.RichEmbed()
+            .setTitle(`Moderation: Unban`)
+            .setColor(embedColor)
+            .setDescription(`${mutee.user.tag} has been unbanned by ${message.author.tag} because of ${reason}`)
+        let sChannel = message.guild.channels.find(c => c.name === "shame-stream")
+        sChannel.send(doneembed)
 
 
     }

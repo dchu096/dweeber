@@ -4,7 +4,7 @@ module.exports = {
     config: {
         name: "unmute",
         description: "Unmutes a member in the discord!",
-        usage: "^2unmute <user> <reason>",
+        usage: "[user] [reason]",
         category: "moderation",
         accessableby: "Moderators",
         aliases: ["unm", "speak"]
@@ -43,8 +43,16 @@ mutee.removeRole(muterole.id)).catch(err => console.log(err));
         let successfullyembed = new Discord.RichEmbed()
             .setDescription(`${mutee.user.tag} has been unmuted.`)
             .setColor(embedColor);
+    message.channel.send(successfullyembed);
 
-    message.channel.send(successfullyembed)
+
+        //modlogs
+        let doneembed = new Discord.RichEmbed()
+            .setTitle(`Moderation: Unmute`)
+            .setColor(embedColor)
+            .setDescription(`${mutee.user.tag} has been unmuted by ${message.author.tag} because of ${reason}`)
+        let sChannel = message.guild.channels.find(c => c.name === "shame-stream")
+        sChannel.send(doneembed)
 
 
     }

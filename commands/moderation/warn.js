@@ -4,7 +4,7 @@ module.exports = {
     config: {
         name: "warn",
         description: "warns a member from this guild",
-        usage: "^2warn [user/ID] [reason]",
+        usage: "[user/ID] [reason]",
         category: "moderation",
         accessableby: "Moderators",
     },
@@ -20,13 +20,6 @@ module.exports = {
             return message.channel.send("You did not select a user to warn");
         }
 
-        if (message.author === mentioned) {
-            let sanctionyourselfembed = new Discord.RichEmbed()
-                .setDescription(`You cannot warn yourself`)
-                .setColor(embedColor);
-            return message.channel.send(sanctionyourselfembed);
-
-        }
 
         if (!reason) reason = "No reason given!"
 
@@ -57,13 +50,19 @@ module.exports = {
             .addField('Warned by', message.author.tag)
             .addField('Reason', reason)
             .setTimestamp();
-
         mentioned.send(warningEmbed); // DMs the user the above embed!
 
         var warnSuccessfulEmbed = new Discord.RichEmbed() // Creates the embed thats returned to the person warning if its sent.
             .setColor(embedColor)
             .setTitle(`${mentioned.user.tag} has been warned`);
         message.channel.send(warnSuccessfulEmbed); // Sends the warn successful embed
+
+        let doneembed = new Discord.RichEmbed()
+            .setTitle(`Moderation: Warn`)
+            .setColor(embedColor)
+            .setDescription(`${mentioned.user.tag} has been warned by ${message.author.tag} because of ${reason}`)
+        let sChannel = message.guild.channels.find(c => c.name === "shame-stream")
+        sChannel.send(doneembed)
         
     }
 }

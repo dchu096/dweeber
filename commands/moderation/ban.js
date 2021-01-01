@@ -4,7 +4,7 @@ module.exports = {
     config: {
         name: "ban",
         description: "Bans a user from the guild!",
-        usage: "^2ban [user/ID] [reason]",
+        usage: "[user/ID] [reason]",
         category: "moderation",
         accessableby: "Moderators",
     },
@@ -65,6 +65,14 @@ module.exports = {
             .setColor(embedColor);
 
         message.channel.send(successfullyembed);
+
+        //modlogs
+        let doneembed = new Discord.RichEmbed()
+            .setTitle(`Moderation: Ban`)
+            .setColor(embedColor)
+            .setDescription(`${banMember.user.tag} has been banned by ${message.author.tag} because of ${reason}`)
+        let sChannel = message.guild.channels.find(c => c.name === "shame-stream")
+        sChannel.send(doneembed)
     }
 }
 
