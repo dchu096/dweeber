@@ -3,8 +3,8 @@ const Discord = require('discord.js');
 module.exports = {
     config: {
         name: "roleinfo",
-        description: "showds the current role information",
-        usage: "^2roleinfo",
+        description: "shows the current role information",
+        usage: " ",
         category: "info",
         accessableby: "Members",
         aliases: ["ri", "roledesc"]

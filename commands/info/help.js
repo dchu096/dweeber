@@ -1,4 +1,4 @@
-const { RichEmbed } = require("discord.js");
+const Discord = require("discord.js");
 const { prefix } = require("../../botconfig.json");
 const { readdirSync } = require("fs")
 const { stripIndents } = require("common-tags")
@@ -7,22 +7,22 @@ const { cyan } = require("../../colours.json")
 module.exports = {
     config: {
         name: "help",
-        aliases: ["h", "halp", "commands"],
+        aliases: ["halp", "commandlist", "commands"],
         usage: "(command)",
         category: "info",
         description: "Displays all commands that the bot has.",
         accessableby: "Members"
     },
     run: async (bot, message, args) => {
-        const embed = new RichEmbed()
+        const embed = new Discord.RichEmbed()
             .setColor(cyan)
-            .setAuthor(`${message.guild.me.displayName} Help`, message.guild.iconURL)
+            .setAuthor(`${message.guild.me.displayName} Help`, bot.user.displayAvatarURL)
             .setThumbnail(bot.user.displayAvatarURL)
 
         if(!args[0]) {
             const categories = readdirSync("./commands/")
 
-            embed.setDescription(`These are the avaliable commands for ${message.guild.me.displayName}\nThe bot prefix is: **${prefix}**`)
+            embed.setDescription(`commandlist for ${message.guild.me.displayName}\nThe bot prefix is: **${prefix}**`)
             embed.setFooter(`© ${message.guild.me.displayName} | Total Commands: ${bot.commands.size}`, bot.user.displayAvatarURL);
 
             categories.forEach(category => {
@@ -31,7 +31,7 @@ module.exports = {
                 try {
                     embed.addField(`❯ ${capitalise} [${dir.size}]:`, dir.map(c => `\`${c.config.name}\``).join(" "))
                 } catch(e) {
-                    console.log(e)
+                    console.log(e.message)
                 }
             })
 

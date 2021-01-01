@@ -15,9 +15,11 @@ module.exports = {
         var Embed = new Discord.RichEmbed() // Creates the embed thats returned to the person warning if its sent.
             .setColor(embedColor)
             .setTitle("About Memubot")
-            .addField("Memubot is abot designed specifically for Memu server, mainly targeted at tech support uses but with moderation features to replace dyno's job in memu server")
-            .addField("Bot's webpage at https://user096.bot.nu/memubot")
-            .addField("Dashboard isnt available for this bot at the moment")
+            .setThumbnail(message.guild.iconURL)
+            .setAuthor(`Memubot Info`, message.guild.iconURL)
+
+            .addField("**About:**", `Memubot is abot designed specifically for Memu server, mainly targeted at tech support uses but with moderation features to replace dyno's job and role command to replace carls job in memu server`, true)
+            .addField("**Bot's webpage:**", `https://user096.online`, true)
             .setFooter("by dchu096#3732, made with time and effort")
         message.channel.send(Embed) // Sends the embed
 

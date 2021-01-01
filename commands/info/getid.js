@@ -4,10 +4,10 @@ module.exports = {
     config: {
         name: "getid",
         description: "get a user ID",
-        usage: "^2getid",
+        usage: " ",
         category: "info",
         accessableby: "members",
-        aliases: ["gid"]
+        aliases: ["id", "gid"]
     },
     run: async (bot, message, args) => {
         var embedColor = '#87CEEB' // color: skyblue
