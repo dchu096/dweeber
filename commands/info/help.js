@@ -14,17 +14,19 @@ module.exports = {
         accessableby: "Members"
     },
     run: async (bot, message, args) => {
-        const embed = new Discord.RichEmbed()
-            .setColor(cyan)
-            .setAuthor(`${message.guild.me.displayName} Help`, bot.user.displayAvatarURL)
-            .setThumbnail(bot.user.displayAvatarURL)
+        const embedColor = '#87ceeb';
+
+        const embed = new Discord.MessageEmbed()
+            .setColor(embedColor)
+            .setTitle("Memubot commands list")
+            .setAuthor(`${message.guild.me.displayName}`, bot.user.displayAvatarURL())
+            .setThumbnail(bot.user.displayAvatarURL())
 
         if(!args[0]) {
             const categories = readdirSync("./commands/")
 
-            embed.setDescription(`commandlist for ${message.guild.me.displayName}\nThe bot prefix is: **${prefix}**`)
-            embed.setFooter(`© ${message.guild.me.displayName} | Total Commands: ${bot.commands.size}`, bot.user.displayAvatarURL);
-
+            embed.setDescription(`Bot prefix is: **${prefix}**`)
+            embed.setFooter(` ${message.guild.me.displayName} | Total Commands: ${bot.commands.size}`, bot.user.displayAvatarURL());
             categories.forEach(category => {
                 const dir = bot.commands.filter(c => c.config.category === category)
                 const capitalise = category.slice(0, 1).toUpperCase() + category.slice(1)
@@ -36,7 +38,7 @@ module.exports = {
             })
 
             return message.author.send(embed).then(() =>
-                message.channel.send("Please check your DM"))
+                message.channel.send("Commands have been send to your DM"))
         } else {
             let command = bot.commands.get(bot.aliases.get(args[0].toLowerCase()) || args[0].toLowerCase())
             if(!command) return message.channel.send(embed.setTitle("Invalid Command.").setDescription(`Do \`${prefix}help\` for the list of the commands.`))
