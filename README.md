@@ -13,7 +13,7 @@ https://user096.online <- bot's webpage
 
 # Bugs
 
-There wis bugs all over the code as i always going for the most features as possible.I have been working on to repair some already, but still a lot of repair in the future, if you do like to help please do submit pull requests.
+There is bugs all over the code as i always going for the most features as possible.I have been working on to repair some already, but still a lot of repair in the future, if you do like to help please do submit pull requests.
 
 # Self-hosting??
 
