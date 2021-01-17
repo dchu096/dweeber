@@ -8,17 +8,23 @@ module.exports = {
         aliases: ["botstop"]
     },
     run: async (bot, message, args) => {
-
-    if(message.author.id !== "420839496263925767") return message.channel.send("Access Denied! Only the bot owner can process.");
-
+        let ownerid = "420839496263925767"
+        if (message.author.id === ownerid) {
     try {
-        await message.channel.send("Bot is shutting down...")
+        await message.channel.send("Shutting down...")
         process.exit()
     } catch(e) {
-        message.channel.send(`ERROR: ${e.message}`)
-    }
-    
-
-
+        message.channel.send(`ERROR: ${e.message}`)}
+        } else
+            {
+                let warningColor = '#FF0000' // color: red, change the hex for different color
+                let deniedembed = new Discord.RichEmbed()
+                    .setTitle(`❌Error`)
+                    .setDescription(`This bot doesnt belong to you!`)
+                    .addField("required:", "bot developers", false)
+                    .setColor(warningColor)
+                return message.reply(deniedembed).then(msg => msg.delete(10000)).then(() =>
+                    console.log(`${message.author.username} have been trying to access command shutdown`));
+            }
     }
 }
