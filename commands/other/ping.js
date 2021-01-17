@@ -8,15 +8,15 @@ module.exports = {
         accessableby: "Members"
     },
     run: async (bot, message, args) => {
-        var embedColor = '#87CEEB' // color: skyblue
+        const embedColor = '#87CEEB'; // color: skyblue
 
 
         message.channel.send("Pinging...").then(msg => {
             let ping = msg.createdTimestamp - message.createdTimestamp
-            let embed = new Discord.RichEmbed() //For discord v11 Change to new Discord.RichEmbed()
+            let embed = new Discord.MessageEmbed() //For discord v11 Change to new Discord.RichEmbed()
                 .setColor(embedColor)
                 .setTitle(`ping`)
-                .setDescription(`Bot Latency: \`${ping}\`, API Latency: \`${Math.round(bot.ping)}\``)
+                .setDescription(`Bot Latency: \`${ping}\`, API Latency: \`${Math.round(bot.ws.ping)}\``)
             msg.edit(embed)
         });
     }
