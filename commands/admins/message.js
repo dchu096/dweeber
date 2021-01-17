@@ -1,4 +1,3 @@
-const { RichEmbed } = require("discord.js")
 const Discord = require("discord.js");
 
 module.exports = {
@@ -8,38 +7,48 @@ module.exports = {
         usage: "^2message [ID] [Message]",
         category: "admins",
         accessableby: "admins",
-        aliases: ["sendmsg"]
+        aliases: ["sendmessage", "messageuser"]
     },
     run: async (bot, message, args) => {
-        var embedColor = '#00FFFF' // color: cyan
+        const embedColor = '#87ceeb';
+        const warningColor = '#ff0000';
+        const okColor = '#00ff00';
 
-        if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send("You have no permission to process this command!");
+        //messages
 
-        let Message = args.slice(1).join(' ') // .slice(1) removes the user mention, .join(' ') joins all the words in the message, instead of just sending 1 word
-        if(!Message) return message.reply("You havnt provide a message to be sent")
+        let userMsg = args.slice(1).join(' ') // .slice(1) removes the user mention, .join(' ') joins all the words in the message, instead of just sending 1 word
+        if(!userMsg) return message.reply("You havnt provide a message to be sent")
 
-        let mentioned = message.mentions.members.first() || message.guild.members.get(args[0]); // Gets the user mentioned!
+        if(!message.member.hasPermission('ADMINISTRATOR')) {
+            const nopermembed = new Discord.MessageEmbed()
+                .setTitle("❌Error")
+                .setDescription("Missing Administrator permission")
+                .addField("required:", "ADMINISTRATOR permission", false)
+                .setColor(warningColor)
+            return message.channel.send(nopermembed).then(msg => msg.delete({ timeout: 5000 }));
+        }
 
-        let contact = new Discord.RichEmbed() //setup rich embed
-            .setAuthor(message.author.username, message.author.avatarURL)
+        let userarguments= args.slice(1).join(' ') // .slice(1) removes the user mention, .join(' ') joins all the words in the message, instead of just sending 1 word
+        if(!userarguments) return message.reply("You didnt provide a message to be sent")
+
+        let mentioned = message.mentions.members.first() || message.guild.members.cache.get(args[0]); // Gets the user mentioned!
+
+        let contact = new Discord.MessageEmbed() //setup rich embed
+            .setAuthor(message.author.username, message.author.avatarURL())
             .setColor(embedColor)
             .setTitle(`A message from ${message.guild.name}`)
             .addField('From user:', message.author.tag)
-            .addField("Message:", Message)
-            .setFooter("Memubot | by dchu096")
+            .addField("Message:", userMsg)
             .setTimestamp()
 
-        mentioned.send(contact);
+        mentioned.send(contact)
 
 
-        let chanemb = new Discord.RichEmbed()
-            .setColor(embedColor) // color: green
+        let doneembed = new Discord.MessageEmbed()
+            .setColor(okColor)
             .setDescription(`Message sent to ${mentioned.user.tag}`);
 
-        message.channel.send(chanemb).then(msg => {msg.delete(5000)});
-
-
-        message.delete().catch(O_o=>{});
+        message.channel.send(doneembed).then(msg => msg.delete({ timeout: 5000 }));
     }
 
 }

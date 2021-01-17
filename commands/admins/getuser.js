@@ -4,21 +4,43 @@ module.exports = {
     config: {
         name: "getuser",
         description: "get a user's username from user in this server",
-        usage: "^2getuser",
+        usage: " ",
         category: "admins",
-        accessableby: "admins",
-        aliases: ["getusr"]
+        accessableby: "Administrators",
+        aliases: ["user", "finduser", "checkuser"]
     },
     run: async (bot, message, args) => {
+        const warningColor = '#ff0000';
+
+        //messages
+        message.delete()
+
+        if (!message.member.permissions.has("ADMINISTRATOR")) {
+            let nopermsembed = new Discord.MessageEmbed()
+                .setTitle("❌Error")
+                .setDescription("Missing ADMINISTRATOR permission (user)")
+                .addField("required:", "ADMINISTRATOR permission", false)
+                .setColor(warningColor);
+            return message.channel.send(nopermsembed).then(msg => msg.delete({ timeout: 10000 }));
+        }
 
         let users = bot.users;
 
         let searchTerm = args[0];
-        if(!searchTerm) return message.channel.send("Please type a term to search!");
 
-        let matches = users.filter(u => u.tag.toLowerCase().includes(searchTerm.toLowerCase()));
+        if(!searchTerm) {
+            const notermembed = new Discord.MessageEmbed()
+                .setTitle("❌Error")
+                .setDescription("Missing target user")
+                .addField("required:", "usernames", false)
+                .setColor(warningColor)
+            return message.channel.send(notermembed).then(msg => msg.delete({ timeout: 10000 }));
+        }
 
-        message.channel.send(matches.map(u => u.tag));
+
+        let userlist = users.filter(u => u.tag.toLowerCase().includes(searchTerm.toLowerCase()));
+
+        await message.channel.send(userlist.map(u => u.tag));
 
     }
     }
