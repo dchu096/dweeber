@@ -1,6 +1,6 @@
 # UPDATE
 
-Memubot is currently using nodejs-v12
+Memubot is currently using nodejs-v15
 
 # memubot
 ![](readmefiles/memu-bot-banner.png)
