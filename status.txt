@@ -1,0 +1,41 @@
+commands needs to be fixed
+kick
+ban
+safe
+stuck
+
+
+
+
+fully fixed
+
+admins:
+getuser
+message
+
+info:
+getid
+help
+roleinfo
+serverinfo
+
+Moderations:
+clear
+warn
+
+other:
+
+
+Memu:
+Safe
+
+
+owner:
+say
+
+
+
+        let Invite = message.guild.channels.first().createInvite()
+
+
+        m.edit(`${response}: Bot Latency: \`${ping}\`, API Latency: \`${Math.round(bot.ping)}\``)
