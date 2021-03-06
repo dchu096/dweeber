@@ -1,4 +1,3 @@
-const { RichEmbed } = require("discord.js")
 const Discord = require('discord.js');
 module.exports = {
     config: {
@@ -10,33 +9,47 @@ module.exports = {
         aliases: ["ri", "roledesc"]
     },
     run: async (bot, message, args) => {
-        var embedColor = '#87CEEB' // color: skyblue
+        const embedColor = '#87CEEB'; // color: skyblue
+        const warningColor = '#ff0000';
 
-        let inline = true
+        let role = args.join(` `) || message.guild.role.cache.get(args[0]);
+        if (!role) {
+            let noroleEmbed = new Discord.MessageEmbed()
+                .setTitle("❌Error")
+                .setDescription("Missing Role input")
+                .addField("required:", "role", false)
+                .setColor(warningColor)
+            return message.channel.send(noroleEmbed)
+        }
 
-        let role = args.join(` `)
-        if(!role) return message.reply("Specify a role!");
-        let gRole = message.guild.roles.find(`name`, role);
-        if(!gRole) return message.reply("Couldn't find that role.");
+        let gRole = message.guild.roles.cache.find(`name`, role);
+
+        if (!gRole) {
+            let nogroleEmbed = new Discord.MessageEmbed()
+                .setTitle("❌Error")
+                .setDescription("Role not found")
+                .addField("required:", "role", false)
+                .setColor(warningColor)
+            return message.channel.send(nogroleEmbed)
+        }
 
         const status = {
             false: "No",
             true: "Yes"
         }
 
-        let roleemebed = new Discord.RichEmbed()
-            .setColor(embedColor)
-            .addField("ID", gRole.id, inline )
-            .addField("Name", gRole.name, inline)
-            .addField("Mention", `\`<@${gRole.id}>\``, inline)
-            .addField("Hex", gRole.hexColor, inline)
-            .addField("Members", gRole.members.size, inline)
-            .addField("Position", gRole.position, inline)
-            .addField("Hoisted", status[gRole.hoist], inline)
-            .addField("Mentionable", status[gRole.mentionable], inline)
-            .addField("Managed", status[gRole.managed], inline)
+        let roleEmbed = new Discord.MessageEmbed()
+                .setColor(embedColor)
+                .addField("ID", gRole.id, true)
+                .addField("Name", gRole.name, true)
+                .addField("Hex", gRole.hexColor, true)
+                .addField("Members", gRole.members.size, true)
+                .addField("Position", gRole.position, true)
+                .addField("Hoisted", status[gRole.hoist], true)
+                .addField("Mentionable", status[gRole.mentionable], true)
+                .addField("Managed", status[gRole.managed], true)
+            await message.channel.send(roleEmebed);
 
-        message.channel.send(roleemebed);
 
     }
 

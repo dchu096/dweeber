@@ -10,12 +10,12 @@ module.exports = {
         aliases: ["ui", "userrdesc"]
     },
     run: async (bot, message, args) => {
-        const userMention = message.mentions.users.first() || message.guild.members.get(args[0]) || message.author;
-        const memberMention = message.mentions.members.first() || message.guild.members.get(args[0]) || message.member;
+        const userMention = message.mentions.users.first() || message.guild.members.cache.get(args[0]) || message.author;
+        const memberMention = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
 
         let embedColor = "#87CEEB"
 
-        const rolesofmember = memberMention.roles.filter(r => r.name !== '@everyone').map(role => role.name).join(', ')
+        const rolesofmember = memberMention.roles.cache.filter(r => r.name !== '@everyone').map(role => role.name).join(', ')
 
         let userinfo = {};
         userinfo.bot = userMention.bot;
@@ -29,26 +29,24 @@ module.exports = {
         userinfo.allroles = rolesofmember;
         userinfo.permission = userMention.permission
 
-        userinfo.avatar = userMention.avatarURL;
+        userinfo.avatar = userMention.avatarURL({ format: 'png', dynamic: true, size: 1024 });
 
-        var InfoEmbed = new Discord.RichEmbed()
+        const InfoEmbed = new Discord.MessageEmbed()
             .setTitle(`About ${userinfo.uname}`)
             .setThumbnail(userinfo.avatar)
             .setColor(embedColor)
             .setAuthor(userinfo.uname, userinfo.avatar)
             .addField("status", userinfo.online, false)
-            .addField("Botuser",userinfo.bot, true)
-            .addField("Username",userinfo.uname, true)
-            .addField("Discriminator",userinfo.discrim, true)
-            .addField("Created At",userinfo.createdat, true)
-            .addField("Client ID",userinfo.id, true)
-            .addField("Presence",userinfo.presen, true)
+            .addField("Botuser", userinfo.bot, true)
+            .addField("Username", userinfo.uname, true)
+            .addField("Discriminator", userinfo.discrim, true)
+            .addField("Created At", userinfo.createdat, true)
+            .addField("Client ID", userinfo.id, true)
+            .addField("Presence", userinfo.presen, true)
             .addField("Roles", userinfo.allroles, false)
             .addField("permissions", userinfo.permission, true)
-            .setFooter(`command called by ${userinfo.tag}`)
+            .setFooter(`command called by ${userinfo.tag}`);
 
-
-
-        message.channel.send(InfoEmbed);
+        await message.channel.send(InfoEmbed).catch(O_o => {});
     }
 }
