@@ -2,6 +2,8 @@
 
 Memubot is currently under update from v11 to v12 on my PC. To visit the ongoing code visit the nodejs-v12 branch
 
+To see the ongoing discordjs commando branch see djs-commando branch
+
 # memubot
 ![](readmefiles/memu-bot-banner.png)
 
