@@ -1,6 +1,6 @@
 # UPDATE
 
-Memubot is currently under update from v11 to v12 on my PC. To visit the ongoing code visit the nodejs-v12 branch
+Memubot is currently under update from discord.js to discord.js-commando.
 
 # memubot
 ![](readmefiles/memu-bot-banner.png)
