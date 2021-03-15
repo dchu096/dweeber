@@ -1,14 +1,42 @@
-const {Client, Collection } = require("discord.js");
-const Discord = require('discord.js');
-const { token } = require("./botconfig.json");
-const bot = new Discord.Client(); // Create the bot client.
+const { CommandoClient } = require('discord.js-commando');
+const path = require('path');
+const Discord = require("discord.js");
+const {Collection} = require("discord.js");
+const {config, prefix, token, owner, YTAPI } = require("./botconfig.json");
+
+const client = new CommandoClient({
+    commandPrefix: prefix,
+    owner: owner,
+    invite: '',
+});
+
+
+
+client.registry
+    .registerGroups([
+        ['admins', 'Commands for admins'],
+        ['channels', 'Channel commands'],
+        ['info', 'informational commands'],
+        ['roles', 'roles commands'],
+        ['moderation', 'Moderation commands'],
+        ['music', 'music system (cannot be disabled)'],
+        ['other', 'random commands'],
+        ['owner', 'owner specific commands'],
+
+    ])
+    .registerDefaults()
+    .registerCommandsIn(path.join(__dirname, 'commands'));
+
+
+    ["console", "event"].forEach(x => require(`./handlers/${x}`)(client));
+
 
 const MusicBot = require('discord-music-system'); // Require the best package ever created on NPM (= require discord-music-system)
 
-const client = new MusicBot({
-    botPrefix: '^2', // Example: !
-    ytApiKey: 'YT API', //
-    botClient: bot // Your Discord client. Here we're using discord.js so it's the Discord.Client()
+const bot = new MusicBot({
+    botPrefix: prefix, // Example: !
+    ytApiKey: YTAPI, //
+    botClient: client // Your Discord client. Here we're using discord.js so it's the Discord.Client()
 });
 
 const afk = require("afk-cord")
@@ -17,17 +45,12 @@ const afkcord = new afk("wio.db") // You Have 2 Choices For Database!(wio.db Use
 
 const minigames = require('@superphantomuser/discordjs-minigames'); //define the minigame package
 
-const config = require('./botconfig.json');
-
 const fs = require('fs');
 
-["aliases", "commands"].forEach(x => bot[x] = new Collection());
-["console", "command", "event"].forEach(x => require(`./handlers/${x}`)(bot));
 
+client.on('guildMemberAdd', async member => {
 
-bot.on('guildMemberAdd', async member => {
-
-    let wChan = bot.channels.cache.get('617994627810721824')
+    let wChan = client.channels.cache.get('617994627810721824')
 
     if(wChan == null) return;
 
@@ -48,12 +71,12 @@ bot.on('guildMemberAdd', async member => {
         }
     })
 
-bot.on('message', message => { // When the bot receive a message
-    client.onMessage(message)
+client.on('message', message => { // When the bot receive a message
+    bot.onMessage(message)
 });
 
 
-bot.on("message", message => {
+client.on("message", message => {
     if (message.content === "^2afk") {
         let reason = 'setAFK' // somehow define the reason(like args etc)
         afkcord.options({notafkmsg: "You Are Not AFK Anymore!", afkmsg: "You Are AFK Now!"}) // notafkmsg = The Message The Bot Will Send When The User Is Not AFK Anymore!,afkmsg = The Message That Bot Will Send When AFK Command Is Used!
@@ -65,4 +88,4 @@ bot.on("message", message => {
 
 
 
-bot.login(token);
+client.login(token);
