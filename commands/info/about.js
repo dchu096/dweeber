@@ -1,27 +1,35 @@
-const Discord = require("discord.js");
+const Commando = require('discord.js-commando');
+const Discord = require('discord.js');
 
-module.exports = {
-    config: {
-        name: "about",
-        description: "shows the bot info",
-        usage: " ",
-        category: "info",
-        accessableby: "members",
-    },
-    run: async (bot, message, args) => {
-        const embedColor = '#87CEEB'; // color: skyblue
+module.exports = class aboutCommand extends Commando.Command {
+    constructor(client) {
+        super(client, {
+            name: 'about',
+            group: 'info',
+            memberName: 'about',
+            description: 'About the current bot',
+            clientPermissions: [
+                'SEND_MESSAGES'
+            ],
+            userPermissions: [
+                'SEND_MESSAGES'
+            ],
+
+        });
+    }
+    async run(msg) {
 
         const Embed = new Discord.MessageEmbed() // Creates the embed thats returned to the person warning if its sent.
-            .setColor(embedColor)
             .setTitle("About Memubot")
-            .setAuthor(`Memubot`, bot.user.displayAvatarURL())
+            .setAuthor(`Memubot`, msg.client.user.displayAvatarURL())
 
-            .addField("**About:**", `Memubot is abot designed specifically for Memu server, mainly targeted at tech support uses but with moderation features to replace dyno's job and role command to replace carls job in memu server`, true)
-            .addField("**Bot's webpage:**", `https://user096.online`, true)
+            .addField("**About:**", `Memubot is a fully featured functional bot including full moderation, channel moderations and even music commands!`, true)
+            .addField("**Invite:**", "you can invite the bot here: https://discord.com/api/oauth2/authorize?client_id=737905203549831169&permissions=2683694807&scope=bot", true)
+            .addField("**Library:**", "discord.js with commando")
+            .addField("**Bot's webpage:**", `https://bot.memu.ml`, true)
             .setFooter("by dchu096#3732, made with time and effort");
-        await message.channel.send(Embed) // Sends the embed
+        await msg.channel.send(Embed) // Sends the embed
 
 
     }
-
 }

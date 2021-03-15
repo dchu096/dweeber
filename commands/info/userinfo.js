@@ -1,17 +1,27 @@
-const Discord = require("discord.js");
+const Commando = require('discord.js-commando');
+const Discord = require('discord.js');
 
-module.exports = {
-    config: {
-        name: "userinfo",
-        description: "Pulls the userinfo of a member from the guild!",
-        usage: "[@user/ID]",
-        category: "info",
-        accessableby: "Members",
-        aliases: ["ui", "userrdesc"]
-    },
-    run: async (bot, message, args) => {
-        const userMention = message.mentions.users.first() || message.guild.members.cache.get(args[0]) || message.author;
-        const memberMention = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
+module.exports = class userinfoCommand extends Commando.Command {
+    constructor(client) {
+        super(client, {
+            name: 'userinfo',
+            group: 'info',
+            memberName: 'userinfo',
+            description: 'shows your information',
+            clientPermissions: [
+                'SEND_MESSAGES'
+            ],
+            userPermissions: [
+                'SEND_MESSAGES'
+            ],
+
+        });
+    }
+    async run(msg, args) {
+
+
+        const userMention = msg.mentions.users.first() || msg.guild.members.cache.get(args[0]) || msg.author;
+        const memberMention = msg.mentions.members.first() || msg.guild.members.cache.get(args[0]) || msg.member;
 
         let embedColor = "#87CEEB"
 
@@ -44,9 +54,8 @@ module.exports = {
             .addField("Client ID", userinfo.id, true)
             .addField("Presence", userinfo.presen, true)
             .addField("Roles", userinfo.allroles, false)
-            .addField("permissions", userinfo.permission, true)
-            .setFooter(`command called by ${userinfo.tag}`);
 
-        await message.channel.send(InfoEmbed).catch(O_o => {});
+        await msg.channel.send(InfoEmbed).catch(O_o => {});
+
     }
 }

@@ -1,17 +1,24 @@
-const Discord = require("discord.js");
+const Commando = require('discord.js-commando');
+const Discord = require('discord.js');
 
-module.exports = {
-    config: {
-        name: "serverinfo",
-        description: "Pulls the serverinfo of the guild!",
-        usage: " ",
-        category: "info",
-        accessableby: "Members",
-        aliases: ["server", "serverdesc"]
-    },
-    run: async (bot, message, args) => {
+module.exports = class serverinfoCommand extends Commando.Command {
+    constructor(client) {
+        super(client, {
+            name: 'serverinfo',
+            group: 'info',
+            memberName: 'serverinfo',
+            description: 'Shows the current server info',
+            clientPermissions: [
+                'SEND_MESSAGES'
+            ],
+            userPermissions: [
+                'SEND_MESSAGES'
+            ],
 
-        const embedColor = '#87CEEB';
+            guildOnly: true,
+        });
+    }
+    async run(msg) {
 
         function checkDays(date) {
             let now = new Date();
@@ -20,7 +27,19 @@ module.exports = {
             return days + (days === 1 ? " day" : " days") + " ago";
         }
 
-        let verifLevels = ["None", "Low", "Medium", "(╯°□°）╯︵  ┻━┻", "┻━┻ミヽ(ಠ益ಠ)ノ彡┻━┻"];
+        const verificationLevels = {
+            NONE: 'None',
+            LOW: 'Low',
+            MEDIUM: 'Medium',
+            HIGH: '(╯°□°）╯︵ ┻━┻',
+            VERY_HIGH: '┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻'
+        };
+
+        const filterLevels = {
+            DISABLED: 'Off',
+            MEMBERS_WITHOUT_ROLES: 'No Role',
+            ALL_MEMBERS: 'Everyone'
+        };
 
         let region = {
             "brazil": ":flag_br: Brazil",
@@ -43,21 +62,25 @@ module.exports = {
 
 
         const Embed = new Discord.MessageEmbed() // Creates the embed thats returned to the person warning if its sent
-            .setColor(embedColor)
             .setTitle("Server Info")
-            .setAuthor(`${message.guild.name}`, message.guild.iconURL({ format: 'png', dynamic: true, size: 1024 }))
-            .addField(`Server Owner:`, `${message.guild.owner}`, true)
-            .addField("Member Count:", `${message.guild.memberCount}`, true)
-            .addField("Role Count:", `${message.guild.roles.cache.size}`, true)
-            .addField("server ID", message.guild.id, true)
-            .addField("Region", region[message.guild.region], true)
-            .addField("Total | Humans | Bots", `${message.guild.members.cache.size} | ${message.guild.members.cache.filter(member => !member.user.bot).size} | ${message.guild.members.cache.filter(member => member.user.bot).size}`, true)
-            .addField("Verification Level", verifLevels[message.guild.verificationLevel], true)
-            .addField("Channels", message.guild.channels.cache.size, true)
-            .addField("Roles", message.guild.roles.cache.size, true)
-            .addField("Creation Date", `${message.channel.guild.createdAt.toUTCString().substr(0, 16)} (${checkDays(message.channel.guild.createdAt)})`, true)
-            .setThumbnail(message.guild.iconURL({ format: 'png', dynamic: true, size: 1024 }))
+            .setAuthor(`${msg.guild.name}`, msg.guild.iconURL({ format: 'png', dynamic: true, size: 1024 }))
+            .addField(`Server Owner:`, `${msg.guild.owner}`, true)
+            .addField("Member Count:", `${msg.guild.memberCount}`, true)
+            .addField("Role Count:", `${msg.guild.roles.cache.size}`, true)
+            .addField("server ID", msg.guild.id, true)
+            .addField("Total | Humans | Bots", `${msg.guild.members.cache.size} | ${msg.guild.members.cache.filter(member => !member.user.bot).size} | ${msg.guild.members.cache.filter(member => member.user.bot).size}`, true)
+            .addField("Channels", msg.guild.channels.cache.size, true)
+            .addField("Roles", msg.guild.roles.cache.size, true)
+            .addField("Creation Date", `${msg.channel.guild.createdAt.toUTCString().substr(0, 16)} (${checkDays(msg.channel.guild.createdAt)})`, true)
+            .addField("Explicit Filter:", `${filterLevels[msg.guild.explicitContentFilter]}`, true)
+            .addField("Verification Level:", `${verificationLevels[msg.guild.verificationLevel]}`)
+            .addField("Region", region[msg.guild.region], true)
+            .addField("Boost Tier", `${msg.guild.premiumTier ? `Tier ${msg.guild.premiumTier}` : 'None'}`, true)
+            .addField("Boost Count:", `${msg.guild.premiumSubscriptionCount || '0'}`)
+            .setThumbnail(msg.guild.iconURL({ format: 'png', dynamic: true, size: 1024 }))
 
-        await message.channel.send(Embed);
+        await msg.channel.send(Embed);
+
+
     }
 }
