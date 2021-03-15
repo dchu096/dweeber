@@ -10,7 +10,7 @@ module.exports = bot => {
         .set("medium", 0.15)
         .set("high", 0.25);
 
-    let activities = [ `Memu Discord | ^2`, `DM for mods`], i = 0;
+    let activities = [ `for rule breakers`, `prefix: ^2`, `^2help`], i = 0;
 
     setInterval(() => bot.user.setActivity(`${activities[i++ % activities.length]}`, { type: "WATCHING" }), 15000)
 
