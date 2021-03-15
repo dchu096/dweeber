@@ -1,5 +1,4 @@
 const Commando = require('discord.js-commando');
-const Discord = require('discord.js');
 
 module.exports = class nukeCommand extends Commando.Command {
     constructor(client) {
@@ -13,7 +12,9 @@ module.exports = class nukeCommand extends Commando.Command {
             ],
             userPermissions: [
                 'MANAGE_CHANNELS'
-            ]
+            ],
+
+            guildOnly: true,
         });
     }
 
@@ -37,12 +38,13 @@ module.exports = class nukeCommand extends Commando.Command {
                             position: msg.channel.rawPosition
                         }).then(ch => {
                             ch.send('Channel have been nuked\n' + 'https://i.gifer.com/6Ip.gif');
-                        })
+                        }).catch(() => {
+                            msg.reply('No answer after 30 seconds, operation canceled.');
+                        });
 
                         setTimeout(function () {
                             msg.channel.delete();
                         }, 5000);
-
 
                     } else
                         msg.reply('Operation canceled.');
