@@ -1,75 +1,89 @@
-const Discord = require("discord.js");
+const Commando = require('discord.js-commando');
+const Discord = require('discord.js');
 
-module.exports = {
-    config: {
-        name: "unban",
-        description: "Unban a user from the guild!",
-        usage: "[user/ID] {reason}",
-        category: "moderation",
-        accessableby: "Moderators",
-    },
-    run: async (bot, message, args) => {
-        let embedColor = '#00ff00' // color: green, change the hex for different color
-        let bannedMember = await bot.fetchUser(args[0])
-        let reason = args.slice(1).join(' ')
+module.exports = class unbanCommand extends Commando.Command {
+    constructor(client) {
+        super(client, {
+            name: 'unban',
+            group: 'moderation',
+            memberName: 'unban',
+            description: 'unban a user',
+            clientPermissions: [
+                'BAN_MEMBERS'
+            ],
+            userPermissions: [
+                'BAN_MEMBERS'
+            ],
 
-        // MESSAGES
-        if(!bannedMember) {
-            return message.channel.send("You did not provide someone to unban");
-        }
+            args: [
+                {
+                    key: 'bMember',
+                    prompt:
+                        'Please mention the user you want to unban with his ID',
+                    type: 'integer'
+                },
 
-        if (isNaN(args[0])) {
-            return message.channel.send("You need to provide an ID.");
-        }
+                {
+                    key: 'reasoning',
+                    prompt:
+                        'Please provide a reason',
+                    type: 'string',
+                    default: 'no reason provided!'
+                }
+            ],
 
-        if(!reason) reason = "No reason given!"
+            guildOnly: true,
 
-        if (!message.member.permissions.has("BAN_MEMBERS")) {
-            let nopermsembed = new Discord.RichEmbed()
-                .setDescription(
-                    "You do not have permission to unban members"
-                )
-                .setColor(embedColor);
-            return message.channel.send(nopermsembed);
-        }
-
-        if (!message.guild.me.permissions.has("BAN_MEMBERS")) {
-            let botnopermsembed = new Discord.RichEmbed()
-                .setDescription(
-                    "Missing `BAN_MEMBERS` permission for bot."
-                )
-                .setColor(embedColor);
-            return message.channel.send(botnopermsembed);
-        }
-
-    message.delete()
-
-    try {
-        let unbanembed = new Discord.RichEmbed()
-            .setColor(embedColor)
-            .setAuthor(message.author.username, message.author.avatarURL)
-            .setTitle(`You've been unbanned in ${message.guild.name}`)
-            .addField('unbanned by', message.author.tag)
-            .addField('Reason', reason)
-            .setTimestamp();
-        bannedMember.send(unbanembed).then(() =>
-        message.guild.unban(bannedMember, reason))
-    } catch(e) {
-        console.log(e.message)
+        });
     }
-        let successfullyembed = new Discord.RichEmbed()
-            .setDescription(`User has been unbanned.`)
-            .setColor(embedColor);
-        message.channel.send(successfullyembed);
+    async run(msg, {bMember, reasoning}) {
 
-        //modlogs
-        let doneembed = new Discord.RichEmbed()
-            .setTitle(`Moderation: Unban`)
-            .setColor(embedColor)
-            .setDescription(`${mutee.user.tag} has been unbanned by ${message.author.tag} because of ${reason}`)
-        let sChannel = message.guild.channels.find(c => c.name === "shame-stream")
-        sChannel.send(doneembed)
 
+        let bannedMember = await msg.client.users.fetch(bMember)
+
+        if (!banMember)
+            return msg.channel.send('You must provide a valid user');
+
+        //Messages
+        msg.delete()
+
+
+        msg.guild.fetchBan(bannedMember).then((bansUser) => {
+
+            if (!banMember)
+                return msg.channel.send('You must provide a valid user');
+
+
+            try {
+                let unbanembed = new Discord.MessageEmbed()
+                    .setAuthor(msg.author.username, msg.author.avatarURL({
+                        format: 'png',
+                        dynamic: true,
+                        size: 1024
+                    }))
+                    .setTitle(`You've been unbanned in ${msg.guild.name}`)
+                    .addField('unbanned by', msg.author.tag)
+                    .addField('Reason', reasoning)
+                    .setTimestamp();
+                bannedMember.send(unbanembed).catch(O_o => {
+                });
+
+                msg.guild.members.unban(bannedMember, reasoning).then(msg.channel.send(`${banMember} have been unbanned.`)).catch(O_o => {
+                });
+
+                //modlogs
+                let doneembed = new Discord.MessageEmbed()
+                    .setTitle(`Moderation: Unban`)
+                    .setDescription(`${bannedMember.tag} has been unbanned by ${msg.author.tag} because of ${reasoning}`)
+                let sChannel = msg.guild.channels.find(c => c.name === "shame-stream")
+                sChannel.send(doneembed).catch(O_o => {
+                })
+            } catch (e) {
+                console.log(e)
+            }
+        })
 
     }
 }
+
+

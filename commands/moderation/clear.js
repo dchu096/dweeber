@@ -1,25 +1,55 @@
-const { RichEmbed } = require("discord.js")
-const Discord = require("discord.js");
+const Commando = require('discord.js-commando');
+const Discord = require('discord.js');
 
-module.exports = {
-    config: {
-        name: "clear",
-        description: "clears a message",
-        usage: "[amount]",
-        category: "moderation",
-        accessableby: "moderator",
-        aliases: ["clr"]
-    },
-    run: async (bot, message, args) => {
-        var embedColor = '#87CEEB' // color: skyblue
+module.exports = class clearCommand extends Commando.Command {
+    constructor(client) {
+        super(client, {
+            name: 'clear',
+            group: 'moderation',
+            memberName: 'clear',
+            description: 'clear a specific message',
+            clientPermissions: [
+                'MANAGE_MESSAGES'
+            ],
+            userPermissions: [
+                'MANAGE_MESSAGES'
+            ],
 
-        if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("You don't have premssions to do that!");
-        if(!args[0]) return message.channel.send("Please enter a number of messages to clear!");
-        message.delete()
-        message.channel.bulkDelete(args[0]).then(() => {
-            message.channel.send(`**Cleared ${args[0]} messages.**`).then(msg => msg.delete(3000));
+            args: [
+                {
+                    key: 'clearmsg',
+                    prompt:
+                        'Please provide a number to clear',
+                    type: 'integer',
+                }
+
+            ],
+
+            guildOnly: true,
+
         });
+    }
+    async run(msg, {clearmsg}) {
+
+        const warningColor = '#ff0000';
+        const okColor = '#00ff00';
+
+        //messages
+
+       msg.delete().catch(O_o => {});
+
+        try {
+            await msg.channel.bulkDelete(clearmsg)
+        } catch (e) {
+            console.log(e); //err
+        }
+        let clearedEmbed = new Discord.MessageEmbed()
+            .setTitle("✅Success")
+            .setDescription(`Cleared ${clearmsg} messages`)
+            .setColor(okColor)
+        msg.channel.send(clearedEmbed).then(msg => msg.delete({timeout: 5000})).catch(O_o => {});
 
 
     }
-    }
+}
+

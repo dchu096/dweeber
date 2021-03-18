@@ -1,93 +1,91 @@
-const Discord = require("discord.js");
-const ms = require("ms");
+const Commando = require('discord.js-commando');
+const Discord = require('discord.js');
 
-module.exports = {
-    config: {
-        name: "mute",
-        description: "Mute a member in the server!",
-        usage: "[user/ID] [duration] [reason]",
-        category: "moderation",
-        accessableby: "Moderators",
-    },
-    run: async (bot, message, args) => {
-        let embedColor = '#514f48' // color: grey, change the hex for different color
-        let mutee = message.mentions.members.first() || message.guild.members.get(args[0]);
-        let muterole = message.guild.roles.find(r => r.name === "Muted")
-        let reason = args.slice(2).join(' ') // .slice(1) removes the user mention, .join(' ') joins all the words in the message, instead of just sending 1 word
-        let duration = ms(args[1])
+module.exports = class muteCommand extends Commando.Command {
+    constructor(client) {
+        super(client, {
+            name: 'mute',
+            group: 'moderation',
+            memberName: 'mute',
+            description: 'mute a specific user',
+            clientPermissions: [
+                'MANAGE_ROLES'
+            ],
+            userPermissions: [
+                'MANAGE_ROLES'
+            ],
+
+
+            args: [
+                {
+                    key: 'mMember',
+                    prompt:
+                        'Please mention the user you want to mute with @ or provide his ID',
+                    type: 'string'
+                },
+
+                {
+                    key: 'reasoning',
+                    prompt:
+                        'Please provide a reason',
+                    type: 'string',
+                    default: 'no reason provided!'
+                }
+            ],
+
+            guildOnly: true,
+
+        });
+    }
+    async run(msg, {mMember, reasoning}) {
+
+        let mutee = msg.mentions.members.first() || msg.guild.members.cache.get(mMember);
+        let muterole = msg.guild.roles.cache.find(r => r.name === "Muted")
+
 
         // MESSAGES
 
-        //define muted user
-        if (!mutee) {
-            return message.channel.send("You did not select a user to mute");
-        }
+        msg.delete()
 
-        //disallow muting self/set reason/permission
+        if (!mutee.roles.cache.find(r => r.name === 'Muted')) {
 
-        if (!args[1])
-            return message.channel.send('Please enter a length of time of 14 days or less (s/m/h/d)');
-
-        if (!duration || duration > 1209600000) // Cap at 14 days, larger than 24.8 days causes integer overflow
-            return message.channel.send('You need to enter a time that is less then 14days');
-
-        if (!reason) reason = "No reason given!"
-
-        if (!message.member.permissions.has("MANAGE_ROLES")) return message.channel.send("You dont have permission to mute someone!");
-
-
-        if (!message.guild.me.permissions.has("MANAGE_ROLES")) return message.channel.send("no permission for the bot to mute someone!");
-
-        if (mutee.roles.has(muterole))
-            return message.channel.send('This member is already muted');
-
-        message.delete() //delete the command msg
-
-    //add mute role
-        try {
-            await mutee.addRole(muterole);
-        } catch (err) {
-            console.log(err)
-        }
-        //sends the user the muted embed
-        let mutedembed = new Discord.RichEmbed()
-            .setColor(embedColor)
-            .setAuthor(message.author.username, message.author.avatarURL)
-            .setTitle(`You've been muted in ${message.guild.name}`)
-            .addField('Muted by', message.author.tag)
-            .addField('Reason', reason)
-            .addField('duration', ms(duration))
-            .setTimestamp();
-        mutee.send(mutedembed).catch(err => console.log(err));
-
-        //successful embeds
-        let successfullyembed = new Discord.RichEmbed()
-            .setDescription(`${mutee.user.tag} has been muted. [${ms(duration, { long: true })}]`)
-            .setColor(embedColor);
-        message.channel.send(successfullyembed);
-
-
-        //modlogs
-        let doneembed = new Discord.RichEmbed()
-            .setTitle(`Moderation: Mute`)
-            .setColor(embedColor)
-            .setDescription(`${mutee.user.tag} has been muted by ${message.author.tag} for ${ms(duration, { long: true })} because of ${reason}`)
-        let sChannel = message.guild.channels.find(c => c.name === "shame-stream")
-        sChannel.send(doneembed)
-
-
-        // Unmute member
-        mutee.timeout = message.client.setTimeout(async () => {
+            //add mute role
             try {
-                mutee.send("You have been unmuted")
-                await mutee.removeRole(muterole);
-                const unmuteEmbed = new Discord.RichEmbed()
-                    .setDescription(`${mutee.user.tag} has been unmuted. [duration due]`)
-                    .setColor(embedColor);
-                message.channel.send(unmuteEmbed);
+                await mutee.roles.add(muterole);
             } catch (err) {
                 console.log(err)
             }
-        }, duration);
+            //sends the user the muted embed
+            let muteEmbed = new Discord.MessageEmbed()
+                .setAuthor(msg.author.username, msg.author.avatarURL({
+                    format: 'png',
+                    dynamic: true,
+                    size: 1024
+                }))
+                .setTitle(`You've been muted in ${msg.guild.name}`)
+                .addField('Muted by', msg.author.tag)
+                .addField('Reason', reasoning)
+                .addField("duration", "permanent")
+                .setTimestamp();
+            mutee.send(muteEmbed).catch(O_o => {});
+
+           msg.channel.send(`${mutee} have been muted`)
+
+
+            //modlogs
+            let doneembed = new Discord.MessageEmbed()
+                .setTitle(`Moderation: Mute`)
+                .setDescription(`${mutee.user.tag} has been muted by ${msg.author.tag} because of ${reasoning}`)
+            let sChannel = msg.guild.channels.cache.find(c => c.name === "shame-stream")
+            sChannel.send(doneembed).catch(O_o => {
+            });
+
+        } else {
+            let alreadymutedembed = new Discord.MessageEmbed()
+                .setTitle("❌Error")
+                .setDescription("This member is already muted!")
+            return msg.channel.send(alreadymutedembed).then(msg => msg.delete({timeout: 10000})).catch(O_o => {});}
+
+
     }
-};
+}

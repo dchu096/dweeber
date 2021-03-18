@@ -1,79 +1,85 @@
-const Discord = require("discord.js");
+const Commando = require('discord.js-commando');
+const Discord = require('discord.js');
 
-module.exports= {
-    config: {
-        name: 'kick',
-        description: 'kick a member from the guild',
-        usage: "[user/ID] [reason]",
-        category: "moderation",
-        accessableby: "Moderators",
+module.exports = class kickCommand extends Commando.Command {
+    constructor(client) {
+        super(client, {
+            name: 'kick',
+            group: 'moderation',
+            memberName: 'kick',
+            description: 'kicks a specific user',
+            clientPermissions: [
+                'KICK_MEMBERS'
+            ],
+            userPermissions: [
+                'KICK_MEMBERS'
+            ],
 
-},
-    run: async(bot,message,args) => {
-        let embedColor = '#FFa500' // color: orange, change the hex for different color
+            args: [
+                {
+                    key: 'kMember',
+                    prompt:
+                        'Please mention the user you want to kick with @ or provide his ID',
+                    type: 'string'
+                },
 
-        let kicked = message.mentions.members.first() || message.guild.members.get(args[0]);
-        let reason = args.slice(1).join(" ");
+                {
+                    key: 'reasoning',
+                    prompt:
+                        'Please provide a reason',
+                    type: 'string',
+                    default: 'no reason provided!'
+                }
+            ],
+
+            guildOnly: true,
+
+        });
+    }
+    async run(msg, {kMember, reasoning}) {
+
+        let kicked = msg.mentions.members.first() || msg.guild.members.cache.get(kMember);
 
         // MESSAGES
 
-        if (!kicked) {
-           return message.channel.send("You did not select a user to kick");
+        if (!kicked)
+            return msg.channel.send('You must provide a valid user');
+
+
+        msg.delete()
+
+        if(msg.guild.member(kicked)) {
+
+            let kickembed = new Discord.MessageEmbed()
+                .setAuthor(msg.author.username, msg.author.avatarURL({
+                    format: 'png',
+                    dynamic: true,
+                    size: 1024
+                }))
+                .setTitle(`You've been kicked in ${msg.guild.name}`)
+                .addField('Kicked by', msg.author.tag)
+                .addField('Reason', reasoning)
+                .setTimestamp();
+            kicked.send(kickembed).catch(O_o => {});
+
+
+            msg.guild.member(kicked).kick(reasoning).then(msg.channel.send(`${kicked} have been kicked.`)).catch(O_o => {});
+
+            //modlogs
+            let doneembed = new Discord.MessageEmbed()
+                .setTitle(`Moderation: Kick`)
+                .setDescription(`${kicked.user.tag} has been kicked by ${msg.author.tag} because of ${reasoning}`)
+            let sChannel = msg.guild.channels.cache.find(c => c.name === "shame-stream")
+            sChannel.send(doneembed).catch(O_o => {});
+        } else {
+            let kickedEmbed = new Discord.MessageEmbed()
+                .setTitle("❌Error")
+                .setDescription("This user is not in this server!")
         }
 
-        if (message.author === kicked) {
-            let sanctionyourselfembed = new Discord.RichEmbed()
-                .setDescription(`You cannot kick yourself`)
-                .setColor(embedColor);
-            return message.channel.send(sanctionyourselfembed);
-
-        }
-
-        if (!reason) reason = "No reason given!"
-
-        if (!message.member.permissions.has("KICK_MEMBERS")) {
-            let nopermsembed = new Discord.RichEmbed()
-                .setDescription(
-                    "You do not have permission to kick members"
-                )
-                .setColor(embedColor);
-            return message.channel.send(nopermsembed);
-        }
-
-        if (!message.guild.me.permissions.has("KICK_MEMBERS")) {
-            let botnopermsembed = new Discord.RichEmbed()
-                .setDescription(
-                    "Missing `KICK_MEMBERS` permission for bot."
-                )
-                .setColor(embedColor);
-            return message.channel.send(botnopermsembed);
-        }
-
-        message.delete() //delete the command msg
-
-        let kickembed = new Discord.RichEmbed()
-            .setColor(embedColor)
-            .setAuthor(message.author.username, message.author.avatarURL)
-            .setTitle(`You've been kicked in ${message.guild.name}`)
-            .addField('Kicked by', message.author.tag)
-            .addField('Reason', reason)
-            .setTimestamp();
-        kicked.send(kickembed).then(() =>
-        message.guild.member(kicked).kick(reason)).catch(err => console.log(err));
-
-        let successfullyembed = new Discord.RichEmbed()
-            .setDescription(`${kicked.user.tag} has been kicked.`)
-            .setColor(embedColor);
-        message.channel.send(successfullyembed);
-
-        //modlogs
-        let doneembed = new Discord.RichEmbed()
-            .setTitle(`Moderation: Kick`)
-            .setColor(embedColor)
-            .setDescription(`${kicked.user.tag} has been kicked by ${message.author.tag} because of ${reason}`)
-        let sChannel = message.guild.channels.find(c => c.name === "shame-stream")
-        sChannel.send(doneembed)
 
 
     }
 }
+
+

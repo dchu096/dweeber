@@ -10,50 +10,95 @@ module.exports = {
         aliases: ["unm", "speak"]
     },
     run: async (bot, message, args) => {
-        let embedColor = '#00ff00' // color: green, change the hex for different color
-// check if the command caller has permission to use the command
-if(!message.member.hasPermission("MANAGE_ROLES") || !message.guild.owner) return message.channel.send("You dont have permission to use this command.");
-
-if(!message.guild.me.hasPermission(["MANAGE_ROLES", "ADMINISTRATOR"])) return message.channel.send("I don't have permission to add roles!")
-
-//define the reason and unmutee
-let mutee = message.mentions.members.first() || message.guild.members.get(args[0]);
-if(!mutee) return message.channel.send("Please supply a user to be unmuted!");
-
-let reason = args.slice(1).join(" ");
-if(!reason) reason = "No reason given!"
-
-//define mute role and if the mute role doesnt exist then send a message
-let muterole = message.guild.roles.find(r => r.name === "Muted")
-if(!muterole) return message.channel.send("There is no mute role to remove!")
-
-        message.delete()
-
-//remove role to the mentioned user and also send the user a dm explaing where and why they were unmuted
-        let unmuteembed = new Discord.RichEmbed()
-            .setColor(embedColor)
-            .setAuthor(message.author.username, message.author.avatarURL)
-            .setTitle(`You've been unmuted in ${message.guild.name}`)
-            .addField('unmuted by', message.author.tag)
-            .addField('Reason', reason)
-            .setTimestamp();
-        mutee.send(unmuteembed).then(() =>
-mutee.removeRole(muterole.id)).catch(err => console.log(err));
-
-        let successfullyembed = new Discord.RichEmbed()
-            .setDescription(`${mutee.user.tag} has been unmuted.`)
-            .setColor(embedColor);
-    message.channel.send(successfullyembed);
+        const embedColor = '#00ff00' // color: grey, change the hex for different color
+        const warningColor = '#ff0000';
+        const okColor = '#00ff00';
+        let mutee = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
+        let muterole = message.guild.roles.cache.find(r => r.name === "Muted")
+        let reason = args.slice(2).join(' ') // .slice(1) removes the user mention, .join(' ') joins all the words in the message, instead of just sending 1 word
 
 
-        //modlogs
-        let doneembed = new Discord.RichEmbed()
-            .setTitle(`Moderation: Unmute`)
-            .setColor(embedColor)
-            .setDescription(`${mutee.user.tag} has been unmuted by ${message.author.tag} because of ${reason}`)
-        let sChannel = message.guild.channels.find(c => c.name === "shame-stream")
-        sChannel.send(doneembed)
+        // MESSAGES
+
+        message.delete().catch(O_o => {});
+
+        if (mutee.roles.cache.find(r => r.name === 'Muted')) {
+
+            if (!mutee) {
+                let nopersonembed = new Discord.MessageEmbed()
+                    .setTitle("❌Error")
+                    .setDescription("Missing target user to mute")
+                    .addField("required:", "mentions/ID", false)
+                    .setColor(warningColor);
+                return message.channel.send(nopersonembed).then(msg => msg.delete({timeout: 10000})).catch(O_o => {
+                });
+            }
+
+            if (!reason) reason = "No reason given!"
+
+            if (!message.member.permissions.has("MANAGE_ROLES")) {
+                let nopermsembed = new Discord.MessageEmbed()
+                    .setTitle("❌Error")
+                    .setDescription("Missing MANAGE_ROLES permission (user)")
+                    .addField("required:", "MANAGE_MESSAGES permission", false)
+                    .setColor(warningColor);
+                return message.channel.send(nopermsembed).then(msg => msg.delete({timeout: 10000})).catch(O_o => {
+                });
+            }
+
+                if (!message.guild.me.permissions.has("MANAGE_ROLES")) {
+                    let botnopermsembed = new Discord.MessageEmbed()
+                        .setTitle("❌Error")
+                        .setDescription("Missing MANAGE_ROLES permission (bot)")
+                        .addField("required:", "MANAGE_ROLES permission", false)
+                        .setColor(warningColor);
+                    return message.channel.send(botnopermsembed).then(msg => msg.delete({timeout: 10000})).catch(O_o => {
+                    });
+                }
+
+                //add mute role
+                try {
+                    await mutee.roles.remove(muterole);
+                } catch (err) {
+                    console.log(err)
+                }
+                //sends the user the muted embed
+                let unmutedembed = new Discord.MessageEmbed()
+                    .setColor(embedColor)
+                    .setAuthor(message.author.username, message.author.avatarURL({
+                        format: 'png',
+                        dynamic: true,
+                        size: 1024
+                    }))
+                    .setTitle(`You've been unmuted in ${message.guild.name}`)
+                    .addField('Unmuted by', message.author.tag)
+                    .addField('Reason', reason)
+                    .setTimestamp();
+                mutee.send(unmutedembed).catch(O_o => {
+                });
+
+                //successful embeds
+                let successfullyembed = new Discord.MessageEmbed()
+                    .setDescription(`${mutee.user.tag} has been unmuted.`)
+                    .setColor(okColor);
+                await message.channel.send(successfullyembed).catch(O_o => {
+                });
 
 
-    }
+                //modlogs
+                let doneembed = new Discord.MessageEmbed()
+                    .setTitle(`Moderation: Mute`)
+                    .setColor(embedColor)
+                    .setDescription(`${mutee.user.tag} has been muted by ${message.author.tag} because of ${reason}`)
+                let sChannel = message.guild.channels.cache.find(c => c.name === "shame-stream")
+                sChannel.send(doneembed).catch(O_o => {
+                });
+
+            } else {
+                let alreadymutedembed = new Discord.MessageEmbed()
+                    .setTitle("❌Error")
+                    .setDescription("This member is not muted!")
+                    .setColor(warningColor);
+                return message.channel.send(alreadymutedembed).then(msg => msg.delete({timeout: 10000})).catch(O_o => {});}
+        }
 }
