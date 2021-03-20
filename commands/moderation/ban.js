@@ -70,7 +70,6 @@ async run(msg,  {bMember, reasoning}) {
         //modlogs
         let doneembed = new Discord.MessageEmbed()
             .setTitle(`Moderation: Ban`)
-            .setColor(embedColor)
             .setDescription(`${banMember.tag} has been banned by ${msg.author.tag} because of ${reasoning}`)
         let sChannel = msg.guild.channels.cache.find(c => c.name === "shame-stream")
         sChannel.send(doneembed).catch(O_o => {
