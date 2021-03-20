@@ -1,10 +1,10 @@
 ⚠️Warned you! These codes are a total mess right now. Don't expect anything to work.
 
+✔️This is the current ongoing channel
+
 # UPDATE
 
 Memubot is currently under update from discord.js to discord.js-commando.
-
-This is the current ongoing channel
 
 # memubot
 ![](readmefiles/memu-bot-banner.png)
