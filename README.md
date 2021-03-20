@@ -60,3 +60,5 @@ The code is not recommended to be runned by self-host, the code provided here is
 4. botconfig.json => type in token
 
 5. node index.js
+
+//If you need modlogs create a channel named "shame-stream"//
