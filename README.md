@@ -1,3 +1,5 @@
+⚠️Warned you! These codes are a total mess right now. Don't expect anything to work.
+
 # UPDATE
 
 Memubot is currently under update from discord.js to discord.js-commando.
