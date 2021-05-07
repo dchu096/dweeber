@@ -1,9 +1,5 @@
 ❌ This branch is no longer maintaned. Please switch to **djs-commando**
 
-# UPDATE
-
-Adding music function
-
 # memubot
 ![](readmefiles/memu-bot-banner.png)
 
