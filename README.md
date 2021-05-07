@@ -2,7 +2,7 @@
 
 # UPDATE
 
-Memubot is currently under update from discord.js to discord.js-commando.
+Adding music function
 
 # memubot
 ![](readmefiles/memu-bot-banner.png)
