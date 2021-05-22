@@ -2,7 +2,7 @@
 
 # Dweeber
 
-![](readmefiles/dweeber.jpg)
+![](readmefiles/dweeber-half.jpg)
 
 # About Dweeber
 
