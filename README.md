@@ -1,7 +1,6 @@
 ❌ This branch is no longer maintaned. Please switch to **djs-commando**
 
-# memubot
-![](readmefiles/memu-bot-banner.png)
+# Dweeber
 
 # About Dweeber
 
