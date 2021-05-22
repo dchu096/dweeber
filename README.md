@@ -6,24 +6,25 @@
 
 Adding music function
 
-# memubot
-![](readmefiles/memu-bot-banner.png)
+# Dweeber
 
-# About Memu-bot
+![](readmefiles/dweeber-half.jpg)
 
-Need different bots for your music, moderation, roles need? MEmubot is combining it into 1.
+# About Dweeber
+
+Need different bots for your music, moderation, roles need? Dweeber is combining it into 1.
 
 It was a bot designed privately for MEmu discord server but decided to actually make it public to give it a try.
 
 The main features of this bot:
 
-> Moderations: We have included a list of moderation including kick, ban , warn, warnings, clearwarnings, mute, tempmute to fit your server needs.
+> Moderations: We have included a list of moderation including kick, ban , mute, tempmute to fit your server needs.
 
 > channel locking, unlock, nuke set slowmode is also enabled to save your time adjusting the channel settings manually.
 
-> to add a role to a user we have bring out addrole, removerole so that you can add a desired role to a user without searching for the user in the user list!
+> Music is a must-include features if you are a music lover. We have included the basic play, pause, resume, stop, np, queue with the more advanced volume command which is always a VIP features to your server without any cost. Also included some extra features some filter for people who wants to listen to music with effects!
 
-> Music is a must-include features if you are a music lover. We have included the basic play, pause, resume, stop, np, queue with the more advanced volume command and lyrics command which is always a VIP features to your server without any cost.
+> Who doesnt like memes? The bot can pull memes from r/memes with memes commands enabled in the bot.
 
 Some general commands are included just to make a bit of details easier.
 
