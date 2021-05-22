@@ -30,7 +30,19 @@ module.exports = class BanCommand extends Commando.Command {
         });
     }
     async run(msg,  {time}) {
-
-        await msg.channel.setRateLimitPerUser(time).then(msg.reply(`Channel slowmode have been set to ${time}`))
+        
+           const embedColor = '#87CEEB'; // color: skyblue
+        
+                const errorEmoji = '<a:ag_exc:781410611366985748>';
+        const successEmoji = '<a:ag_tickop:781395575962599445>';
+        const loadingEmoji = '<a:ag_loading:781410654841077780>';
+        
+        await msg.channel.setRateLimitPerUser(time)
+        
+                let slowmodeEmbed = new Discord.MessageEmbed()
+                .setColor(embedColor)
+        .setDescription(`${successEmoji} Channel slowmode have been set to ${time}`) 
+            
+    msg.reply(slowmodeEmbed)
     }
 }

@@ -20,6 +20,12 @@ module.exports = class unlockCommand extends Commando.Command {
         });
     }
     async run(msg) {
+        
+         const embedColor = '#87CEEB'; // color: skyblue
+        
+                const errorEmoji = '<a:ag_exc:781410611366985748>';
+        const successEmoji = '<a:ag_tickop:781395575962599445>';
+        const loadingEmoji = '<a:ag_loading:781410654841077780>';
 
 
         let lockchannel = msg.channel
@@ -31,7 +37,7 @@ module.exports = class unlockCommand extends Commando.Command {
 
         let ow = msg.channel.permissionOverwrites.get(id); // get the permissionOverwrites fro that role
 
-        if (ow && ow.SEND_MESSAGES === true) msg.channel.send("The channel is not locked.");
+        if (ow && ow.SEND_MESSAGES === true) msg.channel.send(`${errorEmoji} The channel is not locked.`);
 
         else { // otherwise, unlock it
 
@@ -46,7 +52,7 @@ module.exports = class unlockCommand extends Commando.Command {
 
 
         let lockEmbed = new Discord.MessageEmbed()
-            .setTitle("✅Success")
+            .setTitle(`${successEmoji} Success`)
             .setDescription(`${lockchannel} has been unlocked`)
         await msg.channel.send(lockEmbed).then(msg => msg.delete({timeout: 5000})).catch(O_o => {});
 
