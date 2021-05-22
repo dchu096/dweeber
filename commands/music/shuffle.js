@@ -19,15 +19,32 @@ module.exports = class shuffleCommand extends Commando.Command {
     }
 
     async run(client, message) {
-        if (!message.member.voice.channel) return message.channel.send("You are not in a vc");
+       const embedColor = '#87CEEB'; // color: skyblue
 
-        if (!message.guild.me.voice.channel) return message.channel.send("Im not in a VC! please do 2$join to call me in!")
-
-        if (message.member.voice.channel !== message.guild.me.voice.channel) return
-
-        if (!message.client.player.getQueue(message)) return message.channel.send(`No music currently playing!`);
+        const notinvcEmbed = new Discord.MessageEmbed()
+        .setColor(embedColor)
+        .setDescription(`${message.client.emotes.error} You are not in a VC!`)
+            if (!message.member.voice.channel) return message.channel.send(notinvcEmbed);
+    
+     const botnotinvcEmbed = new Discord.MessageEmbed()
+            .setColor(embedColor)
+             .setDescription(`${message.client.emotes.error} Im not in a VC! please do \`dwbr join\` to call me in!`)
+    
+            if (!message.guild.me.voice.channel) return message.channel.send(botnotinvcEmbed)
+    
+            if (message.member.voice.channel !== message.guild.me.voice.channel) return
+    
+     const nosongEmbed = new Discord.MessageEmbed()
+            .setColor(embedColor)
+             .setDescription(`${message.client.emotes.error} There is no song that are playing!`)
+    
+            if (!message.client.player.getQueue(message)) return message.channel.send(nosongEmbed);
 
         const success = message.client.player.shuffle(message);
+        
+         const shuffledEmbed = new Discord.MessageEmbed()
+            .setColor(embedColor)
+             .setDescription(`${message.client.emotes.success} The queue is now shuffled!`)
 
         if (success) message.channel.send(`Queue shuffled **${message.client.player.getQueue(message).tracks.length}** song(s) !`);
     }

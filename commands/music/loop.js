@@ -34,22 +34,24 @@ module.exports = class loopCommand extends Commando.Command {
 
     async run(message, {lsong}) {
         
+                  const embedColor = '#87CEEB'; // color: skyblue
+        
            const notinvcEmbed = new Discord.MessageEmbed()
-	.setColor('#0099ff')
-	.setDescription(`You are not in a VC!`)
+	.setColor(embedColor)
+	.setDescription(`${message.client.emotes.error} You are not in a VC!`)
         if (!message.member.voice.channel) return message.channel.send(notinvcEmbed);
         
          const botnotinvcEmbed = new Discord.MessageEmbed()
-		.setColor('#0099ff')
-         .setDescription(`Im not in a VC! please do \`2$join\` to call me in!`)
+		.setColor(embedColor)
+         .setDescription(`${message.client.emotes.error} Im not in a VC! please do \`dwbr join\` to call me in!`)
 
         if (!message.guild.me.voice.channel) return message.channel.send(botnotinvcEmbed)
 
         if (message.member.voice.channel !== message.guild.me.voice.channel) return
 
        const nosongEmbed = new Discord.MessageEmbed()
-        .setColor('#0099ff')
-         .setDescription(`there is no song that are playing!`)
+        .setColor(embedColor)
+         .setDescription(`${message.client.emotes.error} There is no song that are playing!`)
 
         if (!message.client.player.getQueue(message)) return message.channel.send(nosongEmbed);
 
@@ -58,7 +60,7 @@ module.exports = class loopCommand extends Commando.Command {
                 message.client.player.setLoopMode(message, false);
                 
                 const loopqueuedisabled = new Discord.MessageEmbed()
-                		.setColor('#0099ff')
+                		.setColor(embedColor)
          .setDescription(`Loop mode are now disabled for this queue!`)
                           
                 return message.channel.send(loopqueuedisabled);
@@ -67,7 +69,7 @@ module.exports = class loopCommand extends Commando.Command {
                 message.client.player.setLoopMode(message, true);
                 
  				const loopqueueenabled = new Discord.MessageEmbed()
-                		.setColor('#0099ff')
+                		.setColor(embedColor)
          .setDescription(`Loop mode are now enabled for this queue!`)
                 
                 return message.channel.send(loopqueueenabled);
@@ -78,7 +80,7 @@ module.exports = class loopCommand extends Commando.Command {
                 message.client.player.setRepeatMode(message, false);
                 
                 const loopsongdisabled = new Discord.MessageEmbed()
-                		.setColor('#0099ff')
+                		.setColor(embedColor)
          .setDescription(`Loop mode are now disabled for this song!`)
                 
                 return message.channel.send(loopsongdisabled);
@@ -86,7 +88,7 @@ module.exports = class loopCommand extends Commando.Command {
                 message.client.player.setRepeatMode(message, true);
                 
                 const loopsongenabled = new Discord.MessageEmbed()
-                		.setColor('#0099ff')
+                		.setColor(embedColor)
          .setDescription(`Loop mode are now enabled for this song!`)
                 
                 return message.channel.send(loopsongenabled);

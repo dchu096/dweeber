@@ -22,18 +22,40 @@ module.exports = class pauseCommand extends Commando.Command {
 
 
     async run(message) {
-        if (!message.member.voice.channel) return message.channel.send("You are not in a vc");
 
-        if (!message.guild.me.voice.channel) return message.channel.send("Im not in a VC! please do 2$join to call me in!")
+        const embedColor = '#87CEEB'; // color: skyblue
 
-        if (message.member.voice.channel !== message.guild.me.voice.channel) return
+        const notinvcEmbed = new Discord.MessageEmbed()
+        .setColor(embedColor)
+        .setDescription(`${message.client.emotes.error} You are not in a VC!`)
+            if (!message.member.voice.channel) return message.channel.send(notinvcEmbed);
+    
+     const botnotinvcEmbed = new Discord.MessageEmbed()
+            .setColor(embedColor)
+             .setDescription(`${message.client.emotes.error} Im not in a VC! please do \`dwbr join\` to call me in!`)
+    
+            if (!message.guild.me.voice.channel) return message.channel.send(botnotinvcEmbed)
+    
+            if (message.member.voice.channel !== message.guild.me.voice.channel) return
+    
+     const nosongEmbed = new Discord.MessageEmbed()
+            .setColor(embedColor)
+             .setDescription(`${message.client.emotes.error} There is no song that are playing!`)
+    
+            if (!message.client.player.getQueue(message)) return message.channel.send(nosongEmbed);
 
-        if (!message.client.player.getQueue(message)) return message.channel.send(`No music currently playing!`);
+            let alreadypausedEmbed = new Discord.MessageEmbed()
+            .setColor(embedColor)
+            .setDescription(`${message.client.emotes.error} You cant pause a song that is already paused!`)
 
-        if (message.client.player.getQueue(message).paused) return message.channel.send(`Why are you trying to pause a music which is already paused !`);
+        if (message.client.player.getQueue(message).paused) return message.channel.send(alreadypausedEmbed);
 
         const success = message.client.player.pause(message);
+        
+        let pausedEmbed = new Discord.MessageEmbed()
+        .setColor(embedColor)
+        .setDescription(`${message.client.emotes.success} The Song ${message.client.player.getQueue(message).playing.title} paused!`)
 
-        if (success) message.channel.send(`The Song ${message.client.player.getQueue(message).playing.title} paused !`);
+        if (success) message.channel.send(pausedEmbed);
     }
 };

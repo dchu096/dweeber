@@ -5,6 +5,7 @@ module.exports = class checkvoiceCommand extends Commando.Command {
     constructor(client) {
         super(client, {
             name: 'checkvoice',
+            aliases: ['vc', 'checkvc'],
             group: 'music',
             memberName: 'checkvoice',
             description: 'check your current voice channel',
@@ -20,7 +21,7 @@ module.exports = class checkvoiceCommand extends Commando.Command {
     async run(message) {
         const embedColor = '#87CEEB'; // color: skyblue
 
-        message.channel.send("Checking user voice Channel...").then(msg => {
+        message.channel.send(`${message.client.emotes.loading} Checking user voice Channel...`).then(msg => {
 
             if (message.member.voice.channel) {
 

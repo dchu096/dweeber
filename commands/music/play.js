@@ -35,27 +35,29 @@ module.exports = class playCommand extends Commando.Command {
 
 
     async run(message,  {psong}) {
+        
+        const embedColor = '#87CEEB'; // color: skyblue
 
         const notinvcEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
-            .setDescription(`You are not in a VC!`)
+            .setColor(embedColor)
+            .setDescription(`${message.client.emotes.error} You are not in a VC!`)
 
-        if (!message.member.voice.channel) return message.channel.send(notinvcEmbed);
+        if (!message.member.voice.channel) return message.channel.send(notinvcEmbed).catch();
         
         const botnotinvcEmbed = new Discord.MessageEmbed()
-		.setColor('#0099ff')
-         .setDescription(`Im not in a VC! please do \`2$join\` to call me in!`)
+		.setColor(embedColor)
+         .setDescription(`${message.client.emotes.error} Im not in a VC! please do \`dwbr join\` to call me in!`)
 
-        if (!message.guild.me.voice.channel) return message.channel.send(botnotinvcEmbed)
+        if (!message.guild.me.voice.channel) return message.channel.send(botnotinvcEmbed).catch();
 
         if (message.member.voice.channel !== message.guild.me.voice.channel) return
         
             
         const receivedEmbed = new Discord.MessageEmbed()
-            .setColor('#0099ff')
-            .setDescription(`Your search result of \`${psong}\` has been received and will be playing soon.`)
+            .setColor(embedColor)
+            .setDescription(`${message.client.emotes.success} Your search result of \`${psong}\` has been received and will be playing soon.`)
 
-        message.client.player.play(message, psong, { firstResult: true }).then(message.channel.send(receivedEmbed))
+        message.client.player.play(message, psong, { firstResult: true }).then(message.channel.send(receivedEmbed)).catch();
 
         
        
@@ -70,7 +72,7 @@ module.exports = class playCommand extends Commando.Command {
                 .setColor('#0099ff')
                 .setDescription(`current song: ${queue.playing.title}`)
 
- message.channel.send(queuedEmbed)
+ message.channel.send(queuedEmbed).catch();
 
         }, 5000);
 

@@ -22,35 +22,37 @@ module.exports = class clearqueueCommand extends Commando.Command {
 
     async run(message) {
         
+  const embedColor = '#87CEEB'; // color: skyblue
+        
   const notinvcEmbed = new Discord.MessageEmbed()
-	.setColor('#0099ff')
-	.setDescription(`You are not in a VC!`)
+	.setColor(embedColor)
+	.setDescription(`${message.client.emotes.error} You are not in a VC!`)
      
         if (!message.member.voice.channel) return message.channel.send(notinvcEmbed);
 
         const botnotinvcEmbed = new Discord.MessageEmbed()
-		.setColor('#0099ff')
-         .setDescription(`Im not in a VC! please do \`2$join\` to call me in!`)
+		.setColor(embedColor)
+         .setDescription(`${message.client.emotes.error} Im not in a VC! please do \`dwbr join\` to call me in!`)
 
         if (!message.guild.me.voice.channel) return message.channel.send("botnotinvcEmbed")
         
         const nosongEmbed = new Discord.MessageEmbed()
-        .setColor('#0099ff')
-         .setDescription(`there is no song that are playing!`)
+        .setColor(embedColor)
+         .setDescription(`${message.client.emotes.error} There is no song that are playing!`)
 
         if (!message.client.player.getQueue(message)) return message.channel.send(nosongEmbed);
         
         const singlesongEmbed = new Discord.MessageEmbed()
-        .setColor('#0099ff')
-        .setDescription(`This is the last song!`)
+        .setColor(embedColor)
+        .setDescription(`${message.client.emotes.error} This is the last song!`)
 
         if (message.client.player.getQueue(message).tracks.length <= 1) return message.channel.send(singlesongEmbed);
 
         message.client.player.clearQueue(message);
         
         const removedEmbed = new Discord.MessageEmbed()
-        .setColor('#0099ff')
-        .setDescription(`The queue is now removed!`)
+        .setColor(embedColor)
+        .setDescription(`${message.client.emotes.success} The queue is now removed!`)
 
         message.channel.send(removedEmbed);
     }

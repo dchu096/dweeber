@@ -23,14 +23,17 @@ module.exports = class nowplayingCommand extends Commando.Command {
 
 
     async run(message) {
+        
+        
+        
           const notinvcEmbed = new Discord.MessageEmbed()
 	.setColor('#0099ff')
-	.setDescription(`You are not in a VC!`)
+	.setDescription(`${message.client.emotes.error} You are not in a VC!`)
         if (!message.member.voice.channel) return message.channel.send(notinvcEmbed);
 
  const botnotinvcEmbed = new Discord.MessageEmbed()
 		.setColor('#0099ff')
-         .setDescription(`Im not in a VC! please do \`2$join\` to call me in!`)
+         .setDescription(`${message.client.emotes.error} Im not in a VC! please do \`dwbr join\` to call me in!`)
 
         if (!message.guild.me.voice.channel) return message.channel.send(botnotinvcEmbed)
 
@@ -38,7 +41,7 @@ module.exports = class nowplayingCommand extends Commando.Command {
 
  const nosongEmbed = new Discord.MessageEmbed()
         .setColor('#0099ff')
-         .setDescription(`there is no song that are playing!`)
+         .setDescription(`${message.client.emotes.error} There is no song that are playing!`)
 
         if (!message.client.player.getQueue(message)) return message.channel.send(nosongEmbed);
 

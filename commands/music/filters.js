@@ -21,14 +21,16 @@ module.exports = class filtersCommand extends Commando.Command {
 
     async run(message) {
         
+        const embedColor = '#87CEEB'; // color: skyblue
+        
  const notinvcEmbed = new Discord.MessageEmbed()
-	.setColor('#0099ff')
-	.setDescription(`You are not in a VC!`)
+	.setColor(embedColor)
+	.setDescription(`${message.client.emotes.error} You are not in a VC!`)
         if (!message.member.voice.channel) return message.channel.send(notinvcEmbed);
 
      const botnotinvcEmbed = new Discord.MessageEmbed()
-		.setColor('#0099ff')
-         .setDescription(`Im not in a VC! please do \`2$join\` to call me in!`)
+		.setColor(embedColor)
+         .setDescription(`${message.client.emotes.error} Im not in a VC! please do \`2$join\` to call me in!`)
 
         if (!message.guild.me.voice.channel) return message.channel.send(botnotinvcEmbed)
 
@@ -36,7 +38,7 @@ module.exports = class filtersCommand extends Commando.Command {
 
   const nosongEmbed = new Discord.MessageEmbed()
         .setColor('#0099ff')
-         .setDescription(`there is no song that are playing!`)
+         .setDescription(`${message.client.emotes.error} There is no song that are playing!`)
 
         if (!message.client.player.getQueue(message)) return message.channel.send(nosongEmbed);
 
@@ -49,14 +51,14 @@ module.exports = class filtersCommand extends Commando.Command {
 
         message.channel.send({
             embed: {
-                color: 'ORANGE',
+                color: embedColor,
                 footer: { text: 'Please report bugs to Support Server' },
                 fields: [
                     { name: 'Filters', value: filtersStatuses[0].join('\n'), inline: true },
                     { name: '** **', value: filtersStatuses[1].join('\n'), inline: true },
                 ],
                 timestamp: new Date(),
-                description: `List of all filters enabled or disabled.\nUse \`${message.client.config.discord.prefix}filter\` to add a filter to a song.`,
+                description: `List of all filters enabled or disabled.`,
             },
         });
     }

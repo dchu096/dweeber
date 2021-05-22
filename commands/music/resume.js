@@ -22,15 +22,33 @@ module.exports = class resumeCommand extends Commando.Command {
 
 
    async run(message) {
-       if (!message.member.voice.channel) return message.channel.send("You are not in a vc");
+       
+       const embedColor = '#87CEEB'; // color: skyblue
+       
+                const notinvcEmbed = new Discord.MessageEmbed()
+	.setColor(embedColor)
+	.setDescription(`${message.client.emotes.error} You are not in a VC!`)
+        if (!message.member.voice.channel) return message.channel.send(notinvcEmbed);
 
-       if (!message.guild.me.voice.channel) return message.channel.send("Im not in a VC! please do 2$join to call me in!")
+ const botnotinvcEmbed = new Discord.MessageEmbed()
+		.setColor(embedColor)
+         .setDescription(`${message.client.emotes.error} Im not in a VC! please do \`dwbr join\` to call me in!`)
 
-       if (message.member.voice.channel !== message.guild.me.voice.channel) return
+        if (!message.guild.me.voice.channel) return message.channel.send(botnotinvcEmbed)
 
-       if (!message.client.player.getQueue(message)) return message.channel.send(`No music currently playing!`);
+        if (message.member.voice.channel !== message.guild.me.voice.channel) return
 
-        if (!message.client.player.getQueue(message).paused) return message.channel.send(`${client.emotes.error} - The music is already playing!`);
+ const nosongEmbed = new Discord.MessageEmbed()
+        .setColor(embedColor)
+         .setDescription(`${message.client.emotes.error} There is no song that are playing!`)
+
+        if (!message.client.player.getQueue(message)) return message.channel.send(nosongEmbed);
+       
+       let alreadyplayingEmbed = new Discord.MessageEmbed()
+       .setColor(embedColor)
+       .setDescription(`${message.client.emotes.error} The music is already playing!`)
+
+        if (!message.client.player.getQueue(message).paused) return message.channel.send(alreadyplayingEmbed);
 
         const success = message.client.player.resume(message);
 
