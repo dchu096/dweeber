@@ -37,19 +37,18 @@ module.exports = class statsCommand extends Commando.Command {
 
             //let duration = moment.duration(bot.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
             let embedStats = new Discord.MessageEmbed()
-                .setTitle("*** Stats ***")
+                .setTitle("System Stats")
                 .setColor("#87CEEB")
-                .addField("• Mem Usage", `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} / ${(os.totalmem() / 1024 / 1024).toFixed(2)} MB`, true)
-                .addField("• Uptime ", `${days}d ${hours}h ${mins}m ${secs}s`, true) //`${duration}`, true)
-                .addField("• Users", `${msg.client.users.cache.size.toLocaleString()}`, true)
-                .addField("• Servers", `${msg.client.guilds.cache.size.toLocaleString()}`, true)
-                .addField("• Channels ", `${msg.client.channels.cache.size.toLocaleString()}`, true)
-                .addField("• Discord.js", `v${version}`, true)
-                // .addField("• Node", `${process.version}`, true)
                 .addField("• CPU", `\`\`\`md\n${os.cpus().map(i => `${i.model}`)[0]}\`\`\``)
-                .addField("• CPU usage", `\`${percent.toFixed(2)}%\``,true)
-                .addField("• Arch", `\`${os.arch()}\``,true)
+           		.addField("• CPU usage", `\`${percent.toFixed(2)}%\``,true)
+                .addField("• Mem Usage", `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} / ${(os.totalmem() / 1024 / 1024).toFixed(2)} MB`, true)
+            	.addField("• Average Loads", `\`${os.loadavg()}\``,true)
+                .addField("• Uptime ", `${days}d ${hours}h ${mins}m ${secs}s`, false) //`${duration}`, true)
                 .addField("• Platform", `\`\`${os.platform()}\`\``,true)
+            	.addField("• Arch", `\`${os.arch()}\``,true)
+            	.addField("• Discord.js", `v${version}`, true)
+                // .addField("• Node", `${process.version}`, true)
+                
                 .setFooter("Thats the OS that the bot runs on!")
 
             msg.channel.send(embedStats).catch(O_o => {});

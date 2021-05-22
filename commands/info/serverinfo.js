@@ -19,6 +19,12 @@ module.exports = class serverinfoCommand extends Commando.Command {
         });
     }
     async run(msg) {
+        
+         const embedColor = '#87CEEB'; // color: skyblue
+        
+        const errorEmoji = '<a:ag_exc:781410611366985748>';
+        const successEmoji = '<a:ag_tickop:781395575962599445>';
+        const loadingEmoji = '<a:ag_loading:781410654841077780>';
 
         function checkDays(date) {
             let now = new Date();
@@ -62,6 +68,7 @@ module.exports = class serverinfoCommand extends Commando.Command {
 
 
         const Embed = new Discord.MessageEmbed() // Creates the embed thats returned to the person warning if its sent
+        .setColor(embedColor)
             .setTitle("Server Info")
             .setAuthor(`${msg.guild.name}`, msg.guild.iconURL({ format: 'png', dynamic: true, size: 1024 }))
             .addField(`Server Owner:`, `${msg.guild.owner}`, true)
@@ -70,12 +77,12 @@ module.exports = class serverinfoCommand extends Commando.Command {
             .addField("server ID", msg.guild.id, true)
             .addField("Total | Humans | Bots", `${msg.guild.members.cache.size} | ${msg.guild.members.cache.filter(member => !member.user.bot).size} | ${msg.guild.members.cache.filter(member => member.user.bot).size}`, true)
             .addField("Channels", msg.guild.channels.cache.size, true)
-            .addField("Roles", msg.guild.roles.cache.size, true)
             .addField("Creation Date", `${msg.channel.guild.createdAt.toUTCString().substr(0, 16)} (${checkDays(msg.channel.guild.createdAt)})`, true)
-            .addField("Explicit Filter:", `${filterLevels[msg.guild.explicitContentFilter]}`, true)
+            .addField('AFK Timeout', `${msg.guild.afkTimeout / 60} minutes`, false)
+            .addField("Explicit Filter:", `${filterLevels[msg.guild.explicitContentFilter]}`, false)
             .addField("Verification Level:", `${verificationLevels[msg.guild.verificationLevel]}`)
             .addField("Region", region[msg.guild.region], true)
-            .addField("Boost Tier", `${msg.guild.premiumTier ? `Tier ${msg.guild.premiumTier}` : 'None'}`, true)
+            .addField("Boost Tier", `${msg.guild.premiumTier ? `Tier ${msg.guild.premiumTier}` : 'None'}`, false)
             .addField("Boost Count:", `${msg.guild.premiumSubscriptionCount || '0'}`)
             .setThumbnail(msg.guild.iconURL({ format: 'png', dynamic: true, size: 1024 }))
 
