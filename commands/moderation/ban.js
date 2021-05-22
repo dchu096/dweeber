@@ -8,6 +8,10 @@ constructor(client) {
         group: 'moderation',
         memberName: 'ban',
         description: 'Bans a user from the guild',
+        throttling: {
+        usages: 5,
+        duration: 20
+    },  
         clientPermissions: [
             'BAN_MEMBERS'
         ],
@@ -37,23 +41,31 @@ constructor(client) {
     });
 }
 async run(msg,  {bMember, reasoning}) {
+    
+       const embedColor = '#87CEEB'; // color: skyblue
+        
+        const errorEmoji = '<a:ag_exc:781410611366985748>';
+        const successEmoji = '<a:ag_tickop:781395575962599445>';
+        const loadingEmoji = '<a:ag_loading:781410654841077780>';
+    
     let banMember = msg.mentions.users.first() || await msg.client.users.fetch(bMember)
 
     // MESSAGES
 
     if (!banMember)
-        return msg.channel.send('You must provide a valid user');
+        return msg.channel.send(`${errorEmoji} You must provide a valid user`);
 
     msg.delete()
 
     msg.guild.fetchBan(banMember).then((bansUser) => {
 
-        return msg.channel.send('The defined user is already banned').then(msg => msg.delete({timeout: 5000}))
+        return msg.channel.send(`${errorEmoji }The defined user is already banned`).then(msg => msg.delete({timeout: 5000}))
     }).catch(error => {
 
         /* Code when the user isn't banned */
 
         let banembed = new Discord.MessageEmbed()
+        .setColor(embedColor)
             .setAuthor(msg.author.username, msg.author.avatarURL({
                 format: 'png',
                 dynamic: true,
@@ -65,10 +77,11 @@ async run(msg,  {bMember, reasoning}) {
             .setTimestamp();
         banMember.send(banembed).catch(O_o => {});
 
-        msg.guild.members.ban(banMember, {days: 7, reason: reasoning}).then(msg.channel.send(`${banMember} have been banned.`)).catch(O_o => {});
+        msg.guild.members.ban(banMember, {days: 7, reason: reasoning}).then(msg.channel.send(` ${successEmoji} ${banMember} have been banned.`)).catch(O_o => {});
 
         //modlogs
         let doneembed = new Discord.MessageEmbed()
+        .setColor(embedColor)
             .setTitle(`Moderation: Ban`)
             .setDescription(`${banMember.tag} has been banned by ${msg.author.tag} because of ${reasoning}`)
         let sChannel = msg.guild.channels.cache.find(c => c.name === "shame-stream")

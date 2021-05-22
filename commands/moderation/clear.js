@@ -30,9 +30,13 @@ module.exports = class clearCommand extends Commando.Command {
         });
     }
     async run(msg, {clearmsg}) {
+        
+         const embedColor = '#87CEEB'; // color: skyblue
+        
+        const errorEmoji = '<a:ag_exc:781410611366985748>';
+        const successEmoji = '<a:ag_tickop:781395575962599445>';
+        const loadingEmoji = '<a:ag_loading:781410654841077780>';
 
-        const warningColor = '#ff0000';
-        const okColor = '#00ff00';
 
         //messages
 
@@ -44,9 +48,9 @@ module.exports = class clearCommand extends Commando.Command {
             console.log(e); //err
         }
         let clearedEmbed = new Discord.MessageEmbed()
-            .setTitle("✅Success")
-            .setDescription(`Cleared ${clearmsg} messages`)
-            .setColor(okColor)
+            .setTitle(`Success`)
+            .setDescription(`${successEmoji} Cleared ${clearmsg} messages`)
+            .setColor(embedColor)
         msg.channel.send(clearedEmbed).then(msg => msg.delete({timeout: 5000})).catch(O_o => {});
 
 

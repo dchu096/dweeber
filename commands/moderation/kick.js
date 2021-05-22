@@ -37,13 +37,19 @@ module.exports = class kickCommand extends Commando.Command {
         });
     }
     async run(msg, {kMember, reasoning}) {
+        
+           const embedColor = '#87CEEB'; // color: skyblue
+        
+        const errorEmoji = '<a:ag_exc:781410611366985748>';
+        const successEmoji = '<a:ag_tickop:781395575962599445>';
+        const loadingEmoji = '<a:ag_loading:781410654841077780>';
 
         let kicked = msg.mentions.members.first() || msg.guild.members.cache.get(kMember);
 
         // MESSAGES
 
         if (!kicked)
-            return msg.channel.send('You must provide a valid user');
+            return msg.channel.send(`${errorEmoji} You must provide a valid user`);
 
 
         msg.delete()
@@ -51,6 +57,7 @@ module.exports = class kickCommand extends Commando.Command {
         if(msg.guild.member(kicked)) {
 
             let kickembed = new Discord.MessageEmbed()
+            .setColor(embedColor)
                 .setAuthor(msg.author.username, msg.author.avatarURL({
                     format: 'png',
                     dynamic: true,
