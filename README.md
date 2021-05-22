@@ -4,7 +4,7 @@
 
 # UPDATE
 
-Adding music function
+Music function is now here! Play your favourite songs with the bot. Also adding discord-together for YT implementation
 
 # Dweeber
 
