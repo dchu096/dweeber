@@ -2,6 +2,8 @@
 
 # Dweeber
 
+![](readmefiles/dweeber.jpg)
+
 # About Dweeber
 
 Need different bots for your music, moderation, roles need? Dweeber is combining it into 1.
