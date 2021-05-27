@@ -44,7 +44,7 @@ Bot source: https://github.com/user096/memubot
 
 # Bugs
 
-There are bugs all over the code as I'm always going for the most features as possible. I have been working to repair some already, but still a lot of repair ing is left for the future, if you would like to help please do submit pull requests.
+There are bugs all over the code as I'm always going for the most features as possible. I have been working to repair some already, but still a lot of repairing is left for the future, if you would like to help please do submit pull requests.
 
 # Self-hosting??
 
