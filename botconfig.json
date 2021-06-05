@@ -1,6 +1,16 @@
 {
+  //get at discord developers
   "token": "",
-  "prefix": "dwbr",
-  "ownerid": "",
-  "geniusLyricsAPI": ""
+  //prefix set to whatever you like
+  "prefix": "dwbrd ",
+  //your owner ID
+  "owner": "",
+  //YT API key
+  "YTAPI": "",
+  //genius API key
+  "geniusLyricsAPI": "",
+  //SC not used
+  "SOUNDCLOUD_CLIENT_ID": "",
+  //see Some Random API
+  "SRAapi": ""
 }
