@@ -5,13 +5,14 @@ const trim = (str, max) => (str.length > max ? `${str.slice(0, max - 3)}...` : s
 const fetch = require('node-fetch')
 const {SRAapi} = require("../../botconfig.json");
 
-module.exports = class whaleCommand extends Commando.Command {
+module.exports = class dogCommand extends Commando.Command {
     constructor(client) {
         super(client, {
-            name: 'whale',
+            name: 'dogs',
+            aliases: ['dog'],
             group: 'facts',
-            memberName: 'whale',
-            description: 'A fact of whale'
+            memberName: 'dogs',
+            description: 'A image of dog and a fact'
         });
     }
 
@@ -24,11 +25,12 @@ module.exports = class whaleCommand extends Commando.Command {
         const successEmoji = '<a:ag_tickop:781395575962599445>';
         const loadingEmoji = '<a:ag_loading:781410654841077780>';
 
-        const { fact, image } = await fetch(`https://some-random-api.ml/facts/whale?key=${SRAapi}`).then(response => response.json()).catch(`${errorEmoji}An error occured!`);
+        const { fact, image } = await fetch(`https://some-random-api.ml/animal/dog?key=${SRAapi}`).then(response => response.json());
 
         let responseEmbed = new Discord.MessageEmbed()
             .setColor(embedColor)
             .setDescription(fact)
+            .setImage(image)
 
         message.channel.send(responseEmbed).catch(`${errorEmoji}An error occured!`);
 
