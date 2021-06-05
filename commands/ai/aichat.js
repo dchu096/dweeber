@@ -26,7 +26,7 @@ module.exports = class aichatCommand extends Commando.Command {
 
 
     async run(message, {sMESSAGE}) {
-        
+
         const userID = message.author.id
 
         const embedColor = '#87CEEB'; // color: skyblue
