@@ -1,4 +1,4 @@
-⚠️Warned you! These codes are a total mess right now. Don't expect anything to work.
+⚠️Warned you! The code is a total mess right now. Don't expect anything to work.
 
 ✔️This is the current ongoing channel
 
@@ -12,9 +12,9 @@ No current updates
 
 # About Dweeber
 
-Need different bots for your music, moderation, role needs? Dweeber is combining it into 1.
+Need different bots for your music, moderation, and role management needs? Dweeber is combining it into 1.
 
-It was a bot designed privately for MEmu discord server but decided to actually make it public to give it a try.
+It was a bot designed privately for the MEmu discord server but we decided to make it public to give it a try.
 
 The main features of this bot:
 
@@ -48,7 +48,7 @@ There are bugs all over the code as I'm always going for the most features as po
 
 # Self-hosting??
 
-The code is not recommended to be runned by self-host, the code provided here is only for you to know the bot's setup and to use this as a template to create your own bot.
+The code is not recommended to be self-hosted, the code provided here is intended for you to know the bot's setup and to use this as a template to create your own bot.
 
 ~~The method will still be provided here~~
 
