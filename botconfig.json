@@ -1,6 +1,9 @@
 {
   "token": "",
-  "prefix": "dwbr",
-  "ownerid": "",
-  "geniusLyricsAPI": ""
+  "prefix": "dwbrd ",
+  "owner": "",
+  "YTAPI": "",
+  "geniusLyricsAPI": "",
+  "SOUNDCLOUD_CLIENT_ID": "",
+  "SRAapi": ""
 }
