@@ -59,8 +59,8 @@ client.on('guildMemberAdd', async member => {
     let welcomeEmbed = new Discord.MessageEmbed()
         .setTitle(`welcome ${member.user.tag} to MEmu Discord!`)
         .setDescription("Welcome to the MEmu community!")
-        .addField("Rules:", "We setup a server rules at <#790489245193732127> to maintain behaviour in server, please read so you dont break them!", false)
-        .addField("Roles:", " A lot of channels in this server requires a role to be assigned. get to <#786798319992307763> to get yourself some!", false)
+        .addField("Rules:", "We have some server rules at <#790489245193732127> to maintain behaviour in server, please read so you dont break them!", false)
+        .addField("Roles:", " A lot of channels in this server require a role to be assigned. Go to <#786798319992307763> to get yourself some!", false)
         .addField("channels:", "channels have been setup to help easier. so please do post in the correct channels so we can troubleshoot faster!", false)
         .setFooter("As long as you follow, then welcome!")
 
