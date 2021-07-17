@@ -30,7 +30,7 @@ module.exports = {
         } catch(e) {
             console.log(e.message)
         }
-        message.channel.send(`${prevName}'s nickname have been changed to ${nickname} successfully.`)
+        message.channel.send(`${prevName}'s nickname has been changed to ${nickname} successfully.`)
 
         //modlogs
         let doneembed = new Discord.RichEmbed()
