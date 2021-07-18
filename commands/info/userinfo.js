@@ -36,7 +36,7 @@ module.exports = {
             .setThumbnail(userinfo.avatar)
             .setColor(embedColor)
             .setAuthor(userinfo.uname, userinfo.avatar)
-            .addField("status", userinfo.online, false)
+            .addField("Status", userinfo.online, false)
             .addField("Botuser", userinfo.bot, true)
             .addField("Username", userinfo.uname, true)
             .addField("Discriminator", userinfo.discrim, true)
@@ -44,7 +44,7 @@ module.exports = {
             .addField("Client ID", userinfo.id, true)
             .addField("Presence", userinfo.presen, true)
             .addField("Roles", userinfo.allroles, false)
-            .addField("permissions", userinfo.permission, true)
+            .addField("Permissions", userinfo.permission, true)
             .setFooter(`command called by ${userinfo.tag}`);
 
         await message.channel.send(InfoEmbed).catch(O_o => {});
