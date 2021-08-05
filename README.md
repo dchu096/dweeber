@@ -32,7 +32,7 @@ invite: https://discord.com/api/oauth2/authorize?client_id=737905203549831169&pe
 
 Permission: 2683694807
 
-Bot library: discord.js v15
+Bot library: discord.js v11
 
 Bot source: https://github.com/user096/memubot
 
