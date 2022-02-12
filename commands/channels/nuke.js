@@ -1,34 +1,18 @@
 const Discord = require('discord.js');
 
-module.exports = class nukeCommand extends Commando.Command {
-    constructor(client) {
-        super(client, {
-            name: 'nuke',
-            group: 'channels',
-            memberName: 'nuke',
-            description: 'nuke a specific channel',
-            clientPermissions: [
-                'MANAGE_CHANNELS'
-            ],
-            userPermissions: [
-                'MANAGE_CHANNELS'
-            ],
+module.exports = {
+    config: {
+        name: "lock",
+        description: "lockdown the channel",
+        usage: "[channel]",
+        category: "channels",
+        accessableby: "Moderators",
+    },
 
-            args: [
-                {
-                    key: 'nOption',
-                    prompt: 'Are you sure you want to nuke the channel? **This operation cannot be undone!** Please think carefully. Reply with "yes" to confirm, "no" to cancel',
-                    type: 'string',
-                    oneOf: ['yes', 'no'],
-                },
-            ],
+    run: async (message) => {
 
-            guildOnly: true,
-        });
-    }
-
-    async run(msg,{nOption}) {
-
+        
+        
         const embedColor = '#87CEEB'; // color: skyblue
 
                 const errorEmoji = '<a:ag_exc:781410611366985748>';
@@ -36,6 +20,19 @@ module.exports = class nukeCommand extends Commando.Command {
         const loadingEmoji = '<a:ag_loading:781410654841077780>';
 
                 //This is a very dangerous command to process! Nuke the channel
+        
+        let confirmEmbed = new Discord.MessageEmbed()
+        .setColor(embedColor)
+        .setDescription(``)
+        
+        const {Confirmation} = require('discord-interface');
+
+let text = 'Are you sure you want to nuke the channel? **This operation cannot be undone!** Please think carefully. Reply with "yes" to confirm. Operation expires after 10s'
+
+let confirmation = Confirmation.create(message, {time: 10000, userID: message.author.id, text: text});
+
+confirmation.on('confirmation', confirmed => {
+    if (confirmed) {
 
         let confirmedEmbed = new Discord.MessageEmbed()
         .setColor(embedColor)
@@ -61,5 +58,8 @@ module.exports = class nukeCommand extends Commando.Command {
                         setTimeout(function () {
                             msg.channel.delete();
                         }, 3000);
+        
+            }
+});
             }
 }
