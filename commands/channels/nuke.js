@@ -40,7 +40,7 @@ confirmation.on('confirmation', confirmed => {
                             .setDescription(`${message.client.emotes.success} Channel have been nuked`)
                             .setImage('https://i.gifer.com/6Ip.gif')
 
-                            ch.send(nukedEmbed).then(console.log());
+                            ch.send(nukedEmbed)
                         }).catch(() => {
 
                             message.reply('${message.client.emotes.error} An error occured!');
