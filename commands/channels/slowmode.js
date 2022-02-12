@@ -1,7 +1,4 @@
 const Discord = require("discord.js");
-const { Signale } = require('signale');
-
-const logger = new Signale({ scope: 'Discord' });
 
 module.exports = {
     config: {
@@ -12,15 +9,20 @@ module.exports = {
         accessableby: "Moderators",
     },
 
-    run: async (message) => {
+    run: async (message, args) => {
+        
            const embedColor = '#87CEEB'; // color: skyblue
 
-        await msg.channel.setRateLimitPerUser(time)
+        let sChannel = message.channel;
 
+        let time = args[0];
+        
+        await sChannel.setRateLimitPerUser(time)
+        
                 let slowmodeEmbed = new Discord.MessageEmbed()
                 .setColor(embedColor)
-        .setDescription(`${successEmoji} Channel slowmode have been set to ${time}`)
-
-    msg.reply(slowmodeEmbed)
+        .setDescription(`${successEmoji} Channel slowmode have been set to ${time}`) 
+            
+    message.reply(slowmodeEmbed)
     }
 }
