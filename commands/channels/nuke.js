@@ -14,7 +14,7 @@ module.exports = {
 
     run: async (message) => {
 
- let nChannel = msg.mentions.channels.first() || message.channel;
+ let nChannel = message.mentions.channels.first() || message.channel;
         
         const embedColor = '#87CEEB'; // color: skyblue
         
@@ -32,22 +32,22 @@ confirmation.on('confirmation', confirmed => {
 
         let confirmedEmbed = new Discord.MessageEmbed()
         .setColor(embedColor)
-        .setDescription(`${successEmoji} Thanks for confirming, the channel will be nuked in 3 seconds.`)
+        .setDescription(`${message.client.emotes.success} Thanks for confirming, the channel will be nuked in 3 seconds.`)
 
                         message.reply(confirmedEmbed)
                         message.channel.clone({
-                            parent: `${message.channel.parentID}`,
+                            parent: `${nChannel.parentID}`,
                             position: message.channel.rawPosition
-                        }).then(ch => {
+                        }).then(channel => {
 
                             let nukedEmbed = new Discord.MessageEmbed()
                             .setColor(embedColor)
                             .setDescription(`${message.client.emotes.success} Channel have been nuked`)
                             .setImage('https://i.gifer.com/6Ip.gif')
 
-                            ch.send(nukedEmbed)
+                            channel.send(nukedEmbed)
                         }).catch((err) => {
-                          message.reply('${message.client.emotes.error} An error occured!' ).then(() => {
+                          message.reply(`${message.client.emotes.error} An error occured!` ).then(() => {
 console.log(err).then(logger.error(`An error occured in ${message.guild.name} using command nuke`))
     });
                             
