@@ -10,26 +10,14 @@ module.exports = {
     },
 
     run: async (message) => {
-
-        
         
         const embedColor = '#87CEEB'; // color: skyblue
-
-                const errorEmoji = '<a:ag_exc:781410611366985748>';
-        const successEmoji = '<a:ag_tickop:781395575962599445>';
-        const loadingEmoji = '<a:ag_loading:781410654841077780>';
-
-                //This is a very dangerous command to process! Nuke the channel
-        
-        let confirmEmbed = new Discord.MessageEmbed()
-        .setColor(embedColor)
-        .setDescription(``)
         
         const {Confirmation} = require('discord-interface');
 
 let replyMessage = message.reply('Are you sure you want to nuke the channel? **This operation cannot be undone!** Please think carefully. Reply with "yes" to confirm. Operation expires after 10s');
 
-let filter = msg => msg.author.id == message.author.id && msg.content.toLowerCase() == 'yes';
+let filter = message => message.author.id == message.author.id && message.content.toLowerCase() == 'yes';
 message.awaitMessages(filter, {max: 1, time: 20000}).then(collected => {
     if (!replyMessage.deleted) replyMessage.delete();
     if (!collected.first().deteled) collected.first().delete();
@@ -41,10 +29,10 @@ confirmation.on('confirmation', confirmed => {
         .setColor(embedColor)
         .setDescription(`${successEmoji} Thanks for confirming, the channel will be nuked in 3 seconds.`)
 
-                        msg.reply(confirmedEmbed)
-                        msg.channel.clone({
-                            parent: `${msg.channel.parentID}`,
-                            position: msg.channel.rawPosition
+                        message.reply(confirmedEmbed)
+                        message.channel.clone({
+                            parent: `${message.channel.parentID}`,
+                            position: message.channel.rawPosition
                         }).then(ch => {
 
                             let nukedEmbed = new Discord.MessageEmbed()
@@ -56,6 +44,7 @@ confirmation.on('confirmation', confirmed => {
                         }).catch(() => {
 
                             msg.reply('${errorEmoji} An error occured!');
+                            
                         });
 
                         setTimeout(function () {
