@@ -14,7 +14,7 @@ module.exports = {
 
     run: async (message) => {
 
- let nChannel = msg.mentions.channels.first() || msg.channel;
+ let nChannel = msg.mentions.channels.first() || message.channel;
         
         const embedColor = '#87CEEB'; // color: skyblue
         
