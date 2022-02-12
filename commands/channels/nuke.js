@@ -5,8 +5,8 @@ const logger = new Signale({ scope: 'Discord' });
 
 module.exports = {
     config: {
-        name: "lock",
-        description: "lockdown the channel",
+        name: "nuke",
+        description: "nuke the channel",
         usage: "[channel]",
         category: "channels",
         accessableby: "Moderators",
