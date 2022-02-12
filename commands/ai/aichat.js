@@ -40,9 +40,13 @@ module.exports = {
                 .setColor(embedColor)
                 .setDescription(response)
 
-            message.channel.send(responseEmbed).catch(`${message.client.emotes.error} An error occured!`);
+            message.channel.send(responseEmbed).catch((err) => {
+                message.reply(`${message.client.emotes.error} An error occured!`).then(() => {
+                    console.log(err).then(logger.error(`An error occured in ${message.guild.name} using command nuke`))
+                });
+
+            });
+        }
+
     }
-
 }
-}
-
