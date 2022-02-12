@@ -1,4 +1,7 @@
 const Discord = require('discord.js');
+const { Signale } = require('signale');
+
+const logger = new Signale({ scope: 'Discord' });
 
 module.exports = {
     config: {
@@ -41,9 +44,10 @@ confirmation.on('confirmation', confirmed => {
                             .setImage('https://i.gifer.com/6Ip.gif')
 
                             ch.send(nukedEmbed)
-                        }).catch(() => {
-
-                            message.reply('${message.client.emotes.error} An error occured!' message.guild.name);
+                        }).catch((err) => {
+                          message.reply('${message.client.emotes.error} An error occured!' ).then(() => {
+console.log(err).then(logger.error(`An error occured in ${message.guild.name} using command nuke`))
+    });
                             
                         });
 
