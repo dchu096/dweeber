@@ -24,7 +24,7 @@ module.exports = {
 
         let ow = msg.channel.permissionOverwrites.get(id); // get the permissionOverwrites fro that role
 
-        if (ow && ow.SEND_MESSAGES === false) msg.channel.send(`${errorEmoji} The channel is already locked.`);
+        if (ow && ow.SEND_MESSAGES === false) msg.channel.send(`${message.client.emotes.error} The channel is already locked.`);
 
         else { // otherwise, lock it
 
@@ -39,7 +39,7 @@ module.exports = {
 
 
         let lockEmbed = new Discord.MessageEmbed()
-            .setTitle(`${successEmoji} Success`)
+            .setTitle(`${message.client.emotes.success} Success`)
             .setDescription(`${lChannel} has been locked`)
         await msg.channel.send(lockEmbed).then(msg => msg.delete({timeout: 5000})).catch(O_o => {});
 
