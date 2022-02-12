@@ -1,5 +1,3 @@
-❌ This branch is no longer maintaned. Please switch to **djs-v13**
-
 # Dweeber
 
 ![](readmefiles/dweeber-half.jpg)
