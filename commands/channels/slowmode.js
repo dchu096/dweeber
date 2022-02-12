@@ -1,4 +1,7 @@
 const Discord = require("discord.js");
+const { Signale } = require('signale');
+
+const logger = new Signale({ scope: 'Discord' });
 
 module.exports = class BanCommand extends Commando.Command {
     constructor(client) {
