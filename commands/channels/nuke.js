@@ -43,7 +43,7 @@ confirmation.on('confirmation', confirmed => {
                             ch.send(nukedEmbed)
                         }).catch(() => {
 
-                            message.reply('${message.client.emotes.error} An error occured!');
+                            message.reply('${message.client.emotes.error} An error occured!' message.guild.name);
                             
                         });
 
