@@ -54,7 +54,7 @@ module.exports = {
                     });
 
                     setTimeout(function () {
-                        msg.channel.delete();
+                        message.channel.delete();
                     }, 3000);
 
                 }
