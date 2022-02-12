@@ -1,4 +1,7 @@
-❌ This branch is no longer maintaned. Please switch to **djs-commando**
+⚠️Warned you! The code is a total mess right now. Don't expect anything to work.
+
+✔️This is the current ongoing channel
+
 
 # memubot
 ![](readmefiles/memu-bot-banner.png)
