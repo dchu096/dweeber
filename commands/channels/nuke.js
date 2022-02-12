@@ -37,13 +37,13 @@ confirmation.on('confirmation', confirmed => {
 
                             let nukedEmbed = new Discord.MessageEmbed()
                             .setColor(embedColor)
-                            .setDescription(`${successEmoji} Channel have been nuked`)
+                            .setDescription(`${message.client.emotes.success} Channel have been nuked`)
                             .setImage('https://i.gifer.com/6Ip.gif')
 
-                            ch.send(nukedEmbed);
+                            ch.send(nukedEmbed).then(console.log());
                         }).catch(() => {
 
-                            msg.reply('${errorEmoji} An error occured!');
+                            message.reply('${message.client.emotes.error} An error occured!');
                             
                         });
 
