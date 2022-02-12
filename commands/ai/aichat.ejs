@@ -1,39 +1,31 @@
 const Discord = require('discord.js');
 const { MessageEmbed, MessageAttachment } = require('discord.js')
 const trim = (str, max) => (str.length > max ? `${str.slice(0, max - 3)}...` : str);
-const fetch = require('node-fetch')
+import fetch from 'node-fetch';
 const SRAapi = require("../../botconfig.json")
 const db = require("quick.db");
+const { Signale } = require('signale');
 
-module.exports = class aichatCommand extends Commando.Command {
-    constructor(client) {
-        super(client, {
-            name: 'aichat',
-            aliases: ['chat', 'ai'],
-            group: 'ai',
-            memberName: 'aichat',
-            description: 'AI chat',
-            args: [
-                {
-                    key: 'sMESSAGE',
-                    prompt:
-                        'Whats the message you want to chat?',
-                    type: 'string'
-                }
-            ]
-        });
-    }
+const logger = new Signale({ scope: 'Discord' });
+
+module.exports = {
+    config: {
+        name: "ai",
+        description: "chat with the ai",
+        usage: "dwbr ai [msg]",
+        category: "ai",
+        accessableby: "everyone",
+        aliases: ["aichat"]
+    },
 
 
-    async run(message, {sMESSAGE}) {
+    run: async (client, message, args) => {
 
-        const errorEmoji = '<a:ag_exc:781410611366985748>';
-        const successEmoji = '<a:ag_tickop:781395575962599445>';
         let user = db.get(`blacklist_${message.author}`);
 
         let blacklistedembed = new Discord.MessageEmbed()
             .setTitle(`User blacklisted`)
-            .setDescription(`${errorEmoji} You are not allowed to run any commands while you are blacklisted!`)
+            .setDescription(`${message.client.emotes.error} You are not allowed to run any commands while you are blacklisted!`)
         if(user == true) return message.channel.send(blacklistedembed)
         else {
             const key = SRAapi
@@ -53,6 +45,8 @@ module.exports = class aichatCommand extends Commando.Command {
                 .setDescription(response)
 
             message.channel.send(responseEmbed).catch(`${errorEmoji}An error occured!`);
-        }
     }
-    }
+
+}
+}
+
