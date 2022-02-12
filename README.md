@@ -26,13 +26,11 @@ serverinfo and userinfo are some basic commands to tell you about yourself and t
 
 Bot informations:
 
-invite: https://discord.com/api/oauth2/authorize?client_id=737905203549831169&permissions=2683694807&scope=bot
+invite: TBD
 
 Permission: 2683694807
 
-Bot library: discord.js v11
-
-Bot source: https://github.com/user096/memubot
+Bot library: discord.js v13
 
 # Bugs
 
@@ -48,10 +46,8 @@ The code is not recommended to be runned by self-host, the code provided here is
 
 2. Delete folder readme files
 
-3. open cmd => npm -i
+3. open your terminal => npm install
 
 4. botconfig.json => type in token
 
 5. node index.js
-
-//If you need modlogs create a channel named "shame-stream"//
