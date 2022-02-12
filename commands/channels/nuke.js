@@ -27,9 +27,12 @@ module.exports = {
         
         const {Confirmation} = require('discord-interface');
 
-let text = 'Are you sure you want to nuke the channel? **This operation cannot be undone!** Please think carefully. Reply with "yes" to confirm. Operation expires after 10s'
+let replyMessage = message.reply('Are you sure you want to nuke the channel? **This operation cannot be undone!** Please think carefully. Reply with "yes" to confirm. Operation expires after 10s');
 
-let confirmation = Confirmation.create(message, {time: 10000, userID: message.author.id, text: text});
+let filter = msg => msg.author.id == message.author.id && msg.content.toLowerCase() == 'yes';
+message.awaitMessages(filter, {max: 1, time: 20000}).then(collected => {
+    if (!replyMessage.deleted) replyMessage.delete();
+    if (!collected.first().deteled) collected.first().delete();
 
 confirmation.on('confirmation', confirmed => {
     if (confirmed) {
