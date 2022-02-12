@@ -13,12 +13,14 @@ module.exports = {
     },
 
     run: async (message) => {
+
+ let nChannel = msg.mentions.channels.first() || msg.channel;
         
         const embedColor = '#87CEEB'; // color: skyblue
         
         const {Confirmation} = require('discord-interface');
 
-let replyMessage = message.reply('Are you sure you want to nuke the channel? **This operation cannot be undone!** Please think carefully. Reply with "yes" to confirm. Operation expires after 10s');
+let replyMessage = message.reply(`Are you sure you want to nuke the channel ${nChannel}? **This operation cannot be undone!** Please think carefully. Reply with "yes" to confirm. Operation expires after 10s`);
 
 let filter = message => message.author.id == message.author.id && message.content.toLowerCase() == 'yes';
 message.awaitMessages(filter, {max: 1, time: 20000}).then(collected => {
