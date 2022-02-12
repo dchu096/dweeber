@@ -3,41 +3,17 @@ const { Signale } = require('signale');
 
 const logger = new Signale({ scope: 'Discord' });
 
-module.exports = class BanCommand extends Commando.Command {
-    constructor(client) {
-        super(client, {
-            name: 'slowmode',
-            group: 'channels',
-            memberName: 'slowmode',
-            description: 'Sets a slowmode of a channel',
-            clientPermissions: [
-                'MANAGE_CHANNELS'
-            ],
-            userPermissions: [
-                'MANAGE_CHANNELS'
-            ],
+module.exports = {
+    config: {
+        name: "slowmode",
+        description: "Set a slowmode on channel",
+        usage: "[channel]",
+        category: "channels",
+        accessableby: "Moderators",
+    },
 
-            guildOnly: true,
-
-            args: [
-                {
-                    key: 'time',
-                    prompt:
-                        'Please say the time you would like to set the slowmode to in seconds',
-                    type: 'integer'
-                }
-            ]
-
-
-        });
-    }
-    async run(msg,  {time}) {
-
+    run: async (message) => {
            const embedColor = '#87CEEB'; // color: skyblue
-
-                const errorEmoji = '<a:ag_exc:781410611366985748>';
-        const successEmoji = '<a:ag_tickop:781395575962599445>';
-        const loadingEmoji = '<a:ag_loading:781410654841077780>';
 
         await msg.channel.setRateLimitPerUser(time)
 
