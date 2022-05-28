@@ -10,12 +10,12 @@ const packageJSON = require("@root/package.json");
 
 module.exports = {
     config: {
-        name: "stats",
+        name: "systeminfo",
         description: "shows the bot stats",
-        usage: "./stats",
+        usage: "./systeminfo",
         category: "info",
         accessableby: "members",
-        aliases: ["stat", "status", "botinfo"]
+        aliases: ["stat", "stats", "status", "botinfo"]
     },
     run: async (bot, message, args) => {
 
