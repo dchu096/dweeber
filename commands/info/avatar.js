@@ -15,7 +15,7 @@ module.exports = {
 
         const avatarEmbed = new MessageEmbed()
             .setColor(embedColor)
-            .setAuthor("Avatar >> " + user.username)
+            .setAuthor({ name: `Avatar for ${user.username}`})
             .setImage(user.displayAvatarURL())
             .setFooter({ text: 'Dweeber >> Avatar'});
         message.channel.send({ embeds: [avatarEmbed] });
