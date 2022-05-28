@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require('discord.js');
 const { prefix } = require("../../botconfig.json");
 const { readdirSync } = require("fs")
 const { stripIndents } = require("common-tags")
@@ -16,7 +16,7 @@ module.exports = {
     run: async (bot, message, args) => {
         const embedColor = '#87ceeb';
 
-        const embed = new Discord.MessageEmbed()
+        const HelpEmbed = new MessageEmbed()
             .setColor(embedColor)
             .setTitle("Dweeber commands list")
             .setAuthor(`${message.guild.me.displayName}`, bot.user.displayAvatarURL())
@@ -25,33 +25,32 @@ module.exports = {
         if(!args[0]) {
             const categories = readdirSync("./commands/")
 
-            embed.setDescription(`Bot prefix is: **${prefix}**`)
-            embed.setFooter(` ${message.guild.me.displayName} | Total Commands: ${bot.commands.size}`, bot.user.displayAvatarURL());
+            HelpEmbed.setDescription(`Bot prefix is: **${prefix}**`)
+            HelpEmbed.setFooter(` ${message.guild.me.displayName} | Total Commands: ${bot.commands.size}`, bot.user.displayAvatarURL());
             categories.forEach(category => {
                 const dir = bot.commands.filter(c => c.config.category === category)
                 const capitalise = category.slice(0, 1).toUpperCase() + category.slice(1)
                 try {
-                    embed.addField(`❯ ${capitalise} [${dir.size}]:`, dir.map(c => `\`${c.config.name}\``).join(" "))
+                    HelpEmbed.addField(`❯ ${capitalise} [${dir.size}]:`, dir.map(c => `\`${c.config.name}\``).join(" "))
                 } catch(e) {
                     console.log(e.message)
                 }
             })
 
-            return message.author.send(embed).then(() =>
-                message.channel.send("Commands have been send to your DM"))
+            return message.channel.send({ embeds: [HelpEmbed] })
         } else {
             let command = bot.commands.get(bot.aliases.get(args[0].toLowerCase()) || args[0].toLowerCase())
             if(!command) return message.channel.send(embed.setTitle("Invalid Command.").setDescription(`Do \`${prefix}help\` for the list of the commands.`))
             command = command.config
 
-            embed.setDescription(stripIndents`The bot's prefix is: \`${prefix}\`\n
+            HelpEmbed.setDescription(stripIndents`The bot's prefix is: \`${prefix}\`\n
             **Command:** ${command.name.slice(0, 1).toUpperCase() + command.name.slice(1)}
             **Description:** ${command.description || "No Description provided."}
             **Usage:** ${command.usage ? `\`${prefix}${command.name} ${command.usage}\`` : "No Usage"}
             **Accessible by:** ${command.accessableby || "Members"}
             **Aliases:** ${command.aliases ? command.aliases.join(", ") : "None."}`)
 
-            return message.channel.send(embed)
+            return message.channel.send({ embeds: [HelpEmbed] });
         }
     }
 }
