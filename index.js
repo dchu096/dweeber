@@ -1,7 +1,9 @@
-const {Client, Collection } = require("discord.js");
+const { Client, Intents, Collection } = require("discord.js");
 const Discord = require('discord.js');
 const { token } = require("./botconfig.json");
-const bot = new Discord.Client(); // Create the bot client.
+const bot = new Client({
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
+  });
 
 const config = require('./botconfig.json');
 
@@ -12,7 +14,7 @@ const fs = require('fs');
 
 
 bot.on('message', message => { // When the bot receive a message
-    client.onMessage(message)
+    bot.onMessage(message)
 });
 
 
