@@ -19,7 +19,7 @@ module.exports = {
         const HelpEmbed = new MessageEmbed()
             .setColor(embedColor)
             .setTitle("Dweeber commands list")
-            .setAuthor(`${message.guild.me.displayName}`, bot.user.displayAvatarURL())
+            .setAuthor(`${message.guild.me.displayName}`)
             .setThumbnail(bot.user.displayAvatarURL())
 
         if(!args[0]) {
