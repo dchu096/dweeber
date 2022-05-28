@@ -22,8 +22,8 @@ module.exports = {
         userinfo.createdat = userMention.createdAt;
         userinfo.discrim = userMention.discriminator;
         userinfo.id = userMention.id;
-        userinfo.online = userMention.presence.status
-        userinfo.presen = userMention.presence.game;
+        userinfo.online = userMention.presence?.status;
+        userinfo.presen = userMention.presence?.game;
         userinfo.tag = userMention.tag;
         userinfo.uname = userMention.username;
         userinfo.allroles = rolesofmember;
@@ -35,7 +35,7 @@ module.exports = {
             .setTitle(`About ${userinfo.uname}`)
             .setThumbnail(userinfo.avatar)
             .setColor(embedColor)
-            .setAuthor(userinfo.uname, userinfo.avatar)
+            .setAuthor(`${userinfo.uname}`, `${userinfo.avatar}`)
             .addField("status", userinfo.online, false)
             .addField("Botuser", userinfo.bot, true)
             .addField("Username", userinfo.uname, true)
@@ -45,8 +45,8 @@ module.exports = {
             .addField("Presence", userinfo.presen, true)
             .addField("Roles", userinfo.allroles, false)
             .addField("permissions", userinfo.permission, true)
-            .setFooter(`command called by ${userinfo.tag}`);
+            .setFooter({ text: 'Dweeber >> SystemInfo'});
 
-        await message.channel.send(InfoEmbed).catch(O_o => {});
+        await message.channel.send({ embeds: [InfoEmbed] }).catch(O_o => {});
     }
 }

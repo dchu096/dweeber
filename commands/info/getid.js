@@ -13,14 +13,12 @@ module.exports = {
         const embedColor = '#87CEEB';
         const member = message.mentions.members.first() || message.member;
 
-        // MESSAGES
-        message.delete().catch(O_o => {});
-
 
         const IDEmbed = new Discord.MessageEmbed() // Creates the embed thats returned to the person warning if its sent.
             .setColor(embedColor)
-            .setTitle(`ID >> ${member.user.username}`)
+            .setTitle(`ID for ${member.user.username}`)
             .setDescription(`\`${member.user.id}\``)
+            .setFooter({ text: 'Dweeber >> getID'})
         await message.channel.send({ embeds: [IDEmbed] }); // Sends the embed
 
 

@@ -15,10 +15,9 @@ module.exports = {
         usage: "./stats",
         category: "info",
         accessableby: "members",
-        aliases: ["stat", "status"]
+        aliases: ["stat", "status", "botinfo"]
     },
     run: async (bot, message, args) => {
-        let { version } = require("discord.js");
 
         cpuStat.usagePercent(function(err, percent, seconds) {
             if (err) {
