@@ -18,6 +18,7 @@ module.exports = {
         }
 
         const embedColor = '#87CEEB'; // color: skyblue
+        const signale = new Signale();
 
         await fetch(`https://api.popcat.xyz/color/${args[0].includes("#") ? args[0].split("#")[1] : args[0] }`).then(res => res.json()).then(json => {
             
