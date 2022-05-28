@@ -13,6 +13,13 @@ module.exports = {
         const userMention = message.mentions.users.first() || message.guild.members.cache.get(args[0]) || message.author;
         const memberMention = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
 
+        const statuses = {
+            "online" : "🟢",
+            "idle" : "🟠",
+            "dnd" : "🔴",
+            "offline" : "⚫️",
+          }
+
         let embedColor = "#87CEEB"
 
         const rolesofmember = memberMention.roles.cache.filter(r => r.name !== '@everyone').map(role => role.name).join(', ')
@@ -22,8 +29,6 @@ module.exports = {
         userinfo.createdat = userMention.createdAt;
         userinfo.discrim = userMention.discriminator;
         userinfo.id = userMention.id;
-        userinfo.online = userMention.presence?.status;
-        userinfo.presen = userMention.presence?.game;
         userinfo.tag = userMention.tag;
         userinfo.uname = userMention.username;
         userinfo.allroles = rolesofmember;
@@ -36,16 +41,15 @@ module.exports = {
             .setThumbnail(userinfo.avatar)
             .setColor(embedColor)
             .setAuthor(`${userinfo.uname}`, `${userinfo.avatar}`)
-            .addField("status", userinfo.online, false)
+            .addField("status", `${statuses[memberMention.member.presence ? memberMention.presence.status : "offline"]} ${memberMention.presence ? memberMention.presence.status : "offline"}`, false)
             .addField("Botuser", userinfo.bot, true)
             .addField("Username", userinfo.uname, true)
             .addField("Discriminator", userinfo.discrim, true)
             .addField("Created At", userinfo.createdat, true)
             .addField("Client ID", userinfo.id, true)
-            .addField("Presence", userinfo.presen, true)
             .addField("Roles", userinfo.allroles, false)
             .addField("permissions", userinfo.permission, true)
-            .setFooter({ text: 'Dweeber >> SystemInfo'});
+            .setFooter({ text: 'Dweeber >> UserInfo'});
 
         await message.channel.send({ embeds: [InfoEmbed] }).catch(O_o => {});
     }

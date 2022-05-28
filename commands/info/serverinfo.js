@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const moment = require("moment")
 
 module.exports = {
     config: {
@@ -40,13 +41,18 @@ module.exports = {
             .addField(`Server Owner:`, `${owner.user.tag}`, true)
             .addField("Member Count:", `${message.guild.memberCount}`, true)
             .addField("Role Count:", `${message.guild.roles.cache.size}`, true)
-            .addField("server ID", message.guild.id, true)
+            .addField("Verification Level", `${VerificationLevels[message.guild.verificationLevel]}`, true)
             .addField("Total | Humans | Bots", `${message.guild.members.cache.size} | ${message.guild.members.cache.filter(member => !member.user.bot).size} | ${message.guild.members.cache.filter(member => member.user.bot).size}`, true)
             .addField("Total | Text | Voice", `${message.guild.channels.cache.size} | ${message.guild.channels.cache.filter(channel => channel.type == "GUILD_TEXT").size} | ${message.guild.channels.cache.filter(channel => channel.type == "GUILD_VOICE").size}`, true)
-            .addField("Verification Level", `${VerificationLevels[message.guild.verificationLevel]}`, true)
-            .addField("Channels", `${message.guild.channels.cache.size}`, true)
+            .addField("Online | Offline", `${message.guild.members.cache.filter(member => member.presence && member.presence && member.presence.status != "offline").size} | ${message.guild.members.cache.filter(member => !member.presence || member.presence && member.presence.status == "offline").size}`, true)
             .addField("Roles", `${message.guild.roles.cache.size}`, true)
-            .addField("Creation Date", `${message.channel.guild.createdAt.toUTCString().substr(0, 16)} (${checkDays(message.channel.guild.createdAt)})`, true)
+            .addField("Creation Date", `<t:${parseInt(message.guild.createdTimestamp / 1000)}:R>`, true)
+            .addField("Joined Date", `<t:${parseInt(message.member.joinedTimestamp / 1000)}:R>`, true)
+            .addField("Rules Channel", `${message.guild.rulesChannel ? `<#${message.guild.rulesChannelId}>`: "\`No Channel\`"}`, true)
+            .addField("AFK Channel", `${message.guild.rulesChannel ? `<#${message.guild.afkChannelId}>`: "\`No Channel\`"}`, true)
+
+
+
             .setThumbnail(message.guild.iconURL({ format: 'png', dynamic: true, size: 1024 }))
             .setFooter({ text: 'Dweeber >> Serverinfo'});
 
