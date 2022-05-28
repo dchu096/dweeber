@@ -12,11 +12,5 @@ const fs = require('fs');
 ["aliases", "commands"].forEach(x => bot[x] = new Collection());
 ["console", "command", "event"].forEach(x => require(`./handlers/${x}`)(bot));
 
-
-bot.on('message', message => { // When the bot receive a message
-    Client.onMessage(message)
-});
-
-
 bot.login(token);
 

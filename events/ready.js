@@ -3,20 +3,24 @@ const Discord = require("discord.js")
 
 module.exports = bot => {
 
+console.log(`====================================================================================`)
+console.log(`    :::::::::  :::       ::: :::::::::: :::::::::: :::::::::  :::::::::: :::::::::  `)
+console.log(`    :+:    :+: :+:       :+: :+:        :+:        :+:    :+: :+:        :+:    :+: `)
+console.log(`   +:+    +:+ +:+       +:+ +:+        +:+        +:+    +:+ +:+        +:+    +:+  `)
+console.log(`  +#+    +:+ +#+  +:+  +#+ +#++:++#   +#++:++#   +#++:++#+  +#++:++#   +#++:++#:    `)
+console.log(` +#+    +#+ +#+ +#+#+ +#+ +#+        +#+        +#+    +#+ +#+        +#+    +#+    `)
+console.log(`#+#    #+#  #+#+# #+#+#  #+#        #+#        #+#    #+# #+#        #+#    #+#     `)
+console.log(`#########    ###   ###   ########## ########## #########  ########## ###    ###     `)
+console.log(`====================================================================================`)
 
-    console.log(`${bot.user.username} is online`)
-    //bot.user.setActivity("F# | by dchu096", {type: "WATCHING"});
+console.log(`Authenticating with Discord gateway, please wait`)
 
-    let statuses = [
-    `${bot.guilds.size}`,
-        `F#help`,
-            `over ${bot.users.size} users`
-        ]
+console.log(`${bot.user.username} is online`)
 
-    setInterval(function() {
-        let status = statuses[Math.floor(Math.random() * statuses.length)];
 
-        bot.user.setActivity(status, {type: "LISTENING"});
-    }, 30000)
+
+
+
+
 
 }
