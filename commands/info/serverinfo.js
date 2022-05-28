@@ -42,10 +42,12 @@ module.exports = {
 
 
 
-        const Embed = new Discord.MessageEmbed() // Creates the embed thats returned to the person warning if its sent
+        const ServerInfoEmbed = new Discord.MessageEmbed() // Creates the embed thats returned to the person warning if its sent
             .setColor(embedColor)
             .setTitle("Server Info")
             .setAuthor(`${message.guild.name}`, message.guild.iconURL({ format: 'png', dynamic: true, size: 1024 }))
+            .addField(`Server Name:`, `${message.guild.name}`, true)
+            .addField(`Server Name:`, `${message.guild.id}`, true)
             .addField(`Server Owner:`, `${message.guild.owner}`, true)
             .addField("Member Count:", `${message.guild.memberCount}`, true)
             .addField("Role Count:", `${message.guild.roles.cache.size}`, true)
@@ -58,6 +60,6 @@ module.exports = {
             .addField("Creation Date", `${message.channel.guild.createdAt.toUTCString().substr(0, 16)} (${checkDays(message.channel.guild.createdAt)})`, true)
             .setThumbnail(message.guild.iconURL({ format: 'png', dynamic: true, size: 1024 }))
 
-        await message.channel.send(Embed);
+        await message.channel.send({ embeds: [ServerInfoEmbed] });
     }
 }
