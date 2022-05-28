@@ -11,19 +11,20 @@
   "license": "ISC",
   "dependencies": {
     "apextab-api": "^1.0.5",
-    "async": "^3.1.1",
-    "common-tags": "^1.8.0",
+    "async": "^3.2.3",
+    "common-tags": "^1.8.2",
     "cpu-stat": "^2.0.1",
-    "dateformat": "^3.0.3",
-    "discord.js": "^11.5.1",
-    "erela.js": "^1.0.8",
+    "dateformat": "^5.0.3",
+    "discord.js": "^13.7.0",
+    "erela.js": "^2.3.3",
     "fs": "0.0.1-security",
-    "lavalink": "^2.9.0",
-    "node-fetch": "^2.6.0",
-    "nodemon": "^2.0.2",
-    "overwatch-api": "^0.8.2",
+    "lavalink": "^2.13.0",
+    "moment": "^2.29.3",
+    "node-fetch": "^3.2.4",
+    "nodemon": "^2.0.16",
+    "overwatch-api": "^0.10.5",
     "simple-fortnite-api": "^0.1.9",
-    "urban": "^0.3.2",
-    "moment": "^2.27.0"
+    "urban": "^0.3.4"
   }
 }
+

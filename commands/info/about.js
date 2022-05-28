@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
     config: {
@@ -11,15 +11,15 @@ module.exports = {
     run: async (bot, message, args) => {
         const embedColor = '#87CEEB'; // color: skyblue
 
-        const Embed = new Discord.MessageEmbed() // Creates the embed thats returned to the person warning if its sent.
+        const AboutEmbed = new MessageEmbed() // Creates the embed thats returned to the person warning if its sent.
             .setColor(embedColor)
-            .setTitle("About Memubot")
-            .setAuthor(`Memubot`, bot.user.displayAvatarURL())
-
-            .addField("**About:**", `Memubot is abot designed specifically for Memu server, mainly targeted at tech support uses but with moderation features to replace dyno's job and role command to replace carls job in memu server`, true)
-            .addField("**Bot's webpage:**", `https://user096.online`, true)
-            .setFooter("by dchu096#3732, made with time and effort");
-        await message.channel.send(Embed) // Sends the embed
+            .setTitle("About Dweeber")
+            .setDescription('About the bot')
+            .setAuthor({ name: 'Dweeber'})
+            .addField("**About:**", `Dweeber is a multipurpose bot for your moderations, music, roles need!`, true)
+            .addField("**Bot's webpage:**", `https://dweeber.dchu096.me`, true)
+            .setFooter({ text: 'by invaliduser#9707, made with time and effort'});
+            await message.channel.send({ embeds: [AboutEmbed] }); // Sends the embed
 
 
     }
