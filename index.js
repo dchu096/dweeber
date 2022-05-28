@@ -14,7 +14,7 @@ const fs = require('fs');
 
 
 bot.on('message', message => { // When the bot receive a message
-    bot.onMessage(message)
+    Client.onMessage(message)
 });
 
 
