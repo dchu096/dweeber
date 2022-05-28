@@ -24,6 +24,7 @@
     "nodemon": "^2.0.16",
     "overwatch-api": "^0.10.5",
     "simple-fortnite-api": "^0.1.9",
+    "signale": "^1.4.0",
     "urban": "^0.3.4"
   },
   "_moduleAliases": {
