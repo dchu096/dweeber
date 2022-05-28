@@ -19,7 +19,7 @@ module.exports = {
             .addField("**About:**", `Dweeber is a multipurpose bot for your moderations, music, roles need!`, true)
             .addField("**Bot's webpage:**", `https://dweeber.dchu096.me`, true)
             .addField("**Source:**", `https://github.com/dchu096/dweeber`, true)
-            .setFooter({ text: 'by invaliduser#9707, made with time and effort'});
+            .setFooter({ text: 'Dweeber >> About'});
             await message.channel.send({ embeds: [AboutEmbed] }); // Sends the embed
 
 
