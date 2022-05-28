@@ -26,7 +26,7 @@ module.exports = {
             const categories = readdirSync("./commands/")
 
             HelpEmbed.setDescription(`Bot prefix is: **${prefix}**`)
-            HelpEmbed.setFooter(` ${message.guild.me.displayName} | Total Commands: ${bot.commands.size}`, bot.user.displayAvatarURL());
+            HelpEmbed.setFooter(`Dweeber >> Help`);
             categories.forEach(category => {
                 const dir = bot.commands.filter(c => c.config.category === category)
                 const capitalise = category.slice(0, 1).toUpperCase() + category.slice(1)
