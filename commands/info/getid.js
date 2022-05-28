@@ -17,10 +17,11 @@ module.exports = {
         message.delete().catch(O_o => {});
 
 
-        const Embed = new Discord.MessageEmbed() // Creates the embed thats returned to the person warning if its sent.
+        const IDEmbed = new Discord.MessageEmbed() // Creates the embed thats returned to the person warning if its sent.
             .setColor(embedColor)
-            .setTitle(`${member.user.username} Discord user ID is: \`${member.user.id}\`.`);
-        await message.channel.send(Embed).then(msg => msg.delete({timeout: 10000})).catch(O_o => {}); // Sends the embed
+            .setTitle(`ID >> ${member.user.username}`)
+            .setDescription(`\`${member.user.id}\``)
+        await message.channel.send({ embeds: [IDEmbed] }); // Sends the embed
 
 
     }
