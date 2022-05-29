@@ -1,4 +1,6 @@
 const { MessageEmbed } = require('discord.js');
+const {Signale} = require('signale');
+const signale = new Signale();
 
 module.exports = {
     config: {
@@ -10,15 +12,27 @@ module.exports = {
         aliases: ["pfp"]
     },
     run: async (bot, message, args) => {
-        const user = message.mentions.users.first() || message.author;
         const embedColor = '#87CEEB';
+        let member = message.mentions.members.first() || message.member;
 
-        const avatarEmbed = new MessageEmbed()
+        try {
+            if (!member) {
+              message.channel.send("No user defined")
+            }
+            if (args[0]) {
+              message.channel.send("ID avatar fetch is currently not supported!")
+            }
+            
+            const avatarEmbed = new MessageEmbed()
             .setColor(embedColor)
-            .setAuthor({ name: `Avatar for ${user.username}`})
-            .setImage(user.displayAvatarURL())
+            .setTitle(`${member.user.username}'s avatar`)
+            .setImage(`${member.displayAvatarURL({ dynamic:true })}`)
             .setFooter({ text: 'Dweeber >> Avatar'});
         message.channel.send({ embeds: [avatarEmbed] });
+
+          } catch (err) {
+            signale.error(err)
+          }
 
     }
 

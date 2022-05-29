@@ -9,7 +9,7 @@ module.exports = {
         usage: " ",
         category: "other",
         accessableby: "Members",
-        aliases: ["colors"]
+        aliases: ["colors", "colour"]
     },
     run: async (bot, message, args) => {
 
@@ -22,7 +22,7 @@ module.exports = {
 
         await fetch(`https://api.popcat.xyz/color/${args[0].includes("#") ? args[0].split("#")[1] : args[0] }`).then(res => res.json()).then(json => {
             
-            const responseEmbed = new Discord.MessageEmbed()
+            const colorEmbed = new Discord.MessageEmbed()
             .setColor(embedColor)
             .setTitle(`Color: ${json.name}`)
             .setDescription(`Color info for ${json.name}`)
@@ -30,10 +30,11 @@ module.exports = {
             .addField(`Hex code`,`${json.hex}`)
             .addField(`RGB`,`${json.rgb}`)
             .addField(`brightened`,`${json.brightened}`)
-            .setImage(json.color_image)
+            .setThumbnail(json.color_image)
+            .setFooter({ text: 'Dweeber >> Color'});
 
 
-        message.channel.send(responseEmbed).catch((err) => {
+        message.channel.send({ embeds: [colorEmbed] }).catch((err) => {
             signale.error(err)
 
         });

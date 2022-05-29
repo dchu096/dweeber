@@ -15,12 +15,17 @@ module.exports = {
         const signale = new Signale();
 
         message.channel.send("Getting ping, please wait...").then(message => {
-            let ping = message.createdTimestamp - message.createdTimestamp
+            setTimeout(() => message.delete(), 5000)
+            let oldate = new Date().getMilliseconds()
+            let newtime = new Date().getMilliseconds() - oldate;
+            if(newtime < 0) newtime *= -1;
+            if(newtime > 10) newtime = Math.floor(newtime / 10);
             let pingEmbed = new MessageEmbed()
                 .setColor(embedColor)
                 .setTitle(`ping`)
-                .setDescription(`Bot Latency: \`${ping}\`, API Latency: \`${Math.round(bot.ping)}\``)
-            message.edit({ embeds: [pingEmbed] })
+                .setDescription(`Bot Latency: \`${Math.floor(bot.ws.ping + new Date().getMilliseconds() - oldate)}\`, Host Latency: \`${Math.floor(new Date().getMilliseconds() - oldate)}\` , API Latency: \`${Math.floor(bot.ws.ping)}\``)
+                .setFooter({ text: 'Dweeber >> Ping'});
+            message.channel.send({ embeds: [pingEmbed] })
         }).catch((err) => {
             signale.error(err)
         });

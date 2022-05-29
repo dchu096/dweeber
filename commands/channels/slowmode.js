@@ -21,8 +21,11 @@ module.exports = {
         
                 let slowmodeEmbed = new Discord.MessageEmbed()
                 .setColor(embedColor)
-        .setDescription(`${successEmoji} Channel slowmode have been set to ${time}`) 
+                .setDescription(`${successEmoji} Channel slowmode have been set to ${time}`)
+                .setFooter({ text: 'Dweeber >> Slowmode'});
             
-    message.reply(slowmodeEmbed)
+    message.reply(slowmodeEmbed).catch((err) => {
+        signale.error(err)
+    });
     }
 }

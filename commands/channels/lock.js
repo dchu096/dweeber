@@ -1,4 +1,6 @@
-const Discord = require('discord.js');
+const { MessageEmbed } = require('discord.js');
+
+
 
 
 module.exports = {
@@ -15,33 +17,36 @@ module.exports = {
         const embedColor = '#87CEEB'; // color: skyblue
 
 
-        let lChannel = msg.mentions.channels.first() || msg.channel;
+        let lChannel = message.mentions.channels.first() || message.channel;
 
         //messages
-        msg.delete()
+        message.delete()
 
-        let id = msg.guild.roles.everyone;
+        let id = message.guild.roles.everyone;
 
-        let ow = msg.channel.permissionOverwrites.get(id); // get the permissionOverwrites fro that role
+        let ow = message.channel.permissionOverwrites.get(id); // get the permissionOverwrites fro that role
 
-        if (ow && ow.SEND_MESSAGES === false) msg.channel.send(`${message.client.emotes.error} The channel is already locked.`);
+        if (ow && ow.SEND_MESSAGES === false) message.channel.send(`${message.client.emotes.error} The channel is already locked.`);
 
         else { // otherwise, lock it
 
             await lChannel.updateOverwrite(lChannel.guild.roles.everyone, {SEND_MESSAGES: false});
 
-            let lockedEmbed = new Discord.MessageEmbed()
+            let lockedEmbed = new MessageEmbed()
                 .setTitle("🔒Channel locked")
-                .setDescription(`This channel have been locked by ${msg.author.tag}`)
-            await lChannel.send(lockedEmbed)
+                .setColor("FF0000")
+                .setDescription(`This channel have been locked by ${message.author.tag}`)
+            await lChannel.send({ embeds: [lockedEmbed] })
         }
 
 
 
-        let lockEmbed = new Discord.MessageEmbed()
+        let lockEmbed = new MessageEmbed()
             .setTitle(`${message.client.emotes.success} Success`)
             .setDescription(`${lChannel} has been locked`)
-        await msg.channel.send(lockEmbed).then(msg => msg.delete({timeout: 5000})).catch(O_o => {});
+        await message.channel.send({ embeds: [lockEmbed] }).then(message => message.delete({timeout: 5000})).catch((err) => {
+            signale.error(err)
+        });
 
 
     }
