@@ -1,6 +1,7 @@
-const Discord = require("discord.js");
 const { MessageEmbed } = require('discord.js');
 const {Signale} = require('signale');
+const signale = new Signale();
+
 
 module.exports = {
     config: {
@@ -12,7 +13,6 @@ module.exports = {
     },
     run: async (bot, message, args) => {
         var embedColor = '#87CEEB' // color: skyblue
-        const signale = new Signale();
 
         message.channel.send("Getting ping, please wait...").then(message => {
             setTimeout(() => message.delete(), 5000)

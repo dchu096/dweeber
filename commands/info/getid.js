@@ -19,7 +19,9 @@ module.exports = {
             .setTitle(`ID for ${member.user.username}`)
             .setDescription(`\`${member.user.id}\``)
             .setFooter({ text: 'Dweeber >> getID'})
-        await message.channel.send({ embeds: [IDEmbed] }); // Sends the embed
+        await message.channel.send({ embeds: [IDEmbed] }).catch((err) => {
+            signale.error(err)
+        }); // Sends the embed
 
 
     }

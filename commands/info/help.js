@@ -32,8 +32,8 @@ module.exports = {
                 const capitalise = category.slice(0, 1).toUpperCase() + category.slice(1)
                 try {
                     HelpEmbed.addField(`❯ ${capitalise} [${dir.size}]:`, dir.map(c => `\`${c.config.name}\``).join(" "))
-                } catch(e) {
-                    console.log(e.message)
+                } catch(err) {
+                    signale.error(err)
                 }
             })
 

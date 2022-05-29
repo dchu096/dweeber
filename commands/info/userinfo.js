@@ -20,6 +20,25 @@ module.exports = {
             "offline" : "⚫️",
           }
 
+          const activity = memberMention.presence ? memberMention.presence.activities[0] : {
+            type: "CUSTOM",
+            emoji: {
+              name: "❌"
+            },
+            state : "OFFLINE - No activity"
+          };
+
+          var userstatus = "Nothing";
+          if(activity){
+            if(activity.type === "CUSTOM"){
+              let emoji = `${activity.emoji ? activity.emoji.id  ? `<${activity.emoji.animated ? "a": ""}:${activity.emoji.name}:${activity.emoji.id }>`: activity.emoji.name : ""}`
+              userstatus = `${emoji} \`${activity.state || client.la[ls].cmds.info.userinfo.nostatus}\``
+            }
+            else{
+              userstatus = `\`${activity.type.toLowerCase().charAt(0).toUpperCase() + activity.type.toLowerCase().slice(1)} ${activity.name}\``
+            }
+          }
+
         let embedColor = "#87CEEB"
 
         const rolesofmember = memberMention.roles.cache.filter(r => r.name !== '@everyone').map(role => role.name).join(', ')
@@ -41,16 +60,18 @@ module.exports = {
             .setThumbnail(userinfo.avatar)
             .setColor(embedColor)
             .setAuthor(`${userinfo.uname}`, `${userinfo.avatar}`)
-            .addField("status", `${statuses[memberMention.member.presence ? memberMention.presence.status : "offline"]} ${memberMention.presence ? memberMention.presence.status : "offline"}`, false)
-            .addField("Botuser", userinfo.bot, true)
-            .addField("Username", userinfo.uname, true)
-            .addField("Discriminator", userinfo.discrim, true)
-            .addField("Created At", userinfo.createdat, true)
-            .addField("Client ID", userinfo.id, true)
-            .addField("Roles", userinfo.allroles, false)
-            .addField("permissions", userinfo.permission, true)
+            //.addField("status", `${statuses[memberMention.member.presence ? memberMention.presence.status : "offline"]} ${memberMention.presence ? memberMention.presence.status : "offline"}`, false)
+            .addField("Botuser", `${userinfo.bot}`, true)
+            .addField("Username", `${userinfo.uname}`, true)
+            .addField("Discriminator", `${userinfo.discrim}`, true)
+            .addField("Online Status:", `${statuses[memberMention.presence ? memberMention.presence.status : "offline"]} ${memberMention.presence ? memberMention.presence.status : "offline"}`)
+            .addField("Created At:", `${userinfo.createdat}`, true)
+            .addField("Client ID:", `${userinfo.id}`, true)
+            .addField("Roles:", `${userinfo.allroles}`, false)
+            .addField("permissions:", `${userinfo.permission}`, true)
+            .addField("Activity:", `${userstatus}`)
             .setFooter({ text: 'Dweeber >> UserInfo'});
 
-        await message.channel.send({ embeds: [InfoEmbed] }).catch(O_o => {});
+        await message.channel.send({ embeds: [InfoEmbed] })
     }
 }
