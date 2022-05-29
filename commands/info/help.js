@@ -3,6 +3,8 @@ const { prefix } = require("../../botconfig.json");
 const { readdirSync } = require("fs")
 const { stripIndents } = require("common-tags")
 const { cyan } = require("../../colours.json")
+const {Signale} = require('signale');
+const signale = new Signale();
 
 module.exports = {
     config: {

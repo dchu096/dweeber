@@ -72,6 +72,8 @@ module.exports = {
             .addField("Activity:", `${userstatus}`)
             .setFooter({ text: 'Dweeber >> UserInfo'});
 
-        await message.channel.send({ embeds: [InfoEmbed] })
+        await message.channel.send({ embeds: [InfoEmbed] }).catch((err) => {
+            signale.error(err)
+        });
     }
 }

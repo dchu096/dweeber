@@ -17,13 +17,12 @@ module.exports = {
             message.channel.send("No color defined")
         }
 
-        const embedColor = '#87CEEB'; // color: skyblue
         const signale = new Signale();
 
         await fetch(`https://api.popcat.xyz/color/${args[0].includes("#") ? args[0].split("#")[1] : args[0] }`).then(res => res.json()).then(json => {
             
             const colorEmbed = new Discord.MessageEmbed()
-            .setColor(embedColor)
+            .setColor(`${json.hex}`)
             .setTitle(`Color: ${json.name}`)
             .setDescription(`Color info for ${json.name}`)
             .addField(`Name`, `${json.name}`)

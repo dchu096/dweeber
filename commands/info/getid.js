@@ -1,4 +1,6 @@
 const Discord = require("discord.js");
+const {Signale} = require('signale');
+const signale = new Signale();
 
 module.exports = {
     config: {
