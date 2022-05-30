@@ -43,6 +43,8 @@ module.exports = {
 
         const rolesofmember = memberMention.roles.cache.filter(r => r.name !== '@everyone').map(role => role.name).join(', ')
 
+        const currentChannel = message.channel
+
         let userinfo = {};
         userinfo.bot = userMention.bot;
         userinfo.createdat = userMention.createdAt;
@@ -51,7 +53,6 @@ module.exports = {
         userinfo.tag = userMention.tag;
         userinfo.uname = userMention.username;
         userinfo.allroles = rolesofmember;
-        userinfo.permission = userMention.permission
 
         userinfo.avatar = userMention.avatarURL({ format: 'png', dynamic: true, size: 1024 });
 
@@ -68,7 +69,7 @@ module.exports = {
             .addField("Created At:", `${userinfo.createdat}`, true)
             .addField("Client ID:", `${userinfo.id}`, true)
             .addField("Roles:", `${userinfo.allroles}`, false)
-            .addField("permissions:", `${userinfo.permission}`, true)
+            .addField("permissions:", `${memberMention.permissionsIn(currentChannel)}`, true)
             .addField("Activity:", `${userstatus}`)
             .setFooter({ text: 'Dweeber >> UserInfo'});
 

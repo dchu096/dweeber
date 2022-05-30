@@ -6,7 +6,7 @@ const moment = require("moment");
 const { connected } = require("process");
 const { version } = require("@root/package.json")
 const packageJSON = require("@root/package.json");
-
+const ms = require("ms");
 
 module.exports = {
     config: {
@@ -25,11 +25,6 @@ module.exports = {
             }
 
 
-            const ToTalSeconds = (message.client.uptime / 1000);
-            const Days = Math.floor(ToTalSeconds / 86400);
-            const Hours = Math.floor(ToTalSeconds / 3600);
-            const Minutes = Math.floor(ToTalSeconds / 60);
-
             const discordJSVersion = packageJSON.dependencies["discord.js"];
 
             //let duration = moment.duration(bot.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
@@ -43,11 +38,11 @@ module.exports = {
                 .addField("• Users", `${bot.users.cache.size.toLocaleString()}`, true)
                 .addField("• Channels ", `${bot.channels.cache.size.toLocaleString()}`, true)
                 .addField("=================", "=================")
-                .addField("• Uptime ", `${Days} Days, ${Hours} Hours, ${Minutes} Minutes`, true) //`${duration}`, true)
+                .addField("• Uptime ", `${ms(bot.uptime, { long: true})}`, true) 
                 .addField("• Discord.js", discordJSVersion, true)
                 .addField("• CPU", `\`\`\`md\n${os.cpus().map(i => `${i.model}`)[0]}\`\`\``)
                 .addField("• CPU usage", `\`${percent.toFixed(2)}%\``,true)
-                .addField("• Mem Usage", `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} / ${(os.totalmem() / 1024 / 1024).toFixed(2)} MB`, true)
+                .addField("• Mem Usage", `\`${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} / ${(os.totalmem() / 1024 / 1024).toFixed(2)} MB\``, true)
                 .addField("• Arch", `\`${os.arch()}\``,true)
                 .addField("• Platform", `\`\`${os.platform()}\`\``,true)
                 .setFooter({ text: 'Dweeber >> SystemInfo'});
