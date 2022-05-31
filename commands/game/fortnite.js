@@ -9,7 +9,7 @@ module.exports = {
         name: "fortnite",
         description: "Fetch fortnite stats from a user",
         usage: "",
-        category: "other",
+        category: "game",
         accessableby: "Members",
     },
     run: async (bot, message, args) => {

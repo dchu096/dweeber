@@ -23,14 +23,14 @@ module.exports = {
 
         await fetch(`https://api.apilayer.com/whois/check?domain=${args[0]}&apikey=${WhoisAPI}`).then(res => res.json()).then(json => {
             
-            const colorEmbed = new Discord.MessageEmbed()
+            const whoisEmbed = new Discord.MessageEmbed()
             .setColor(embedColor)
             .setTitle(`Registeration status for ${args[0]}`)
             .setDescription(`${json.result}`)
             .setFooter({ text: 'Dweeber >> Whois'});
 
 
-        message.channel.send({ embeds: [colorEmbed] }).catch((err) => {
+        message.channel.send({ embeds: [whoisEmbed] }).catch((err) => {
             signale.error(err)
 
         });
