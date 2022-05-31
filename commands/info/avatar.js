@@ -19,9 +19,6 @@ module.exports = {
             if (!member) {
               message.channel.send("No user defined")
             }
-            if (args[0]) {
-              message.channel.send("ID avatar fetch is currently not supported!")
-            }
             
             const avatarEmbed = new MessageEmbed()
             .setColor(embedColor)

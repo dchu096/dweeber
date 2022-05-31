@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const { Permissions, MessageEmbed } = require('discord.js');
 
 module.exports = {
     config: {
@@ -12,6 +12,12 @@ module.exports = {
     run: async (bot, message, args) => {
         const userMention = message.mentions.users.first() || message.guild.members.cache.get(args[0]) || message.author;
         const memberMention = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
+
+        var AdminPerm = "No";
+
+        if (memberMention.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
+          AdminPerm = "Yes"
+        }
 
         const statuses = {
             "online" : "🟢",
@@ -41,6 +47,8 @@ module.exports = {
 
         let embedColor = "#87CEEB"
 
+        var roles = "None"
+
         const rolesofmember = memberMention.roles.cache.filter(r => r.name !== '@everyone').map(role => role.name).join(', ')
 
         const currentChannel = message.channel
@@ -52,11 +60,11 @@ module.exports = {
         userinfo.id = userMention.id;
         userinfo.tag = userMention.tag;
         userinfo.uname = userMention.username;
-        userinfo.allroles = rolesofmember;
+        userinfo.allroles = rolesofmember || roles;
 
         userinfo.avatar = userMention.avatarURL({ format: 'png', dynamic: true, size: 1024 });
 
-        const InfoEmbed = new Discord.MessageEmbed()
+        const InfoEmbed = new MessageEmbed()
             .setTitle(`About ${userinfo.uname}`)
             .setThumbnail(userinfo.avatar)
             .setColor(embedColor)
@@ -69,7 +77,7 @@ module.exports = {
             .addField("Created At:", `${userinfo.createdat}`, true)
             .addField("Client ID:", `${userinfo.id}`, true)
             .addField("Roles:", `${userinfo.allroles}`, false)
-            .addField("permissions:", `${memberMention.permissionsIn(currentChannel)}`, true)
+            .addField("Administrator:", `${AdminPerm}`, true)
             .addField("Activity:", `${userstatus}`)
             .setFooter({ text: 'Dweeber >> UserInfo'});
 

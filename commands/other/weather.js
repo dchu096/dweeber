@@ -28,7 +28,7 @@ module.exports = {
             .setTitle(`Weather info: ${json.location.name}`)
             .setDescription(`Weather info for ${json.location.name}`)
             .addField(`Name`, `${json.location.name}`)
-            .addField(`Region`,`${json.location.region}`)
+            .addField(`Region`,`${json.location.region}` || `No region found`)
             .addField(`Country`,`${json.location.country}`)
             .addField(`lat | lon`,`${json.location.lat} | ${json.location.lon}`)
             .addField(`Timezone`,`${json.location.tz_id}`, true)
