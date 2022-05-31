@@ -15,47 +15,37 @@ module.exports = {
     },
     run: async (bot, message, args) => {
 
-        if(!args[0]) {
-            message.channel.send("No location defined")
-        }
-
-        const embedColor = '#87CEEB'; // color: skyblue
+        const embedColor = '#87CEEB';
         const signale = new Signale();
 
-        await fetch(`http://api.weatherstack.com/current?access_key=${WeatherAPI}&query=${args[0]}`).then(res => res.json()).then(json => {
+        if(!args[0]) {
+            message.channel.send("No location found in your message")
+        }
+
+        await fetch(`https://api.weatherapi.com/v1/current.json?key=${WeatherAPI}&q=${args[0]}&aqi=yes`).then(res => res.json()).then(json => {
             
-            const weatherEmbed = new Discord.MessageEmbed()
+            const colorEmbed = new Discord.MessageEmbed()
             .setColor(embedColor)
-            .setTitle(`Weather info for: ${json.name}`)
+            .setTitle(`Weather info: ${json.name}`)
             .setDescription(`Weather info for ${json.name}`)
-            .addField(`Type:`, `${json.type}`)
-            .addField(`Country:`,`${json.country}`)
-            .addField(`Lat:`,`${json.lat}`, true)
-            .addField(`Lon`,`${json.lon}`, true)
-            .addField(`Observation time`,`${json.observation_time}`, true)
-            .addField(`temperature`,`${json.temperature}`, true)
-            .addField(`Weather code`,`${json.weather_code}`, true)
-            .addField(`Weather description`,`${json.weather_descriptions}`, true)
-            .addField(`Wind speed`,`${json.wind_speed}`, true)
-            .addField(`Wind degree`,`${json.wind_degree}`, true)
-            .addField(`Wind dir`,`${json.wind_dir}`, true)
-            .addField(`Pressure`,`${json.pressure}`, true)
-            .addField(`Precip`,`${json.precip}`, true)
-            .addField(`Humidity`,`${json.humidity}`, true)
-            .addField(`Cloudcover`,`${json.cloudcover}`, true)
-            .addField(`Feelslike`,`${json.feelslike}`, true)
-            .addField(`UV index`,`${json.uv_index}`, true)
-            .addField(`Visibility`,`${json.visibility}`, true)
-            .setThumbnail(json.weather_icons)
-            .setFooter({ text: 'Dweeber >> IPlookup'});
+            .addField(`Name`, `${json.name}`)
+            .addField(`Region`,`${json.region}`)
+            .addField(`Country`,`${json.country}`)
+            .addField(`lat | lon`,`${json.lat} | ${json.lon}`)
+            .addField(`Timezone`,`${json.tz_id}`, true)
+            .addField(`Localtime (Epoch)`, `${json.localtime_epoch}`, true)
+            .addField(`Localtime`, `${json.localtime}`, true)
+            .addField(`Temperature C`, `${json.temp_c}°C`, true)
+            .addField(`Temperature F`, `${json.temp_f}°F`, true)
+            .setThumbnail(json.icon)
+            .setFooter({ text: 'Dweeber >> Color'});
 
 
-        message.channel.send({ embeds: [weatherEmbed] }).catch((err) => {
+        message.channel.send({ embeds: [colorEmbed] }).catch((err) => {
             signale.error(err)
 
         });
         });
-
        
 
     }
