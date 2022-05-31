@@ -16,13 +16,9 @@ module.exports = {
         const embedColor = '#87CEEB'; // color: skyblue
         const signale = new Signale();
 
-        const platform = args[0];
-        const region = args[1];
-        const epic = args[2];
-
         await fetch(`https://uselessfacts.jsph.pl/random.json`).then(res => res.json()).then(json => {
             
-            const apodEmbed = new Discord.MessageEmbed()
+            const factsEmbed = new Discord.MessageEmbed()
             .setColor(embedColor)
             .setTitle(`Useless fact #${id}`)
             .setDescription(`${text}`)
@@ -33,7 +29,7 @@ module.exports = {
             .setFooter({ text: 'Dweeber >> uselessfacts'});
 
 
-        message.channel.send({ embeds: [apodEmbed] }).catch((err) => {
+        message.channel.send({ embeds: [factsEmbed] }).catch((err) => {
             signale.error(err)
 
         });
