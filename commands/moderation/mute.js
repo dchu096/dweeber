@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const { Permissions, MessageEmbed } = require('discord.js');
 const ms = require("ms");
 
 module.exports = {
@@ -50,7 +50,7 @@ module.exports = {
             console.log(err)
         }
         //sends the user the muted embed
-        let mutedembed = new Discord.RichEmbed()
+        let mutedembed = new MessageEmbed()
             .setColor(embedColor)
             .setAuthor(message.author.username, message.author.avatarURL)
             .setTitle(`You've been muted in ${message.guild.name}`)
@@ -61,14 +61,14 @@ module.exports = {
         mutee.send(mutedembed).catch(err => console.log(err));
 
         //successful embeds
-        let successfullyembed = new Discord.RichEmbed()
+        let successfullyembed = new MessageEmbed()
             .setDescription(`${mutee.user.tag} has been muted. [${ms(duration, { long: true })}]`)
             .setColor(embedColor);
         message.channel.send(successfullyembed);
 
 
         //modlogs
-        let doneembed = new Discord.RichEmbed()
+        let doneembed = new MessageEmbed()
             .setTitle(`Moderation: Mute`)
             .setColor(embedColor)
             .setDescription(`${mutee.user.tag} has been muted by ${message.author.tag} for ${ms(duration, { long: true })} because of ${reason}`)
@@ -81,7 +81,7 @@ module.exports = {
             try {
                 mutee.send("You have been unmuted")
                 await mutee.removeRole(muterole);
-                const unmuteEmbed = new Discord.RichEmbed()
+                const unmuteEmbed = new MessageEmbed()
                     .setDescription(`${mutee.user.tag} has been unmuted. [duration due]`)
                     .setColor(embedColor);
                 message.channel.send(unmuteEmbed);

@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const { Permissions, MessageEmbed } = require('discord.js');
 
 module.exports = {
     config: {
@@ -25,7 +25,7 @@ module.exports = {
         if(!reason) reason = "No reason given!"
 
         if (!message.member.permissions.has("BAN_MEMBERS")) {
-            let nopermsembed = new Discord.RichEmbed()
+            let nopermsembed = new MessageEmbed()
                 .setDescription(
                     "You do not have permission to unban members"
                 )
@@ -34,7 +34,7 @@ module.exports = {
         }
 
         if (!message.guild.me.permissions.has("BAN_MEMBERS")) {
-            let botnopermsembed = new Discord.RichEmbed()
+            let botnopermsembed = new MessageEmbed()
                 .setDescription(
                     "Missing `BAN_MEMBERS` permission for bot."
                 )
@@ -45,7 +45,7 @@ module.exports = {
     message.delete()
 
     try {
-        let unbanembed = new Discord.RichEmbed()
+        let unbanembed = new MessageEmbed()
             .setColor(embedColor)
             .setAuthor(message.author.username, message.author.avatarURL)
             .setTitle(`You've been unbanned in ${message.guild.name}`)
@@ -57,13 +57,13 @@ module.exports = {
     } catch(e) {
         console.log(e.message)
     }
-        let successfullyembed = new Discord.RichEmbed()
+        let successfullyembed = new MessageEmbed()
             .setDescription(`User has been unbanned.`)
             .setColor(embedColor);
         message.channel.send(successfullyembed);
 
         //modlogs
-        let doneembed = new Discord.RichEmbed()
+        let doneembed = new MessageEmbed()
             .setTitle(`Moderation: Unban`)
             .setColor(embedColor)
             .setDescription(`${mutee.user.tag} has been unbanned by ${message.author.tag} because of ${reason}`)

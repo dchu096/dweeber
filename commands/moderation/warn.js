@@ -24,7 +24,7 @@ module.exports = {
         if (!reason) reason = "No reason given!"
 
         if (!message.member.permissions.has("MANAGE_MESSAGES")) {
-            let nopermsembed = new Discord.RichEmbed()
+            let nopermsembed = new MessageEmbed()
                 .setDescription(
                     "You do not have permission to warn members"
                 )
@@ -33,7 +33,7 @@ module.exports = {
         }
 
         if (!message.guild.me.permissions.has("MANAGE_MESSAGES")) {
-            let botnopermsembed = new Discord.RichEmbed()
+            let botnopermsembed = new MessageEmbed()
                 .setDescription(
                     "Missing `MANAGE_MESSAGES` permission for bot."
                 )
@@ -43,7 +43,7 @@ module.exports = {
 
         message.delete() //delete the command msg
 
-        let warningEmbed = new Discord.RichEmbed() // Creates the embed that's DM'ed to the user when their warned!
+        let warningEmbed = new MessageEmbed() // Creates the embed that's DM'ed to the user when their warned!
             .setColor(embedColor)
             .setAuthor(message.author.username, message.author.avatarURL)
             .setTitle(`You've been warned in ${message.guild.name}`)
@@ -52,12 +52,12 @@ module.exports = {
             .setTimestamp();
         mentioned.send(warningEmbed); // DMs the user the above embed!
 
-        var warnSuccessfulEmbed = new Discord.RichEmbed() // Creates the embed thats returned to the person warning if its sent.
+        var warnSuccessfulEmbed = new MessageEmbed() // Creates the embed thats returned to the person warning if its sent.
             .setColor(embedColor)
             .setTitle(`${mentioned.user.tag} has been warned`);
         message.channel.send(warnSuccessfulEmbed); // Sends the warn successful embed
 
-        let doneembed = new Discord.RichEmbed()
+        let doneembed = new MessageEmbed()
             .setTitle(`Moderation: Warn`)
             .setColor(embedColor)
             .setDescription(`${mentioned.user.tag} has been warned by ${message.author.tag} because of ${reason}`)

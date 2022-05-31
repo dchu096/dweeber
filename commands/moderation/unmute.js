@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const { Permissions, MessageEmbed } = require('discord.js');
 
 module.exports = {
     config: {
@@ -30,7 +30,7 @@ if(!muterole) return message.channel.send("There is no mute role to remove!")
         message.delete()
 
 //remove role to the mentioned user and also send the user a dm explaing where and why they were unmuted
-        let unmuteembed = new Discord.RichEmbed()
+        let unmuteembed = new MessageEmbed()
             .setColor(embedColor)
             .setAuthor(message.author.username, message.author.avatarURL)
             .setTitle(`You've been unmuted in ${message.guild.name}`)
@@ -40,14 +40,14 @@ if(!muterole) return message.channel.send("There is no mute role to remove!")
         mutee.send(unmuteembed).then(() =>
 mutee.removeRole(muterole.id)).catch(err => console.log(err));
 
-        let successfullyembed = new Discord.RichEmbed()
+        let successfullyembed = new MessageEmbed()
             .setDescription(`${mutee.user.tag} has been unmuted.`)
             .setColor(embedColor);
     message.channel.send(successfullyembed);
 
 
         //modlogs
-        let doneembed = new Discord.RichEmbed()
+        let doneembed = new MessageEmbed()
             .setTitle(`Moderation: Unmute`)
             .setColor(embedColor)
             .setDescription(`${mutee.user.tag} has been unmuted by ${message.author.tag} because of ${reason}`)

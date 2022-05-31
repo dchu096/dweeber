@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const { Permissions, MessageEmbed } = require('discord.js');
 
 module.exports = {
     config: {
@@ -33,7 +33,7 @@ module.exports = {
         message.channel.send(`${prevName}'s nickname have been changed to ${nickname} successfully.`)
 
         //modlogs
-        let doneembed = new Discord.RichEmbed()
+        let doneembed = new MessageEmbed()
             .setTitle(`Moderation: Setnick`)
             .setColor(embedColor)
             .setDescription(`${nUser.user.tag} has been renamed by ${message.author.tag} from ${prevName} to ${nickname}`)
