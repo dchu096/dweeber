@@ -38,7 +38,7 @@ There is bugs all over the code as i always going for the most features as possi
 
 # Credits
 
-Thankyou for @behold, [@mira](https://github.com/MiraBellierr) for helping out with the bot bugs
+Thankyou for [@behold](https://github.com/BeholdIsLost), [@mira](https://github.com/MiraBellierr) for helping out with the bot bugs
 
 API used:
 
