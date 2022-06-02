@@ -10,11 +10,11 @@ It was a bot designed privately for MEmu discord server but decided to actually 
 
 The main features of this bot:
 
-> Moderations: We have included a list of moderation including kick, ban , mute, tempmute to fit your server needs.
+> Detailed Moderation: We included detailed moderation system for you to bring to your server. Not just a kick and ban like some discord bot but a full warning system
 
 > channel locking, unlock, nuke set slowmode is also enabled to save your time adjusting the channel settings manually.
 
-> Music is a must-include features if you are a music lover. We have included the basic play, pause, resume, stop, np, queue with the more advanced volume command which is always a VIP features to your server without any cost. Also included some extra features some filter for people who wants to listen to music with effects!
+> Advanced Entertaining: Dweeber are packed with advanced music features including the most basic play, pause, skip command and more advanced volume, dj, foward, backwards and a non laggy music experience into your server for absolute no cost
 
 > Who doesnt like memes? The bot can pull memes from r/memes with memes commands enabled in the bot.
 
