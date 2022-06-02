@@ -1,15 +1,19 @@
+const { ownerid, prefix } = require("@root/botconfig.json");
+const {Signale} = require('signale');
+const signale = new Signale();
+
 module.exports = {
     config: {
         name: "reload",
         description: "reloads a bot command!",
-        usage: "!reload",
+        usage: "command",
         category: "owner",
         accessableby: "Bot Owner",
         aliases: ["r"]
     },
     run: async (bot, message, args) => {
 
-    if(message.author.id !== "420839496263925767") return message.channel.send("Access Denied! Only the bot owner can process.");
+    if(message.author.id == ownerid) return message.channel.send("Access Denied! Only the bot owner can process.");
 
     if(!args[0]) return message.channel.send("Please provide a command to reload!")
 
