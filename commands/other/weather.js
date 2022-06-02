@@ -22,6 +22,7 @@ module.exports = {
             message.channel.send("No location found in your message")
         }
 
+        try {
         await fetch(`https://api.weatherapi.com/v1/current.json?key=${WeatherAPI}&q=${args[0]}&aqi=yes`).then(res => res.json()).then(json => {
             const weatherEmbed = new Discord.MessageEmbed()
             .setColor(embedColor)
@@ -54,16 +55,15 @@ module.exports = {
             .addField(`Air quality (PM25)`, `${json.current.air_quality.pm2_5}`, true)
             .addField(`Air quality (PM10)`, `${json.current.air_quality.pm10}`, true)
             .setThumbnail(`https:${json.current.condition.icon}`)
-            .setFooter({ text: 'Dweeber >> Weather'});
-
-        message.channel.send({ embeds: [weatherEmbed] }).catch((err) => {
-            signale.error(err)
-
-        });
+            .setFooter({ text: 'Dweeber >> Weather'})
+            message.channel.send({ embeds: [weatherEmbed] });
+            })
+            } catch(err) {
+                signale.error(err)
+                message.channel.send("Something went wrong. Please try again later")
+            }    
            
-        });
+        }
        
 
     }
-
-}

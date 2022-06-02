@@ -25,7 +25,7 @@ module.exports = {
 
             const clearedEmbed = new MessageEmbed()
 	        .setColor(embedColor)
-	        .setDescription('Cleared ${args[0]} messages.')
+	        .setDescription(`Cleared ${args[0]} messages.`)
 	        .setFooter({ text: 'Dweeber >> clear'})
 
             message.channel.send({ embeds: [clearedEmbed] }) .then(msg => {

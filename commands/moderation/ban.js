@@ -1,5 +1,8 @@
 const { Permissions, MessageEmbed } = require('discord.js');
 
+const {Signale} = require('signale');
+const signale = new Signale();
+
 module.exports = {
     config: {
         name: "ban",
@@ -9,6 +12,9 @@ module.exports = {
         accessableby: "Moderators",
     },
     run: async (bot, message, args) => {
+
+
+        try {
         let embedColor = '#FF0000' // color: orange, change the hex for different color
 
         let banned = message.mentions.members.first() || message.guild.members.get(args[0])
@@ -23,20 +29,20 @@ module.exports = {
         if (message.author === banned) {
             let sanctionyourselfembed = new MessageEmbed()
                 .setDescription(`You cannot ban yourself`)
-                .setColor(embedColor);
-            return message.channel.send(sanctionyourselfembed);
+                .setColor("#BC4A2C");
+            return message.channel.send({ embeds: [sanctionyourselfembed] });
 
         }
 
         if (!reason) reason = "No reason given!"
 
-        if (!message.member.permissions.has("BAN_MEMBERS")) {
+        if (!message.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
             let nopermsembed = new MessageEmbed()
                 .setDescription(
-                    "You do not have permission to ban members"
+                    "You do not have permission to process this command [Required: BAN_MEMBERS]"
                 )
-                .setColor(embedColor);
-            return message.channel.send(nopermsembed);
+                .setColor("#BC4A2C");
+            return message.channel.send({ embeds: [nopermsembed] });
         }
 
         if (!message.guild.me.permissions.has("BAN_MEMBERS")) {
@@ -44,8 +50,15 @@ module.exports = {
                 .setDescription(
                     "Missing `BAN_MEMBERS` permission for bot."
                 )
-                .setColor(embedColor);
-            return message.channel.send(botnopermsembed);
+                .setColor("#BC4A2C");
+            return message.channel.send({ embeds: [botnopermsembed] });
+        }
+
+        if (banned.bannable === false)  {
+            let cantbanembed = new MessageEmbed()
+                .setDescription(`I cannot ban this user`)
+                .setColor("#BC4A2C");
+            return message.channel.send({ embeds: [cantbanembed] });
         }
 
         message.delete() //delete the command msg
@@ -57,22 +70,27 @@ module.exports = {
             .addField('Banned by', message.author.tag)
             .addField('Reason', reason)
             .setTimestamp();
-        banned.send(banembed).then(() =>
-            message.guild.ban(banned, {days: 1, reason: reason})).catch(err => console.log(err));
 
+            banned.send({ embeds: [banembed] }).then(() =>
+            banned.ban ({days: 1, reason: reason}))
+
+        
         let successfullyembed = new MessageEmbed()
             .setDescription(`${banned.user.tag} has been banned.`)
             .setColor(embedColor);
 
-        message.channel.send(successfullyembed);
+        message.channel.send({ embeds: [successfullyembed] });
 
-        //modlogs
-        let doneembed = new MessageEmbed()
-            .setTitle(`Moderation: Ban`)
-            .setColor(embedColor)
-            .setDescription(`${banned.user.tag} has been banned by ${message.author.tag} because of ${reason}`)
-        let sChannel = message.guild.channels.find(c => c.name === "shame-stream")
-        sChannel.send(doneembed)
+        } catch (err) {
+            signale.error(err)
+        }
+
+
+
+
+
+
+
     }
 }
 
