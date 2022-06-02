@@ -13,7 +13,7 @@ module.exports = {
     },
     run: async (bot, message, args) => {
 
-    if(message.author.id == ownerid) return message.channel.send("Access Denied! Only the bot owner can process.");
+    if(message.author.id !== ownerid) return message.channel.send("Access Denied! Only the bot owner can process.");
 
     if(!args[0]) return message.channel.send("Please provide a command to reload!")
 
