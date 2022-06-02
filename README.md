@@ -36,6 +36,20 @@ Bot library: discord.js v13
 
 There is bugs all over the code as i always going for the most features as possible.I have been working on to repair some already, but still a lot of repair in the future, if you do like to help please do submit pull requests.
 
+# Credits
+
+Thankyou for @behold, @mira for helping out with the bot bugs
+
+API used:
+
+https://ipstack.com/
+https://apilayer.com/marketplace/bincheck-api
+https://apilayer.com/marketplace/image_to_text-api#:~:text=Recognizes%20and%20reads%20the%20text%20embedded%20in%20images.&text=Image%20to%20Text%20API%20uses,both%20handwriting%20and%20printed%20materials.
+https://apilayer.com/marketplace/whois-api
+https://www.weatherapi.com/
+https://api.nasa.gov/
+https://tracker.gg/developers
+
 # Self-hosting??
 
 The code is not recommended to be runned by self-host, the code provided here is only for you to know the bot's setup and to use this as a template to create your own bot.
