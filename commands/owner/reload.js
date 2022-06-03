@@ -1,6 +1,8 @@
-const { ownerid, prefix } = require("@root/botconfig.json");
+const { ownerid } = require("@root/botconfig.json");
+const { MessageEmbed } = require('discord.js');
 const {Signale} = require('signale');
 const signale = new Signale();
+
 
 module.exports = {
     config: {
@@ -13,22 +15,33 @@ module.exports = {
     },
     run: async (bot, message, args) => {
 
-    if(message.author.id !== ownerid) return message.channel.send("Access Denied! Only the bot owner can process.");
+        const nopermsembed = new MessageEmbed()
+        .setColor('#BC4A2C')
+        .setTitle('You do not have permission to use this command! [Required: Bot Owner]')
+    
+        if(message.author.id !== ownerid) return message.channel.send({ embeds: [nopermsembed] });
 
-    if(!args[0]) return message.channel.send("Please provide a command to reload!")
+    if(!args[0]) return message.channel.send("No command defined!");
 
     let commandName = args[0].toLowerCase()
 
     try {
-        delete require.cache[require.resolve(`./${commandName}.js`)] // usage !reload <name>
+        delete require.cache[require.resolve(`..//${commandName}.js`)] // usage !reload <name>
         bot.commands.delete(commandName)
-        const pull = require(`./${commandName}.js`)
+        const pull = require(`..//${commandName}.js`)
         bot.commands.set(commandName, pull)
-    } catch(e) {
+    } catch(err) {
+        signale.error(err)
         return message.channel.send(`Could not reload: \`${args[0].toUpperCase()}\``)
     }
 
-    message.channel.send(`The command \`${args[0].toUpperCase()}\` has been reloaded!`)
+    const reloadEmbed = new MessageEmbed()
+    .setColor('RANDOM')
+    .setTitle(`Reload success`)
+    .setDescription(`Reloaded: \`${args[0].toUpperCase()}\``)
+    .setFooter({ text: 'Dweeber >> reload'})
+
+    message.channel.send({ embeds: [reloadEmbed] })
 
     }
 }
