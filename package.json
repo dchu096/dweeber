@@ -10,6 +10,7 @@
   "author": "dchu096",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/builders": "^0.13.0",
     "apextab-api": "^1.0.5",
     "async": "^3.2.3",
     "common-tags": "^1.8.2",
@@ -19,17 +20,17 @@
     "erela.js": "^2.3.3",
     "fs": "0.0.1-security",
     "lavalink": "^2.13.0",
+    "module-alias": "^2.2.2",
     "moment": "^2.29.3",
-    "node-fetch": "^3.2.4",
+    "node-fetch": "^2.6.7",
     "nodemon": "^2.0.16",
     "overwatch-api": "^0.10.5",
-    "simple-fortnite-api": "^0.1.9",
     "signale": "^1.4.0",
+    "simple-fortnite-api": "^0.1.9",
     "urban": "^0.3.4"
   },
   "_moduleAliases": {
-    "@root"      : ".", 
-    "@command"   : "commands/"
+    "@root": ".",
+    "@command": "commands/"
   }
 }
-
