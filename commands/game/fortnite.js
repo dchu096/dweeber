@@ -23,7 +23,7 @@ module.exports = {
 
          await fetch(`https://api.fortnitetracker.com/v1/profile/${platform}/${epic}`,{
         method: 'GET',
-        headers: {'TRN-Api-Key': '0077a108-116a-4550-a1c9-7a71b8bd1fcc'}
+        headers: {'TRN-Api-Key': `${trackerAPI}`}
         }).then(res => res.json()).then(json => {
             console.log(json)
             message.channel.send("Information have been logged to console!")
