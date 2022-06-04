@@ -1,4 +1,9 @@
 const { readdirSync } = require("fs")
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
+
+
+const clientId = '978434521412272148';
 
 module.exports = (bot) => {
     const load = dirs => {

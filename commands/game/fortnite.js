@@ -18,22 +18,15 @@ module.exports = {
         const signale = new Signale();
 
         const platform = args[0];
-        const region = args[1];
-        const epic = args[2];
-
-        await fetch(`https://api.fortnitetracker.com/v1/powerrankings/${platform}/${region}/${epic}?TRN-Api-Key=${trackerAPI}`).then(res => res.json()).then(json => {
-            
-            const apodEmbed = new Discord.MessageEmbed()
-            .setColor(embedColor)
-            .setTitle(`Fortnite status`)
-            .setDescription(`Fortnite stats for ${json.users}`)
-            .setFooter({ text: 'Dweeber >> fortnite'});
+        const epic = args[1];
 
 
-        message.channel.send({ embeds: [apodEmbed] }).catch((err) => {
-            signale.error(err)
-
-        });
+         await fetch(`https://api.fortnitetracker.com/v1/profile/${platform}/${epic}`,{
+        method: 'GET',
+        headers: {'TRN-Api-Key': '0077a108-116a-4550-a1c9-7a71b8bd1fcc'}
+        }).then(res => res.json()).then(json => {
+            console.log(json)
+            message.channel.send("Information have been logged to console!")
         });
 
        

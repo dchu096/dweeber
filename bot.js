@@ -6,8 +6,6 @@ const bot = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES,  Intents.FLAGS.GUILD_PRESENCES]
   });
 
-const config = require('./botconfig.json');
-
 ["aliases", "commands"].forEach(x => bot[x] = new Collection());
 ["console", "command", "event"].forEach(x => require(`./handlers/${x}`)(bot));
 
