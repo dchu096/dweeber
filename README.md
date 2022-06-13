@@ -2,6 +2,8 @@
 
 ![](readmefiles/dweeber-half.jpg)
 
+✅ This branch is actively maintained and updated
+
 # About Dweeber
 
 Need different bots for your music, moderation, roles need? Dweeber is combining it into 1.
