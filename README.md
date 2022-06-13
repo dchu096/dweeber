@@ -36,7 +36,7 @@ Bot library: discord.js v13
 
 # Bugs
 
-There is bugs all over the code as i always going for the most features as possible.I have been working on to repair some already, but still a lot of repair in the future, if you do like to help please do submit pull requests.
+There is bugs all over the code as i always going for the most features as possible.I have been working on to repair some already, but still a lot of repair in the future, if you do like to help please do submit pull requests. Otherwise feel free to join the support server to raise a issue
 
 # Credits
 
