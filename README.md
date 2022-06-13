@@ -1,4 +1,4 @@
-# Dweeber - coming soon
+# Dweeber < / slash commands>  - coming soon
 
 ![](readmefiles/dweeber-half.jpg)
 
