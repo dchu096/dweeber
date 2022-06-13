@@ -1,8 +1,8 @@
 # Dweeber < / slash commands>  - coming soon
 
-![](readmefiles/dweeber-half.jpg)
-
 ✅ This branch is actively maintained and updated
+
+![](readmefiles/dweeber-half.jpg)
 
 # About Dweeber
 
