@@ -1,7 +1,6 @@
-require('module-alias/register')
 const { MessageEmbed } = require('discord.js');
 const signale = require('signale');
-const eco = require("../../index.js");
+const EconomyDB = require("../../Schema/EconomySchema");
 
 module.exports = {
     name: "balance",
@@ -18,27 +17,38 @@ module.exports = {
 
 	async run(client, interaction) {
 
-        await interaction.deferReply();
-
-        const target = interaction.options.getMember("user") || interaction.member; 
-
-        const guild = interaction.guild
+        const Target = interaction.options.getMember("user") || interaction.member;
 
         try {
 
-            let userBalance = await client.eco.fetchMoney(target.id,guild.id);
-           
-            const embed = new MessageEmbed()
-            .setTitle(`Balance`)
-            .addField(`User`, `${target.user.tag}`)
-            .addField(`Balance`, `${userBalance} 💸` || `0 💸`)
-            .setColor("RANDOM")
-            .setThumbnail(target.displayAvatarURL)
-        return interaction.followUp({ embeds: [embed] })
-            
+            EconomyDB.findOne({ userID: Target.id}, async(err, data) => {
+                if(err) throw err;
+                if(data) {
+                    const Balance = new MessageEmbed() // data.coins for coins, data.bank for bank 
+                    .setColor('RANDOM')
+                    .setTitle(`${Target.user.tag}'s balance`)
+                    .setDescription(`Balance for ${Target.user.tag}`)
+                    .addField(`Cash:`,`${data.coins} :money_with_wings:`)
+                    .addField(`Bank:`,`${data.bank} / ${data.bankLimit} :bank:`)
+                    .setFooter({ text: 'Dweeber >> balance'});
+
+
+                    return interaction.reply({embeds: [Balance]})
+                } else {
+                    const None = new MessageEmbed() // If you or user dosent have Economy started.#
+                    .setColor('#ff0000')
+                    .setTitle('Error')
+                    .setDescription('You or the user you specified does not have an economy started!')
+                    .setFooter({ text: 'Dweeber >> balance'});
+
+
+                    return interaction.reply({embeds: [None]})
+
+                }
+            })
 
         } catch (err) {
-        interaction.followUp(`There is an error. Please try again later.`);
+        interaction.reply(`There is an error. Please try again later.`);
         signale.fatal(err)
         }
         

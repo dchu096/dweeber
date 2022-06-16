@@ -10,22 +10,44 @@ module.exports = {
 
         await interaction.deferReply();
 
-        const target = interaction.member;
+        const Target = interaction.member;
 
         const guild = interaction.guild
 
         try {
 
-            let amount = Math.floor(Math.random() * 50) + 10;
-            let userBalance = await client.eco.fetchMoney(target.id,guild.id);
-            let beg = await client.eco.beg(target.id,guild,amount, { canLose: true });
-            let total = await client.eco.addMoney(target.id,guild.id,userBalance);
-
-            if (beg.lost) return interaction.followUp(`Begon Thot! Try again later.`);
-
-            if (beg.onCooldown) return interaction.followUp(`You have already begged for coins. Come back after ${beg.time.seconds} seconds to beg again`);
             
-            else return interaction.followUp(`You begged for **${beg.amount}** 💸. You now have ${total} 💸`);    
+
+            EconomyDB.findOne({ userID: Target.id}, async(err, data) => {
+                if(err) throw err;
+                if(data) {
+                    let amount = Math.floor(Math.random() * 50) + 10;
+                    let coins = data.coins;
+                    let Total = coins + amount;
+
+                    const begEmbed = new MessageEmbed()
+                    .setColor('RANDOM')
+                    .setTitle(`Beg result`)
+                    .setDescription(`${target.user.tag} begged for ${amount} coins!`)
+                    .addField(`Total:`,`${Total} :money_with_wings:`)
+                    .setFooter({ text: 'Dweeber >> beg'});
+
+
+                    return interaction.reply({embeds: [begEmbed]})
+                } else {
+                    const None = new MessageEmbed() // If you or user dosent have Economy started.#
+                    .setColor('#ff0000')
+                    .setTitle('Error')
+                    .setDescription('You do not have an economy started!')
+                    .setFooter({ text: 'Dweeber >> beg'});
+
+
+                    return interaction.reply({embeds: [None]})
+
+                }
+            })
+           
+            
         } catch (err) {
         interaction.followUp(`There is an error. Please try again later.`);
         signale.fatal(err)
