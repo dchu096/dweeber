@@ -18,7 +18,7 @@ The main features of this bot:
 
 > Advanced Entertaining: Dweeber are packed with advanced music features including the most basic play, pause, skip command and more advanced volume, dj, foward, backwards and a non laggy music experience into your server for absolute no cost
 
-> Who doesnt like memes? The bot can pull memes from r/memes with memes commands enabled in the bot.
+> Dashboard: Dweeber will be provided with a useable, decent looking dashboard to manage / view your current queue.
 
 Some general commands are included just to make a bit of details easier.
 
