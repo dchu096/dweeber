@@ -1,5 +1,7 @@
 # Dweeber - coming soon
 
+❌ This branch is no longer maintained, switch to /slashcommands branch!
+
 ![](readmefiles/dweeber-half.jpg)
 
 # About Dweeber
