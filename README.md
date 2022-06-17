@@ -42,6 +42,8 @@ There is bugs all over the code as i always going for the most features as possi
 
 Thankyou for [@behold](https://github.com/BeholdIsLost), [@mira](https://github.com/MiraBellierr) for helping out with the bot bugs
 
+Dahboard are forked and edited from [@Tomato](https://github.com/Tomato6966)
+
 API used:
 
 https://ipstack.com/
