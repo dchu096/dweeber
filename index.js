@@ -74,7 +74,7 @@ client.maps = new Map();
 
 module.exports = client;
 
-["Event", "Slash", "distubeEvent"].forEach(handler => {
+["Event", "Slash"].forEach(handler => {
   require(`./Structures/${handler}`)(client);
 });
 
