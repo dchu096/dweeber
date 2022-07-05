@@ -1,4 +1,6 @@
+const { MessageEmbed, Collection } = require("discord.js");
 const client = require('../../index.js');
+const Timeout = new Collection();
 
 client.on("interactionCreate", async (interaction) => {
     if(interaction.isCommand()) {
@@ -21,6 +23,19 @@ client.on("interactionCreate", async (interaction) => {
         }
 
         interaction.member = interaction.guild.members.cache.get(interaction.user.id);
+
+        if(cmd.timeout) {
+            if(Timeout.has(`${interaction.commandName}${interaction.user.id}`)) return interaction.reply({embeds: [new MessageEmbed()
+            .setColor("")
+            .setDescription(``)
+            .setFooter("") 
+            ]})
+       
+          Timeout.set(`${interaction.commandName}${interaction.user.id}`, Date.now() + cmd.timeout)
+                  setTimeout(() => {
+                      Timeout.delete(`${interaction.commandName}${interaction.user.id}`)
+                  }, cmd.timeout)
+              }
 
                     //BOT PERMISSION
         if(!interaction.guild.me.permissions.has(cmd.clientPerms || [])) return interaction.reply({embeds: [new MessageEmbed()
