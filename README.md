@@ -28,9 +28,9 @@ serverinfo and userinfo are some basic commands to tell you about yourself and t
 
 Bot informations:
 
-invite: TBD
+invite: https://discord.com/api/oauth2/authorize?client_id=984042951107821648&permissions=1532228922615&redirect_uri=https%3A%2F%2Fpanel.dweeber.dev%3A8443%2Fcallback&scope=bot%20applications.commands
 
-Permission: 2683694807
+Permission: 1532228922615
 
 Bot library: discord.js v13
 
@@ -47,8 +47,6 @@ Dashboard are forked and edited from [@Tomato](https://github.com/Tomato6966)
 API used:
 
 https://ipstack.com/
-
-https://apilayer.com/marketplace/bincheck-api
 
 https://apilayer.com/marketplace/image_to_text-api#:~:text=Recognizes%20and%20reads%20the%20text%20embedded%20in%20images.&text=Image%20to%20Text%20API%20uses,both%20handwriting%20and%20printed%20materials.
 
@@ -72,6 +70,6 @@ The code is not recommended to be runned by self-host, the code provided here is
 
 3. open your terminal => npm install
 
-4. botconfig.json => type in token
+4. config.json => type in token and API keys
 
 5. node index.js
