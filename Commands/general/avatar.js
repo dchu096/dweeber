@@ -18,7 +18,8 @@ module.exports = {
 
         const embed = new MessageEmbed()
         .setColor('RANDOM')
-        .setTitle(`${Target.user.tag}'s Avatar`)
+        .setTitle(`${Target.user.username}'s Avatar`)
+        .addField(`Other format`, `[PNG](${Target.displayAvatarURL({ format: "png", size: 2048, })}) | [JPG](${Target.displayAvatarURL({ format: "jpg", size: 2048, })}) | [JPEG](${Target.displayAvatarURL({ format: "jpeg", size: 2048, })}) | [WEBP](${Target.displayAvatarURL({ format: "webp", size: 2048, })}) | [GIF](${Target.displayAvatarURL({ format: "gif", size: 2048, })})`)
         .setImage(Target.displayAvatarURL({ dynamic: true, size: 2048 }))
         .setFooter("Dweeber >> Avatar")
 
