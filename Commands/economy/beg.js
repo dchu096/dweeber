@@ -1,6 +1,7 @@
 require('module-alias/register')
 const { MessageEmbed } = require('discord.js');
 const signale = require('signale');
+const EconomyDB = require("../../Schema/EconomySchema");
 
 module.exports = {
     name: "beg",
@@ -22,18 +23,30 @@ module.exports = {
                 if(err) throw err;
                 if(data) {
                     let amount = Math.floor(Math.random() * 50) + 10;
-                    let coins = data.coins;
-                    let Total = coins + amount;
+                    const response = await EconomyDB.findOneAndUpdate(
+                        {
+                            userID: interaction.user.id,
+                        },
+                        {
+                            $inc: {
+                                coins: amount,
+                            },
+                        }
+                    );
+
+                    const totalAmount = data.coins + amount;
+
+
 
                     const begEmbed = new MessageEmbed()
                     .setColor('RANDOM')
                     .setTitle(`Beg result`)
-                    .setDescription(`${target.user.tag} begged for ${amount} coins!`)
-                    .addField(`Total:`,`${Total} :money_with_wings:`)
+                    .setDescription(`${Target.user.tag} begged for ${amount} coins!`)
+                    .addField(`Total: `, `${totalAmount} <:dcoin:992585021720363128>  | ${data.bank} :bank:`)
                     .setFooter({ text: 'Dweeber >> beg'});
 
 
-                    return interaction.reply({embeds: [begEmbed]})
+                    return interaction.followUp({embeds: [begEmbed]})
                 } else {
                     const None = new MessageEmbed() // If you or user dosent have Economy started.#
                     .setColor('#ff0000')
@@ -42,7 +55,7 @@ module.exports = {
                     .setFooter({ text: 'Dweeber >> beg'});
 
 
-                    return interaction.reply({embeds: [None]})
+                    return interaction.followUp({embeds: [None]})
 
                 }
             })

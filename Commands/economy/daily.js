@@ -1,32 +1,65 @@
 require('module-alias/register')
 const { MessageEmbed } = require('discord.js');
 const signale = require('signale');
-const MONGOURL = require('@root/config.json')
+const EconomyDB = require("../../Schema/EconomySchema");
 
 
 module.exports = {
     name: "daily",
     description: "Daily balance",
     clientPerms: ['SEND_MESSAGES', 'VIEW_CHANNEL'],
+    timeout: 86400000,
 	async run(client, interaction) {
 
         await interaction.deferReply();
 
-        const target = interaction.member; 
+        const Target = interaction.member; 
 
         const guild = interaction.guild
 
         try {
 
-            let amount = Math.floor(Math.random() * 500) + 100;
 
-            let addMoney = await client.eco.daily(target.id,guild,amount);
+            EconomyDB.findOne({ userID: Target.id}, async(err, data) => {
+            if(err) throw err;
+            if(data) {
+                let amount = 100
+                const response = await EconomyDB.findOneAndUpdate(
+                    {
+                        userID: interaction.user.id,
+                    },
+                    {
+                        $inc: {
+                            coins: amount,
+                        },
+                    }
+                );
 
-            let userBalance = await client.eco.fetchMoney(target.id,guild.id);
+                const totalAmount = data.coins + amount;
 
-        if (addMoney.cooldown) return interaction.followUp(`You have already claimed your daily credit. Come back after ${addMoney.time.days} days, ${addMoney.time.hours} hours, ${addMoney.time.minutes} minutes & ${addMoney.time.seconds} seconds to claim it again`);
 
-         else return interaction.followUp(`You have claimed your daily credit of **${addMoney.amount}** 💸. You now have ${userBalance} 💸`);
+
+                const begEmbed = new MessageEmbed()
+                .setColor('RANDOM')
+                .setTitle(`Daily`)
+                .setDescription(`You have received ${amount} coins for today!`)
+                .addField(`Total: `, `${totalAmount} <:dcoin:992585021720363128>  | ${data.bank} :bank:`)
+                .setFooter({ text: 'Dweeber >> daily'});
+
+
+                return interaction.followUp({embeds: [begEmbed]})
+            } else {
+                const None = new MessageEmbed() // If you or user dosent have Economy started.#
+                .setColor('#ff0000')
+                .setTitle('Error')
+                .setDescription('You do not have an economy started!')
+                .setFooter({ text: 'Dweeber >> beg'});
+
+
+                return interaction.followUp({embeds: [None]})
+
+            }
+        })
 
        
         } catch (err) {
