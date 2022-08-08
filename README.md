@@ -11,7 +11,7 @@
 
 #Support Server
 
-https://img.shields.io/discord/958317326585987112
+![](https://img.shields.io/discord/958317326585987112)
 
 
 # About Dweeber
