@@ -8,6 +8,8 @@
 
 https://img.shields.io/github/issues/dchu096/dweeber
 
+https://img.shields.io/github/forks/dchu096/dweeber
+
 # About Dweeber
 
 Need different bots for your music, moderation, roles need? Dweeber is combining it into 1.
