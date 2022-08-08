@@ -11,15 +11,11 @@ module.exports = {
 		await interaction.deferReply();
 
 		const pingEmbed = new MessageEmbed()
-			.setAuthor({
-				name: `${client.user.username}'s Ping`,
-				icon_url: client.user.displayAvatarURL({ dynamic: true, size: 2048 }),
-			})
 			.setColor('RANDOM')
-			.setDescription(stripIndents`
-            **⏱ Roundtrip:** ${Math.round(Date.now() - now)} ms
-            **💓 API:** ${Math.round(client.ws.ping)} ms
-            `);
+			.setTitle(`🏓 Pong!`)
+			.addField("**⏱ Roundtrip:**", `\`\`\`[ ${Math.round(Date.now() - now)} ms ]\`\`\``, true)
+			.addField("**💓 API:**", `\`\`\`[ ${Math.round(client.ws.ping)} ms ]\`\`\``, true)
+			.setFooter({ text: 'Dweeber >> Ping' });
 
 		return await interaction.followUp({ embeds: [pingEmbed] });
 	}
