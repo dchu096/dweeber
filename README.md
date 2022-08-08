@@ -6,7 +6,7 @@
 
 # Badges
 
-![](https://img.shields.io/github/issues/dchu096/dweeber) | ![](https://img.shields.io/github/forks/dchu096/dweeber) | ![]([https://img.shields.io/github/forks/dchu096/dweeber](https://img.shields.io/github/stars/dchu096/dweeber)) | ![]([https://img.shields.io/github/forks/dchu096/dweeber](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Fdchu096%2Fdweeber))
+![](https://img.shields.io/github/issues/dchu096/dweeber) | ![](https://img.shields.io/github/forks/dchu096/dweeber) | ![](https://img.shields.io/github/stars/dchu096/dweeber) | ![](https://img.shields.io/twitter/url?url=https%3A%2F%2Fgithub.com%2Fdchu096%2Fdweeber)
 
 
 
