@@ -13,25 +13,30 @@
 
 # About Dweeber
 
-Need different bots for your music, moderation, roles need? Dweeber is combining it into 1.
 
-It was a bot designed privately for MEmu discord server but decided to actually make it public to give it a try.
+Dweeber is a discord bot built with features in mind, helping you build, moderate, entertain your server.
 
 The main features of this bot:
 
-> Detailed Moderation: We included detailed moderation system for you to bring to your server. Not just a kick and ban like some discord bot but a full warning system
 
-> channel locking, unlock, nuke set slowmode is also enabled to save your time adjusting the channel settings manually.
+> Detailed Moderation: We included detailed moderation system for you to bring to your server. Not just a kick and ban like some discord bot but a full warning system [WIP]
 
-> Advanced Entertaining: Dweeber are packed with advanced music features including the most basic play, pause, skip command and more advanced volume, dj, foward, backwards and a non laggy music experience into your server for absolute no cost
 
-> Dashboard: Dweeber will be provided with a useable, decent looking dashboard to manage / view your current queue.
 
-Some general commands are included just to make a bit of details easier.
+> Advanced Entertaining: Dweeber are packed with advanced music features including the most basic play, pause, skip command and more advanced volume and a non-laggy music experience into your server for absolutely no cost
 
-You can use getid command to get a user's id
 
-serverinfo and userinfo are some basic commands to tell you about yourself and the server
+
+> Easy Dashboard: Dweeber will be provided with a useable, decent-looking dashboard to manage/view your current queue. [WIP]
+
+
+
+> Mini Games: To help engaging your server member dweeber is also packed with some mini-games such as Would you Rather and guess the number.
+
+
+
+> Economy: Dweeber has an economy system to also maintain your server's engagement rate. [WIP]
+
 
 Bot informations:
 
