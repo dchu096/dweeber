@@ -6,9 +6,9 @@
 
 # Badges
 
-![]https://img.shields.io/github/issues/dchu096/dweeber
+![](https://img.shields.io/github/issues/dchu096/dweeber)
 
-![]https://img.shields.io/github/forks/dchu096/dweeber
+![](https://img.shields.io/github/forks/dchu096/dweeber)
 
 # About Dweeber
 
