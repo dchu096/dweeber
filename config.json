@@ -4,5 +4,15 @@
     "NASAAPI": "",
     "TRACKERAPI": "",
     "WeatherAPI": "",
+    "SRAAPI": "",
+    "musicAPI": "",
+    "FORTNITEAPI": "",
+    "SERPAPI": "",
+    "youtubeCookie": "",
+    "spotify_api": {
+        "enabled": true,
+        "clientSecret": "",
+        "clientId": ""
+  },
     "MONGOURL": ""
 }
