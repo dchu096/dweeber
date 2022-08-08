@@ -4,6 +4,10 @@
 
 ![](readmefiles/dweeber-half.jpg)
 
+# Badges
+
+https://img.shields.io/github/issues/dchu096/dweeber
+
 # About Dweeber
 
 Need different bots for your music, moderation, roles need? Dweeber is combining it into 1.
