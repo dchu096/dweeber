@@ -95,16 +95,14 @@ module.exports = {
 
             userinfo.avatar = memberMention.displayAvatarURL({ dynamic: true, size: 2048 });
 
-
-                ModerationDB.findOne({ userID: memberMention.id, guilldID: interaction.guild.id}, async(err, data) => {
+                ModerationDB.findOne({ Target: memberMention.id, guilldID: interaction.guild.id}, async(err, data) => {
                   if(err) throw err;
                   if(data) {
-                  const InfoEmbed = new MessageEmbed()
+                const InfoEmbed = new MessageEmbed()
                 .setTitle(`About ${userinfo.uname}`)
                 .setThumbnail(userinfo.avatar)
                 .setColor(embedColor)
                 .setAuthor({ name: `${userinfo.uname}`, iconURL: `${userinfo.avatar}`})
-                //.addField("status", `${statuses[memberMention.member.presence ? memberMention.presence.status : "offline"]} ${memberMention.presence ? memberMention.presence.status : "offline"}`, false)
                 .addField("Botuser", `${userinfo.bot}`, true)
                 .addField("Username", `${userinfo.uname}`, true)
                 .addField("Discriminator", `${userinfo.discrim}`, true)
@@ -115,9 +113,6 @@ module.exports = {
                 .addField("Badge:", `${userFlags.length ? userFlags.map(flag => flags[flag]).join(', ') : 'None'}`, true)
                 .addField("Administrator:", `${AdminPerm}`, true)
                 .addField("Activity:", `${userstatus}`)
-                .addField("Warned people:", `${data.warns} times`, true)
-                .addField("Kicked people:", `${data.kicks} times`, true)
-                .addField("Banned people:", `${data.bans} times`, true)
                 .addField("Got warned:", `${data.warnings} times`, true)
                 .addField("Got kicked:", `${data.kicked} times`, true)
                 .addField("Got banned:", `${data.banned} times`, true)
@@ -134,9 +129,6 @@ module.exports = {
                       },
 
                       {
-                        kicks: 0,
-                        bans: 0,
-                        warns: 0,
                         warnings: 0,
                         kicked: 0,
                         banned: 0
@@ -146,7 +138,27 @@ module.exports = {
                       }
                     )
 
-                    interaction.followUp(`The user is not on the DB and it has been added. Please repeat the command. [This message will only show up once.]`);
+                    const InfoEmbed = new MessageEmbed()
+                .setTitle(`About ${userinfo.uname}`)
+                .setThumbnail(userinfo.avatar)
+                .setColor(embedColor)
+                .setAuthor({ name: `${userinfo.uname}`, iconURL: `${userinfo.avatar}`})
+                .addField("Botuser", `${userinfo.bot}`, true)
+                .addField("Username", `${userinfo.uname}`, true)
+                .addField("Discriminator", `${userinfo.discrim}`, true)
+                .addField("Online Status:", `${statuses[memberMention.presence ? memberMention.presence.status : "offline"]} ${memberMention.presence ? memberMention.presence.status : "offline"}`)
+                .addField("Created At:", `${userinfo.createdat}`, true)
+                .addField("Client ID:", `${userinfo.id}`, true)
+                .addField("Roles:", `${userinfo.allroles}`, false)
+                .addField("Badge:", `${userFlags.length ? userFlags.map(flag => flags[flag]).join(', ') : 'None'}`, true)
+                .addField("Administrator:", `${AdminPerm}`, true)
+                .addField("Activity:", `${userstatus}`)
+                .addField("Got warned:", `0 times`, true)
+                .addField("Got kicked:", `0 times`, true)
+                .addField("Got banned:", `0 times`, true)
+                  .setFooter({ text: 'Dweeber >> UserInfo'});
+                      
+                      interaction.followUp({ embeds: [InfoEmbed] });
       
                   }
               })
