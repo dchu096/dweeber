@@ -6,7 +6,9 @@
 
 # Status
 
-![](https://img.shields.io/github/issues/dchu096/dweeber) | ![](https://img.shields.io/github/forks/dchu096/dweeber) | ![](https://img.shields.io/github/stars/dchu096/dweeber) | ![](https://img.shields.io/github/license/dchu096/dweeber) | ![](https://img.shields.io/discord/958317326585987112)
+![](https://img.shields.io/github/issues/dchu096/dweeber) | ![](https://img.shields.io/github/forks/dchu096/dweeber) | ![](https://img.shields.io/github/stars/dchu096/dweeber) | ![](https://img.shields.io/github/license/dchu096/dweeber) 
+
+![Discord Banner 2](https://discordapp.com/api/guilds/958317326585987112/widget.png?style=banner2)
 
 
 # About Dweeber
