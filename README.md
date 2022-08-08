@@ -4,14 +4,9 @@
 
 ![](readmefiles/dweeber-half.jpg)
 
-# Badges
+# Status
 
-![](https://img.shields.io/github/issues/dchu096/dweeber) | ![](https://img.shields.io/github/forks/dchu096/dweeber) | ![](https://img.shields.io/github/stars/dchu096/dweeber) | ![](https://img.shields.io/github/license/dchu096/dweeber)
-
-
-# Support Server
-
-![](https://img.shields.io/discord/958317326585987112)
+![](https://img.shields.io/github/issues/dchu096/dweeber) | ![](https://img.shields.io/github/forks/dchu096/dweeber) | ![](https://img.shields.io/github/stars/dchu096/dweeber) | ![](https://img.shields.io/github/license/dchu096/dweeber) | ![](https://img.shields.io/discord/958317326585987112)
 
 
 # About Dweeber
