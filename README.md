@@ -1,4 +1,4 @@
-# Dweeber < / slash commands>  - coming soon
+# Dweeber < / slash commands>
 
 ✅ This branch is actively maintained and updated
 
