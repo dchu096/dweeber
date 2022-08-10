@@ -124,6 +124,8 @@ Any online search of "free hosting" or "free discord bot hosting". Usually ptero
 
 **Replit** are ok but still complex to setup and make it run.
 
+**Contabo** offers ok performance but a decent price. If you aiming for a low cost useable bot this might be one of the options.
+
 ✅ **Useable solution**
 
 **Digital ocean** will gives you 50 dollar credit if you have github student and they offer decent performance.
