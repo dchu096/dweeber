@@ -78,6 +78,9 @@ If you would like to self host this bot please following the following instructi
 
 # Delete folder "Readme files"
 
+![image](https://user-images.githubusercontent.com/39256422/183834271-cb1ff333-7d56-40d3-9e02-8c2ed6d2d177.png)
+
+
 # Open config.json and edit the details
 
 ```
@@ -105,5 +108,11 @@ If you would like to self host this bot please following the following instructi
 
 # Open terminal and do `npm install` or `yarn install`
 
+![image](https://user-images.githubusercontent.com/39256422/183834633-0297ca5c-fb7f-4690-9546-713942ac848e.png)
+
+
 # Run the bot by doing node shard.js
+
+![image](https://user-images.githubusercontent.com/39256422/183834684-23a939e9-4774-4d5c-a820-007b5d622ad3.png)
+
 
