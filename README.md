@@ -74,6 +74,8 @@ If you would like to self host this bot please following the following instructi
 
 # Download this code 
 
+![image](https://user-images.githubusercontent.com/39256422/183834055-6dccccbe-c92c-4026-80a1-13dcf7f86549.png)
+
 # Delete folder "Readme files"
 
 # Open config.json and edit the details
