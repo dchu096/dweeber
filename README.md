@@ -81,22 +81,23 @@ If you would like to self host this bot please following the following instructi
 ```
 
 {
-    "TOKEN": "",
-    "OwnerID": "",
-    "NASAAPI": "",
-    "TRACKERAPI": "",
-    "WeatherAPI": "",
-    "SRAAPI": "",
-    "musicAPI": "",
-    "FORTNITEAPI": "",
-    "SERPAPI": "",
-    "youtubeCookie": "",
+    "TOKEN": "", // Your bot token, obtain it from https://discord.com/developers/applications
+    "OwnerID": "", // Your ID. open dev option and copy your ID on discord
+    "NASAAPI": "", // API for NASA, obtain from https://api.nasa.gov/
+    "TRACKERAPI": "", // API for tracker Network, obtain from https://tracker.gg/developers
+    "WeatherAPI": "", // API for weather command, obtain from https://www.weatherapi.com/
+    "SRAAPI": "", // API for images, some should be optional but strongly recommended. get from https://some-random-api.ml/. Free version will have a watermark tho.
+    "musicAPI": "", // Lyrics API, obtain from https://developer.musixmatch.com/
+    "FORTNITEAPI": "", // Same as trackerAPI.
+    "SERPAPI": "", //Play store search API. get from https://serpapi.com/
+    "OPENAIKEY": "", //OpenAI key. get from https://openai.com/api/
+    "youtubeCookie": "", // Optional but if you want just look up guides on google
     "spotify_api": {
-        "enabled": true,
-        "clientSecret": "",
-        "clientId": ""
+        "enabled": true, // Please leave it true if you want able to fetch songs from spotify and play it
+        "clientSecret": "", // https://developer.spotify.com/
+        "clientId": "" // https://developer.spotify.com/
   },
-    "MONGOURL": ""
+    "MONGOURL": "" // Your mongo connection sting. https://www.mongodb.com/
 }
 ```
 
