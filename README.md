@@ -112,4 +112,28 @@ If you would like to self host this bot please following the following instructi
 
 ![image](https://user-images.githubusercontent.com/39256422/183834684-23a939e9-4774-4d5c-a820-007b5d622ad3.png)
 
+# What i recommend to host bots.
+
+⚠️ **Strongly recommended NOT to use**
+
+Any online search of "free hosting" or "free discord bot hosting". Usually pterodactyl dont give you the port for 8443 and changing that will mean you lose ssl!
+
+Heroku have a low usuage limit unless you pay! And they have poor hardware so running a music bot on them means you might encounter serious lag!
+
+Glitch hibernates your server after a limit of time and they have poor performance.
+
+Replit are ok but still complex to setup and make it run.
+
+✅ **Useable solution**
+
+Digital ocean will gives you 50 dollar credit if you have github student and they offer decent performance.
+
+Google will offer a 300 dollar credit but use them only if you dont mind having a no dashboard or know how to tweak with firewalls.
+
+Home PC / raspberry PI are great if you only using this as a test project / only for yourself unless you want to keep your PC 24/7 on.
+
+
+✅ **Ideal solution** [AD]
+
+Hosturly is a good VPS provider with I9 cpu. I host on them and have literally no issue since then. Would recommended to use them!
 
