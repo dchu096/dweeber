@@ -48,10 +48,6 @@ Permission: 1532228922615
 
 Bot library: discord.js v13
 
-# Bugs
-
-There is bugs all over the code as i always going for the most features as possible.I have been working on to repair some already, but still a lot of repair in the future, if you do like to help please do submit pull requests. Otherwise feel free to join the support server to raise a issue
-
 # Credits
 
 Thankyou for [@behold](https://github.com/BeholdIsLost), [@mira](https://github.com/MiraBellierr) for helping out with the bot bugs
@@ -74,16 +70,37 @@ https://tracker.gg/developers
 
 # Self-hosting??
 
-The code is not recommended to be runned by self-host, the code provided here is only for you to know the bot's setup and to use this as a template to create your own bot.
+If you would like to self host this bot please following the following instructions:
 
-~~The method will still be provided here~~
+# Download this code 
 
-1.download this code
+# Delete folder "Readme files"
 
-2. Delete folder readme files
+# Open config.json and edit the details
 
-3. open your terminal => npm install
+```
 
-4. config.json => type in token and API keys
+{
+    "TOKEN": "",
+    "OwnerID": "",
+    "NASAAPI": "",
+    "TRACKERAPI": "",
+    "WeatherAPI": "",
+    "SRAAPI": "",
+    "musicAPI": "",
+    "FORTNITEAPI": "",
+    "SERPAPI": "",
+    "youtubeCookie": "",
+    "spotify_api": {
+        "enabled": true,
+        "clientSecret": "",
+        "clientId": ""
+  },
+    "MONGOURL": ""
+}
+```
 
-5. node index.js
+# Open terminal and do `npm install` or `yarn install`
+
+# Run the bot by doing node shard.js
+
