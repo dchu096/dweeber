@@ -56,17 +56,14 @@ Dashboard are forked and edited from [@Tomato](https://github.com/Tomato6966)
 
 API used:
 
-https://ipstack.com/
-
-https://apilayer.com/marketplace/image_to_text-api#:~:text=Recognizes%20and%20reads%20the%20text%20embedded%20in%20images.&text=Image%20to%20Text%20API%20uses,both%20handwriting%20and%20printed%20materials.
-
-https://apilayer.com/marketplace/whois-api
-
-https://www.weatherapi.com/
-
 https://api.nasa.gov/
-
 https://tracker.gg/developers
+https://www.weatherapi.com/
+https://some-random-api.ml/
+https://developer.musixmatch.com/
+https://serpapi.com/
+https://openai.com/api/
+
 
 # Self-hosting??
 
