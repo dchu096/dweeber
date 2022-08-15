@@ -110,3 +110,4 @@ config.json
 dashboard/fullchain.pem
 *.pem
 config.json
+config.json
