@@ -1,15 +1,20 @@
-const { Client, Collection } = require('discord.js');
-const { TOKEN } = require("./config.json");
+const { Client, Collection, Interaction, MessageEmbed } = require('discord.js');
+const { TOKEN, OPENAIKEY } = require("./config.json");
 const client = new Client({intents: 131071}); //Intents choose what you want as currently its everything, https://ziad87.net/intents/
 const signale = require('signale');
 const config = require(`./config.json`);
-const filters = require(`./filters.json`);
 const Enmap = require("enmap");
 const libsodium = require("libsodium-wrappers");
 const ffmpeg = require("ffmpeg-static");
 const voice = require("@discordjs/voice");
-const DisTube = require("distube").default;
 const https = require('https-proxy-agent');
+const fs = require('fs');
+const DisTube = require('distube').default
+const { SoundCloudPlugin } = require('@distube/soundcloud')
+const { SpotifyPlugin } = require('@distube/spotify')
+const { YtDlpPlugin } = require("@distube/yt-dlp");
+const { Configuration, OpenAIApi } = require("openai");
+const { GiveawaysManager } = require('discord-giveaways');
 
 
 //Database Connect
@@ -17,52 +22,15 @@ const https = require('https-proxy-agent');
   await require("./Database/connect")();
 })();
 
+const configuration = new Configuration({
+  apiKey: OPENAIKEY,
+});
+
+client.openai = new OpenAIApi(configuration);
+
+
 const proxy = 'http://0.0.0.0:8443';
 const agent = https(proxy);
-const { SpotifyPlugin } = require("@distube/spotify");
-const { SoundCloudPlugin } = require("@distube/soundcloud");
-const { YtDlpPlugin } = require("@distube/yt-dlp")
-let spotifyoptions = {
-  parallel: true,
-  emitEventsAfterFetching: true,
-}
-if(config.spotify_api.enabled){
-  spotifyoptions.api = {
-    clientId: config.spotify_api.clientId,
-    clientSecret: config.spotify_api.clientSecret,
-  }
-}
-client.distube = new DisTube(client, {
-  emitNewSongOnly: false,
-  leaveOnEmpty: true,
-  leaveOnFinish: true,
-  leaveOnStop: true,
-  savePreviousSongs: true,
-  emitAddSongWhenCreatingQueue: false,
-  //emitAddListWhenCreatingQueue: false,
-  searchSongs: 0,
-  // youtubeCookie: config.youtubeCookie,     //Comment this line if you dont want to use a youtube Cookie 
-  nsfw: false, //Set it to false if u want to disable nsfw songs
-  emptyCooldown: 25,
-  ytdlOptions: {
-    requestOptions: {
-      agent
-    },
-    highWaterMark: 1024 * 1024 * 64,
-    quality: "highestaudio",
-    format: "audioonly",
-    liveBuffer: 60000,
-    dlChunkSize: 1024 * 1024 * 4,
-  },
-  youtubeDL: false,
-  updateYouTubeDL: false,
-  customFilters: filters,
-  plugins: [
-    new SpotifyPlugin(spotifyoptions),
-    new SoundCloudPlugin(),
-    new YtDlpPlugin()
-  ]
-})
 
 
 client.commands = new Collection();
@@ -77,6 +45,79 @@ module.exports = client;
 ["Event", "Slash"].forEach(handler => {
   require(`./Structures/${handler}`)(client);
 });
+
+const manager = new GiveawaysManager(client, {
+  storage: './giveaways.json',
+  default: {
+      botsCanWin: false,
+      embedColor: 'RANDOM',
+      embedColorEnd: '#000000',
+      reaction: '🎉'
+  }
+});
+
+client.giveawaysManager = manager;
+
+
+client.distube = new DisTube(client, {
+  searchSongs: 5,
+  searchCooldown: 30,
+  leaveOnEmpty: true,
+  leaveOnFinish: true,
+  leaveOnStop: true,
+  youtubeDL: false,
+  nsfw: false,
+  plugins: [new SoundCloudPlugin(), new SpotifyPlugin(), new YtDlpPlugin({updateYouTubeDL: true})]
+})
+
+const NoUser2 = new MessageEmbed()
+    .setColor("#30B700")
+    .setDescription(`Since there is no one in the voice channel, i left as well.`)
+    .setFooter({ text: 'Dweeber >> Music'})
+
+    const SongsFinnished = new MessageEmbed()
+    .setColor("#30B700")
+    .setDescription(`This is the last song in the queue. Music is now stopped.`)
+    .setFooter({ text: 'Dweeber >> Music'})
+
+    const NoResultFound = new MessageEmbed()
+    .setColor("#30B700")
+    .setDescription(`No results found.`)
+    .setFooter({ text: 'Dweeber >> Music'})
+
+    const errorembed = new MessageEmbed()
+    .setColor("#30B700")
+    .setDescription(`There is an error. Please try again later.`)
+    .setFooter({ text: 'Dweeber >> Music'})
+
+client.distube
+    .on('playSong', (queue, song) => queue.textChannel.send({embeds: [new MessageEmbed()
+  .setColor("RANDOM")
+  .setDescription(`<:bloblistening:991504183368888361>  Playing \`${song.name}\``)
+  .addField(`Duration: `,`${song.formattedDuration}`)
+  .setFooter({ text: 'Dweeber >> Play'})
+]}))
+    .on('addSong', (queue, song) => queue.textChannel.send({embeds: [new MessageEmbed()
+  .setColor("RANDOM")
+  .setDescription(`<a:tick:991178421113733130> Added ${song.name} to the queue.`)
+  .addField(`Duration: `,`${song.formattedDuration}`)
+  .addField(`Requested by: `,`${song.user}`)
+  .setFooter({ text: 'Dweeber >> Play'})
+]}))
+    .on('addList', (queue, playlist) =>
+        queue.textChannel.send({embeds: [new MessageEmbed()
+    .setColor("RANDOM")
+    .setDescription(`<a:tick:991178421113733130> Added \`${playlist.name}\` playlist (${playlist.songs.length})`)
+    .setFooter({ text: 'Dweeber >> Play'})
+]}))
+    .on('searchNoResult', (message) => message.channel.send({embeds: [NoResultFound]}))
+    .on('error', (textChannel, e) => {
+        textChannel.send({embeds: [errorembed]})
+    client.channels.cache.get('735548363340251207').send(`${e}`);
+})
+  .on('finish', queue => queue.textChannel.send({embeds: [SongsFinnished]}))
+    .on('empty', queue => queue.textChannel.send({embeds: [NoUser2]}))
+
 
 
 client.once("ready", () => {
@@ -99,12 +140,20 @@ client.once("ready", () => {
 
   console.log(`====================================================================================`)
 
-    client.user.setActivity(`V2 | dweeber.dev`, { type: "WATCHING"}) //Set the activity of the bot
+  client.user.setActivity(`V2 | dweeber.dev`, { type: "WATCHING"}) //Set the activity of the bot
 });
 
-process.on('unhandledRejection', err => {
+process.on('unhandledRejection', (err, message) => {
   signale.fatal(`[ERROR] Unhandled promise rejection: ${err.message}.`);
-    console.log(err)
+  
+  const errEmbed = new MessageEmbed()
+  .setColor("#FF0000")
+  .setTitle("Error")
+  .setDescription(`${err.message}`)
+  .setFooter({ text: 'Dweeber >> Error'})
+
+  client.channels.cache.get('989310134423531561').send({embeds: [errEmbed]})
+
   });
   
   client.login(TOKEN);
