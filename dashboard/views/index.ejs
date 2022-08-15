@@ -5,35 +5,129 @@
         <!--Meta Tags-->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">      
         <link rel="stylesheet" href="/index.css">
-        <title>Dweeber | Panel</title>    
+        <title>Dweeber Dashboard</title>    
     </head>
     <body>
         <!--HEADER-->
         
         <!--MAIN BODY-->
-      <section style="margin-bottom: 0;">
-        <div class="d-flex justify-content-center head">
-            <h1 style="font-weight: 900;">
-              <span style="font-size: 40px;"><span style="color:#5663f7;">Dweeber</span> | Panel</span>
-              </h1>
+        <div class="app">
+          <header class="app-header">
+            <div class="app-header-logo">
+              <div class="logo">
+                <span class="logo-icon">
+                  <img src="https://images-ext-2.discordapp.net/external/wVTERf5_xOaIW2twY1xNlfxPDapFQUHs3-Gsqd2lZhI/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/984042951107821648/7fd6417b995513d19332304ae132df54.webp" />
+                </span>
+                <h1 class="logo-title">
+                  <span>Dweeber</span>
+                </h1>
+              </div>
+            </div>
+            <div class="app-header-navigation">
+              <div class="tabs">
+                <a href="#">
+                  Signin
+                </a>
+                <a href="#" class="active">
+                  
+                </a>
+                <a href="#">
+                  
+                </a>
+                <a href="#">
+                  
+                </a>
+                <a href="#">
+                  
+                </a>
+                <a href="#">
+                  
+                </a>
+              </div>
+            </div>
+            <div class="app-header-mobile">
+              <button class="icon-button large">
+                <i class="ph-list"></i>
+              </button>
+            </div>
+
+          </header>
+          <div class="app-body">
+            <div class="app-body-navigation">
+              <nav class="navigation">
+                <a href="/dashboard">
+                  <i class="ph-browsers"></i>
+                  <span>Dashboard</span>
+                </a>
+                <a href="#">
+                  <i class="ph-check-square"></i>
+                  <span>Guild Settings</span>
+                </a>
+                <a href="/queuedashboard">
+                  <i class="ph-swap"></i>
+                  <span>Queues</span>
+                </a>
+              </nav>
+              <footer class="footer">
+                <h1>Dweeber</h1>
+                <div>
+                 <small>Template from DARK UI</small>
+                </div>
+              </footer>
+            </div>
+            <div class="app-body-main-content">
+              <section class="service-section">
+                <h2>Stats</h2>
+                <div class="tiles">
+                  <article class="tile">
+                    <div class="tile-header">
+                      <i class="ph-fire-simple-light"></i>
+                      <h3>
+                        <span>Signin</span>
+                        <span>To access the dashboard, you have to sign in with your discord.</span>
+                        <span><a href="/login" class="c-button c-button--gooey"><login>discord</login><div class="c-button__blobs">
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                          </div></a></span>
+                      </h3>
+                    </div>
+                  </article>
+                </div>
+              </section>
+
+            </div>
+            <div class="app-body-sidebar">
+              <section class="payment-section">
+                <h2>Credits</h2>
+                <div class="payment-section-header">
+                  <p>Thanks to the following who helped with the bot</p>
+                </div>
+                <div class="payments">
+                  <div class="payment">
+                    <img src="https://images-ext-2.discordapp.net/external/R2OMhqrPTwp8XUPEAecIWWJkIvU8gs4vlO_Sxoo93wA/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/257556999548436480/f15aac36bbb0f2c20eb3873d83bc36a6.webp" width="70" height="70">
+                    <div class="payment-details">
+                      <h3>Behold</h3>
+                    </div>
+                  </div>
+                  <div class="payment">
+                    <img src="https://images-ext-2.discordapp.net/external/JcujS-ltWlPSIBaiP-M_EE8F4hcJA36XY9ZL8P63nyc/%3Fsize%3D2048/https/cdn.discordapp.com/avatars/548050617889980426/39973329d8a983cc885a646a7f55e484.webp" width="70" height="70">
+                    <div class="payment-details">
+                      <h3>Mira</h3>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
         </div>
-        <div class="d-flex justify-content-center subtext">
-            <p style="font-style: italic;font-size: 30px;">Here is the dashboard for dweeber.</p>
-        </div>
-      </section>
       <!-- FOOTER-->
-      <section>
-        <div class="card-footer" style="margin-top:15%;text-align: center;color: #5663f7;">
-          <hr style="width: 75%;background-color: #FFFFFF!important;color: #FFFFFF!important;border: 5px solid #FFFFFF!important;border-radius:25px;margin-left: 12%;">
-          <h5 style="text-align: center;">
-            <a href="https://github.com/Tomato6966/Musicium" target="_blank" style="font-size: 12px; color: #888a9b!important;text-decoration: none;">I did not make this dashboard! Credit to tomato</a><br><br>
-          </h5>
-        </div>
-      </section>
 
        <!--JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+        <script src='https://unpkg.com/phosphor-icons'></script>
+        <script  src="/script.js"></script>
     </body>
 </html>

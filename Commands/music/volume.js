@@ -11,7 +11,7 @@ module.exports = {
             name: "volume",
             description: "Set the volume of the music",
             type: 'INTEGER',
-            required: false,
+            required: true,
         },
     ],
 	async run(client, interaction) {
@@ -35,7 +35,7 @@ module.exports = {
                 return interaction.followUp({ content: "The number you entered are not valid!", ephemeral: true });
             }
 
-            if (Number(volumeinput) < 1) return interaction.followUp({ content: "Setting volume below 1 is mute the music. If thats what you wanted just mute the bot yourself ig!", ephemeral: true });
+            if (Number(volumeinput) < 1) return interaction.followUp({ content: "Setting volume below 1 is mute the music. If thats what you wanted do `\/mutemusic\` ig!", ephemeral: true });
 
             if (Number(volumeinput) > 100) return interaction.followUp({ content: "Setting volume above 100 will destroy the quality of the music, so i wont let that happen!", ephemeral: true });
 

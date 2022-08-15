@@ -121,22 +121,14 @@ module.exports = {
                       interaction.followUp({ embeds: [InfoEmbed] });
                    
                   } else {
-      
-                    await ModerationDB.findOneAndUpdate(
-                      {
-                        userID: memberMention.id,
-                        guildID: interaction.guild.id
-                      },
 
-                      {
-                        warnings: 0,
+                    new ModerationDB({
+                      userID: memberMention.id,
+                      guildID: interaction.guild.id,
+                      warnings: 0,
                         kicked: 0,
                         banned: 0
-                      },
-                      {
-                        upsert: true
-                      }
-                    )
+                  }).save();
 
                     const InfoEmbed = new MessageEmbed()
                 .setTitle(`About ${userinfo.uname}`)

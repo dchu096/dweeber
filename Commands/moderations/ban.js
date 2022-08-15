@@ -50,16 +50,16 @@ module.exports = {
 
         const duration = interaction.options.getString('delete_messages');
 
-        const target = interaction.options.getMember("user");
+        const Target = interaction.options.getMember("user");
  
 
         try {
-            ModerationDB.findOne({ userID: target.id}, async(err, data) => {
+            ModerationDB.findOne({ userID: Target.id}, async(err, data) => {
                 if(err) throw err;
                 if(data) {
                     await ModerationDB.findOneAndUpdate(
                         {
-                            userID: target.id,
+                            userID: Target.id,
                             guildID: interaction.guild.id
                         },
                         {
@@ -73,7 +73,7 @@ module.exports = {
                 } else {
                     await ModerationDB.findOneAndUpdate(
                         {
-                          userID: target.id,
+                          userID: Target.id,
                           guildID: interaction.guild.id
                         },
   
@@ -95,9 +95,9 @@ module.exports = {
 
         if(!interaction.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) return interaction.followUp(`You do not have the required permissions to ban members. [Required Permissions: BAN_MEMBERS]`);
 
-        if (!target.kickable) return interaction.followUp(`I cannot ban ${target.user.username}`);
+        if (!Target.kickable) return interaction.followUp(`I cannot ban ${Target.user.username}`);
 
-        if (!target === interaction.member) return interaction.followUp(`I wont let you ban yourself.`);
+        if (!Target === interaction.member) return interaction.followUp(`I wont let you ban yourself.`);
 
 
         if (!banreason) {
@@ -106,12 +106,12 @@ module.exports = {
             reason = banreason
         }
 
-        await target.ban({days:duration,reason: reason})
+        await Target.ban({days:duration,reason: reason})
 
         const banEmbed = new MessageEmbed()
         .setColor('RANDOM')
-        .setDescription(`${target.user.tag} has been banned. | Reason: ${reason}`)
-        .addField(`User ID:`, `${target.id}`)
+        .setDescription(`${Target.user.tag} has been banned. | Reason: ${reason}`)
+        .addField(`User ID:`, `${Target.id}`)
         .addField(`Moderator:`, `${interaction.member.tag}`)
         .setFooter("Dweeber >> ban")
         interaction.followUp({ embeds: [banEmbed] });

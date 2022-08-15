@@ -106,3 +106,7 @@ botconfig.json
 botconfig.json
 botconfig.json
 botconfig.json
+config.json
+dashboard/fullchain.pem
+*.pem
+config.json

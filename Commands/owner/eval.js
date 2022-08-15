@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 const signale = require('signale');
 const { inspect } = require(`util`);
 const { OwnerID } = require('@root/config.json');
-const { Type } = require("@extreme_hero/deeptype");
+
 
 module.exports = {
     name: "evaluate",
@@ -45,7 +45,6 @@ module.exports = {
                 .setTitle("Evaulation Successful")
                 .setDescription(`Process run time: ${hrDiff[0] > 0 ? `${hrDiff[0]}s` : ''}${hrDiff[1] / 1000000}ms`)
                 .addField(`Execution result:`, `\`\`\`javascript\n${evaluated}\n\`\`\``, true)
-                .addField("Type", `\`\`\`${new Type(evaled).is}\`\`\``)
 
             interaction.followUp({ embeds: [evalEmbed], ephemeral: true })
         

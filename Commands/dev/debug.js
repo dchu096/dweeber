@@ -55,12 +55,13 @@ module.exports = {
                         .setColor("RANDOM")
                         .setTitle("Debug")
                         .setDescription(`Process run time: ${hrDiff[0] > 0 ? `${hrDiff[0]}s` : ''}${hrDiff[1] / 1000000}ms | called by ${interaction.user.tag}`)
-                        .addField(`Execution result:`, `\`\`\`` + `Aborted: You are not allowed to mention everyone!`+ `\`\`\``)
+                        .addField(`Execution result:`, `\`\`\`` + `Aborted: You are not allowed to @ everyone!`+ `\`\`\``)
                         .addField(`Reminder:`, `This is a privilege that we grant to you. So please don't abuse it.`)
                         .setFooter({ text: 'Dweeber >> debug'});
 
-                        if (toEval.indexOf('@everyone')) return interaction.followUp({ embeds: [mentionEmbed]});
+                        if (toEval.includes('@everyone')) return interaction.followUp({ embeds: [mentionEmbed]});
             
+                        
                         const evalEmbed = new MessageEmbed()
                             .setColor("RANDOM")
                             .setTitle(`Debug`)

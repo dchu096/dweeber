@@ -1,5 +1,5 @@
 require('module-alias/register')
-const { MessageEmbed, Message } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const signale = require('signale');
 
 module.exports = {
@@ -40,10 +40,6 @@ module.exports = {
 
 
 // https://www.npmjs.com/package/discord-temp-channels
-
-
-
-
 
 
 

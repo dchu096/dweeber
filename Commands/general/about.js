@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const { stripIndents } = require('common-tags');
 
 module.exports = {
@@ -18,7 +19,6 @@ module.exports = {
             .addField("**Source:**", `https://github.com/dchu096/dweeber`, true)
             .setFooter({ text: 'Dweeber >> About'});
             await interaction.reply({ embeds: [AboutEmbed] }); // Sends the embed
-
 
 
 

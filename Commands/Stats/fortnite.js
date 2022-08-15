@@ -2,7 +2,7 @@ require('module-alias/register')
 const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
 const signale = require('signale');
-const { TRACKERAPI } = require("@root/config.json");
+const { FORTNITEAPI } = require("@root/config.json");
 
 module.exports = {
     name: "fortnite",
@@ -16,16 +16,16 @@ module.exports = {
             required: true,
             choices: [
                 {
-                    name: "Keyboard and Mouse",
-                    value: "kbm"
+                    name: "Epic Games",
+                    value: "epic"
                 },
                 {
-                    name: "Controller",
-                    value: "gamepad"
+                    name: "Playstation Network",
+                    value: "psn"
                 },
                 {
-                    name: "Mobile",
-                    value: "touch"
+                    name: "Xbox Live",
+                    value: "xbl"
                 }
             ]  
         },
@@ -45,46 +45,46 @@ module.exports = {
         const userplatform = interaction.options.getString('platform');
         const epic = interaction.options.getString('username');
 
-        const embedColor = '#87CEEB'; // color: skyblue
         const trim = (str, max) => (str.length > max ? `${str.slice(0, max - 3)}...` : str);
 
         try {
+
+            var statsimg = 'none'
+
+            if (userplatform === 'epic') {
+                statsimg = 'keyboardMouse'
+            }
+
+            if (userplatform === 'psn') {
+                statsimg = 'gamepad'
+            }
+
+            if (userplatform === 'xbl') {
+                statsimg = 'gamepad'
+            }
         
-            await fetch(`https://api.fortnitetracker.com/v1/profile/${userplatform}/${epic}`,{
+            await fetch(`https://fortnite-api.com/v2/stats/br/v2?accountType=${userplatform}&name=${epic}&image=${statsimg}`,{
                 "Content-Type": "application/json",
                 method: 'GET',
-                headers: {'TRN-Api-Key': `${TRACKERAPI}`}
+                headers: {'Authorization': `${FORTNITEAPI}`}
                 }).then(res => res.json()).then(json => {
 
-                var top3=json.lifeTimeStats.filter(json=> json.key == "Top 3s");
-                var top5=json.lifeTimeStats.filter(json=> json.key == "Top 5s");
-                var top6=json.lifeTimeStats.filter(json=> json.key == "Top 6s");
-                var top10=json.lifeTimeStats.filter(json=> json.key == "Top 10");
-                var top12=json.lifeTimeStats.filter(json=> json.key == "Top 12s");
-                var top25=json.lifeTimeStats.filter(json=> json.key == "Top 25s");
-                var TotalMatch=json.lifeTimeStats.filter(json=> json.key == "Matches Played");
-                var TotalWins=json.lifeTimeStats.filter(json=> json.key == "Wins");
-                var TotalKills=json.lifeTimeStats.filter(json=> json.key == "Kills");
-                var TotalKD=json.lifeTimeStats.filter(json=> json.key == "K/d");
+                    const privateEmbed = new MessageEmbed()
+                        .setColor('RANDOM')
+                        .setDescription(`${json.error}`)
 
-                
+                    if (json.status === '403') {
+                    interaction.followUp({ embeds: [privateEmbed] });
+                    return;
+                    }
 
-                const fortniteEmbed = new MessageEmbed()
+                    const fortniteEmbed = new MessageEmbed()
                     .setColor('RANDOM')
-                    .setTitle(`${json.epicUserHandle} fortnite stats`)
-                    .setDescription(`Account ID: ${json.accountId}`)
-                    .setThumbnail(`${json.avatar}`)
-                    .addField(`Top 3`, `${top3[0].value}`)
-                    .addField(`Top 5`, `${top5[0].value}`)
-                    .addField(`Top 6`, `${top6[0].value}`)
-                    .addField(`Top 10`, `${top10[0].value}`)
-                    .addField(`Top 12`, `${top12[0].value}`)
-                    .addField(`Top 25`, `${top25[0].value}`)
-                    .addField(`Matches Played`, `${TotalMatch[0].value}`)
-                    .addField(`Victory Royale`, `${TotalWins[0].value}`)
-                    .addField(`Kills`, `${TotalKills[0].value}`)
-                    .addField(`K/d`, `${TotalKD[0].value}`)
-                    .setFooter({ text: 'Dweeber >> Fortnite'});
+                    .setTitle(`${json.data.account.name} fortnite stats`)
+                    .setDescription(`Battlepass stats: Level ${json.data.battlePass.level} | Progress: ${json.data.battlePass.progress}`)
+                    .setImage(json.data.image)
+                
+                    .setFooter({ text: 'Dweeber >> fortnite'});
                     interaction.followUp({ embeds: [fortniteEmbed] });
 
 });

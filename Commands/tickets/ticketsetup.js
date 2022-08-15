@@ -80,6 +80,6 @@ module.exports = {
                 .setFooter({ text: 'Dweeber >> tickets' })
 
                 interaction.channel.send({ embeds: [embed], components: [row] })
-        } else return interaction.reply(`A ticket menu for ${interaction.guild.name} already exists!`) //I still have to make it myself where they can have two setups.
+        } else return interaction.reply(`You sadly cannot create two tickets!`) //I still have to make it myself where they can have two setups.
     }
 }

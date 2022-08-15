@@ -38,8 +38,6 @@ module.exports = {
 
         try {
 
-            const queue = client.distube.getQueue(VoiceChannel)
-
         const stopEmbed = new MessageEmbed()
             .setColor('RANDOM')
             .setTitle(`Searching...`)
@@ -51,14 +49,9 @@ module.exports = {
 
         await fetch(`https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=${songinput}&q_artist=${artistname}&apikey=${musicAPI}`).then(res => res.json()).then(json => {
             
-            const lyricsEmbed = new MessageEmbed()
-            .setColor('RANDOM')
-            .setTitle(`Lyrics`)
-            .setDescription(`ID: ${json.body.lyrics[0].lyrics_id}`)
-            .addField('Disclaimer', `${json.lyrics_copyright}`)
-            .addField('Lyrics', trim(`${json.body.lyrics[0].lyrics_body}`, 1024))
-            .setFooter({ text: 'Dweeber >> lyrics'});
-             return interaction.followUp({ embeds: [lyricsEmbed] });
+		console.log(json.body.lyrics.lyrics_body)
+            
+            interaction.followUp(`Check console!`)
         });
 
 
