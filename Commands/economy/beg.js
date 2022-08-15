@@ -7,6 +7,7 @@ module.exports = {
     name: "beg",
     description: "Beg for coins.",
     clientPerms: ['SEND_MESSAGES', 'VIEW_CHANNEL'],
+    timeout: 10,
 	async run(client, interaction) {
 
         await interaction.deferReply();
@@ -17,12 +18,10 @@ module.exports = {
 
         try {
 
-            
-
             EconomyDB.findOne({ userID: Target.id}, async(err, data) => {
                 if(err) throw err;
                 if(data) {
-                    let amount = Math.floor(Math.random() * 50) + 10;
+                    let amount = Math.floor(Math.random() * 50) + 1; 
                     const response = await EconomyDB.findOneAndUpdate(
                         {
                             userID: interaction.user.id,
@@ -35,8 +34,6 @@ module.exports = {
                     );
 
                     const totalAmount = data.coins + amount;
-
-
 
                     const begEmbed = new MessageEmbed()
                     .setColor('RANDOM')
@@ -51,7 +48,7 @@ module.exports = {
                     const None = new MessageEmbed() // If you or user dosent have Economy started.#
                     .setColor('#ff0000')
                     .setTitle('Error')
-                    .setDescription('You do not have an economy started!')
+                    .setDescription('You do not have an economy started! Please do \`starteconomy\` to start the economy!')
                     .setFooter({ text: 'Dweeber >> beg'});
 
 

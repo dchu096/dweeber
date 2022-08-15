@@ -28,8 +28,8 @@ module.exports = {
                     .setColor('RANDOM')
                     .setTitle(`${Target.user.tag}'s balance`)
                     .setDescription(`Balance for ${Target.user.tag}`)
-                    .addField(`Cash:`,`${data.coins} :money_with_wings:`)
-                    .addField(`Bank:`,`${data.bank} / ${data.bankLimit} :bank:`)
+                    .addField(`Cash:`,`${data.coins} <:dcoin:992585021720363128>`)
+                    .addField(`Bank:`,`${data.bank} <:dcoin:992585021720363128> / ${data.bankLimit} <:dcoin:992585021720363128>`)
                     .setFooter({ text: 'Dweeber >> balance'});
 
 
@@ -38,7 +38,7 @@ module.exports = {
                     const None = new MessageEmbed() // If you or user dosent have Economy started.#
                     .setColor('#ff0000')
                     .setTitle('Error')
-                    .setDescription('You or the user you specified does not have an economy started!')
+                    .setDescription('You or the user you specified does not have an economy started! Please do \`starteconomy\` to start the economy!')
                     .setFooter({ text: 'Dweeber >> balance'});
 
 
