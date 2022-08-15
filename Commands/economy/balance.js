@@ -27,9 +27,7 @@ module.exports = {
                     const Balance = new MessageEmbed() // data.coins for coins, data.bank for bank 
                     .setColor('RANDOM')
                     .setTitle(`${Target.user.tag}'s balance`)
-                    .setDescription(`Balance for ${Target.user.tag}`)
-                    .addField(`Cash:`,`${data.coins} <:dcoin:992585021720363128>`)
-                    .addField(`Bank:`,`${data.bank} <:dcoin:992585021720363128> / ${data.bankLimit} <:dcoin:992585021720363128>`)
+                    .setDescription(`Cash: ${data.coins} <:dcoin:992585021720363128> | Bank: ${data.bank} <:dcoin:992585021720363128>`)
                     .setFooter({ text: 'Dweeber >> balance'});
 
 

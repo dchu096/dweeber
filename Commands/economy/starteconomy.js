@@ -64,20 +64,18 @@ module.exports = {
               ButtonInteraction.first().deferUpdate();
               const id = ButtonInteraction.first().customId;
 
-              if(id === "starteco") return interaction.editReply({embeds: [successEmbed], components: [row]}), await EconomyDB.findOneAndUpdate(
-                {
-                  userID: interaction.user.id
-                },
-                {
-                  coins: 0,
-                  bank: 0,
-                  bankLimit: 4000,
-                },
-                {
-                  upsert: true
-                }
-              )
+              if(id === "starteco") return interaction.editReply({embeds: [successEmbed], components: [row]}), new EconomyDB({
+                userID: interaction.user.id,
+                guildID: interaction.guild.id,
+                wcoins: 0,
+                bank: 0,
+                bankLimit: 4000
+            }).save();
              })
+
+
+
+
 
 
 
