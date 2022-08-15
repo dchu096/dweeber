@@ -1,4 +1,6 @@
 const { ShardingManager } = require('discord.js');
+const signale = require('signale');
+
 const config = require('./config.json');
 
 let manager = new ShardingManager('./index.js', {
@@ -6,8 +8,13 @@ let manager = new ShardingManager('./index.js', {
     totalShards: 'auto',
 });
 
+    console.log(`====================================================================================`)
+    signale.pending("Waking up the shards...")
+
 manager.on('shardCreate', shard => {
-    console.log(`[SHARDS]: Launched shard ${shard.id}`)
+    signale.success(`Shard ${shard.id} has launched!`);
 });
+
+    console.log(`====================================================================================`)
 
 manager.spawn();
