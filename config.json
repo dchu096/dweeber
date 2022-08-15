@@ -8,6 +8,8 @@
     "musicAPI": "",
     "FORTNITEAPI": "",
     "SERPAPI": "",
+    "BRAINSHOPBID": "",
+    "BRAINSHOPKEY": "", 
     "youtubeCookie": "",
     "spotify_api": {
         "enabled": true,
