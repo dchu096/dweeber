@@ -21,7 +21,7 @@ module.exports = {
             EconomyDB.findOne({ userID: Target.id}, async(err, data) => {
                 if(err) throw err;
                 if(data) {
-                    let amount = Math.floor(Math.random() * 50) + 1; 
+                    let amount = Math.floor(Math.random() * 30) + 1; 
                     const response = await EconomyDB.findOneAndUpdate(
                         {
                             userID: interaction.user.id,

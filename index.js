@@ -1,4 +1,4 @@
-const { Client, Collection, Interaction, MessageEmbed } = require('discord.js');
+const { Client, Collection, Interaction, MessageEmbed, ActivityType } = require('discord.js');
 const { TOKEN, OPENAIKEY } = require("./config.json");
 const client = new Client({intents: 131071}); //Intents choose what you want as currently its everything, https://ziad87.net/intents/
 const signale = require('signale');
@@ -140,7 +140,7 @@ client.once("ready", () => {
 
   console.log(`====================================================================================`)
 
-  client.user.setActivity(`V2 | dweeber.dev`, { type: "WATCHING"}) //Set the activity of the bot
+  client.user.setActivity(`V2 | dweeber.dev`, { type: ActivityType.Watching}) //Set the activity of the bot
 });
 
 process.on('unhandledRejection', (err, message) => {
