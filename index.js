@@ -52,7 +52,7 @@ const manager = new GiveawaysManager(client, {
       botsCanWin: false,
       embedColor: 'RANDOM',
       embedColorEnd: '#000000',
-      reaction: '🎉'
+      reaction: '<:6323partyicon:989442575867994162>',
   }
 });
 
@@ -72,17 +72,20 @@ client.distube = new DisTube(client, {
 
 const NoUser2 = new MessageEmbed()
     .setColor("#30B700")
-    .setDescription(`Since there is no one in the voice channel, i left as well.`)
+    .setTitle("<a:crossmark:1011568778942885909> Music stopped!")
+    .setDescription(`You all left the voice channel. me will leave too!`)
     .setFooter({ text: 'Dweeber >> Music'})
 
     const SongsFinnished = new MessageEmbed()
     .setColor("#30B700")
-    .setDescription(`This is the last song in the queue. Music is now stopped.`)
+    .setTitle("<a:crossmark:1011568778942885909> Music stopped!")
+    .setDescription(`This is the last song in the playlist. I will go ahead and stop the music for ya.`)
     .setFooter({ text: 'Dweeber >> Music'})
 
     const NoResultFound = new MessageEmbed()
     .setColor("#30B700")
-    .setDescription(`No results found.`)
+    .setTitle("<a:crossmark:1011568778942885909> Music stopped!")
+    .setDescription(`I didnt found any result for your query.`)
     .setFooter({ text: 'Dweeber >> Music'})
 
     const errorembed = new MessageEmbed()
@@ -93,15 +96,25 @@ const NoUser2 = new MessageEmbed()
 client.distube
     .on('playSong', (queue, song) => queue.textChannel.send({embeds: [new MessageEmbed()
   .setColor("RANDOM")
-  .setDescription(`<:bloblistening:991504183368888361>  Playing \`${song.name}\``)
-  .addField(`Duration: `,`${song.formattedDuration}`)
+  .setTitle(`<:bloblistening:991504183368888361> Now playing: \`${song.name}\``)
+  .setDescription(``)
+  .addFields(
+		{ name: '<a:hourglass_animated:1011874607592124416> Song duration', value: `\`${song.formattedDuration}\``, inline: true },
+		{ name: '<a:volume:1011851449229131866> Queue volume', value: `\`${queue.volume}%\``, inline: true },
+    { name: '<a:equalizer:1011875478983946361> Filter status', value: `\`${queue.filters.join(", ") || "Off"}\``, inline: true },
+    { name: '<a:musicdisc:1013688284867735592> Total Queue:', value: `${queue.songs.length}`, inline: true },
+    { name: '<:5257membericon:989442572642562058> Requested by', value: `${song.user}`, inline: true },
+		{ name: '<a:looping:1011853938942808164> Repeat mode', value: `\`${queue.repeatMode ? queue.repeatMode === 2 ? '`All Queue`' : '`All Song`' : '`Off`'}\``, inline: true },
+	)
   .setFooter({ text: 'Dweeber >> Play'})
 ]}))
     .on('addSong', (queue, song) => queue.textChannel.send({embeds: [new MessageEmbed()
   .setColor("RANDOM")
-  .setDescription(`<a:tick:991178421113733130> Added ${song.name} to the queue.`)
-  .addField(`Duration: `,`${song.formattedDuration}`)
-  .addField(`Requested by: `,`${song.user}`)
+  .setDescription(`<a:tick:991178421113733130> Added \`${song.name}\` to the queue.`)
+  .addFields(
+		{ name: 'Duration:', value: `${song.formattedDuration}`, inline: true },
+		{ name: 'Requested by:', value: `${song.user}`, inline: true },
+	)
   .setFooter({ text: 'Dweeber >> Play'})
 ]}))
     .on('addList', (queue, playlist) =>
@@ -140,7 +153,12 @@ client.once("ready", () => {
 
   console.log(`====================================================================================`)
 
-  client.user.setActivity(`V2 | dweeber.dev`, { type: ActivityType.Watching}) //Set the activity of the bot
+  client.channels.cache.get('1013645706935935036').send({content: 'The bot is now started!'})
+
+  client.user.setPresence({
+    activities: [{ name: `V2 | dweeber.dev`, type: "WATCHING" }],
+    status: 'online',
+  }); //Set the activity of the bot
 });
 
 process.on('unhandledRejection', (err, message) => {
@@ -152,7 +170,7 @@ process.on('unhandledRejection', (err, message) => {
   .setDescription(`${err.message}`)
   .setFooter({ text: 'Dweeber >> Error'})
 
-  client.channels.cache.get('989310134423531561').send({embeds: [errEmbed]})
+  client.channels.cache.get('989310134423531561').send({content: '<@!658186843963260929>', embeds: [errEmbed]})
 
   });
   

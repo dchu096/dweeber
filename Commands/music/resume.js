@@ -10,23 +10,53 @@ module.exports = {
 		await interaction.deferReply();
 
         const VoiceChannel = interaction.member.voice.channel;
+        const Target = interaction.member;
+        const guild = interaction.guild
+        const queue = client.distube.getQueue(VoiceChannel)
+
+        const noVoice = new MessageEmbed()
+        .setColor('#ff0000')
+          .setTitle('<a:crossmark:1011568778942885909> Error')
+          .setDescription('Ya need to be in a voice channel so i can play music for you!')
+          .setFooter({ text: 'Dweeber >> resume'});
+
+        const differentVoice = new MessageEmbed()
+          .setColor('#ff0000')
+          .setTitle('<a:crossmark:1011568778942885909> Error')
+          .setDescription('Ya need to be in the same voice channel as me so i can play music for you!')
+          .setFooter({ text: 'Dweeber >> resume'});
+
+        const noqueue = new MessageEmbed()
+            .setColor('#ff0000')
+            .setTitle('<a:crossmark:1011568778942885909> Error')
+            .setDescription('There is no music on right now! Please run \`/play\` to play some music!')
+            .setFooter({ text: 'Dweeber >> resume'});
+
+            if (!Target.voice.channel) { 
+                return interaction.followUp({embeds: [noVoice]});
+            }
+
+            if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.followUp({embeds: [differentVoice]});
+
+           
+
+
+
 
         try {
 
-            const guild = interaction.guild
-            const queue = client.distube.getQueue(VoiceChannel)
-
-            if (!queue) return interaction.followUp({ content: "There is no music playing!", ephemeral: true });
+            if (!queue) return interaction.followUp({embeds: [noqueue]});
 
             if (queue && !client.distube.isPlaying(VoiceChannel)) {
                 await queue.resume(VoiceChannel)
 
             const resumeEmbed = new MessageEmbed()
             .setColor('RANDOM')
-            .setDescription(`Music is now resumed.`)
+            .setTitle(`<a:tick:991178421113733130>  Resumed`)
+            .setDescription(`Resumed the music!`)
             .setFooter({ text: 'Dweeber >> resume'});
 
-            interaction.followUp({embeds: [stopEmbed]});
+            interaction.followUp({embeds: [resumeEmbed]});
             } else {
                 interaction.followUp({ content: "There is no music playing!", ephemeral: true });
             }

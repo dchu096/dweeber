@@ -41,29 +41,54 @@ module.exports = {
 
         const loopMethod = interaction.options.getString('method');
 
-        if (!Target.voice.channel) { 
-           const noVoice = new MessageEmbed()
-              .setColor('#ff0000')
-                .setTitle('Error')
-                .setDescription('You are not in a voice channel!')
-                .setFooter({ text: 'Dweeber >> play'});
-            return interaction.followUp({embeds: [noVoice]});
-        }
+        const noVoice = new MessageEmbed()
+        .setColor('#ff0000')
+          .setTitle('<a:crossmark:1011568778942885909> Error')
+          .setDescription('Ya need to be in a voice channel so i can play music for you!')
+          .setFooter({ text: 'Dweeber >> repeat'});
 
-        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.followUp({ content: "You are not in my voice channel!", ephemeral: true });
+        const differentVoice = new MessageEmbed()
+          .setColor('#ff0000')
+          .setTitle('<a:crossmark:1011568778942885909> Error')
+          .setDescription('Ya need to be in the same voice channel as me so i can play music for you!')
+          .setFooter({ text: 'Dweeber >> repeat'});
+
+        const noqueue = new MessageEmbed()
+            .setColor('#ff0000')
+            .setTitle('<a:crossmark:1011568778942885909> Error')
+            .setDescription('There is no music on right now! Please run \`/play\` to play some music!')
+            .setFooter({ text: 'Dweeber >> repeat'});
+
+        const alreadyrepeating = new MessageEmbed()
+            .setColor('#ff0000')
+            .setTitle('<a:crossmark:1011568778942885909> Error')
+            .setDescription('I am already repeating the current song!')
+            .setFooter({ text: 'Dweeber >> repeat'});
+
+        
+
+            if (!Target.voice.channel) { 
+                return interaction.followUp({embeds: [noVoice]});
+            }
+
+            if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.followUp({embeds: [differentVoice]});
+
+            if (!queue) return interaction.followUp({embeds: [noqueue]});
+
+            if (!queue && !client.distube.isPlaying(VoiceChannel)) return interaction.followUp({embeds: [noqueue]});
 
 
 
         try {
 
-            if (!queue.repeatMode === 0) return interaction.followUp({ content: "You are already repeating!", ephemeral: true });
+            if (!queue.repeatMode === 0) return interaction.followUp({embeds: [alreadyrepeating]});
 
             if (loopMethod === "song") {
                 queue.repeatMode = 1;
                 const repeatSong = new MessageEmbed()
                 .setColor('#00ff00')
                 .setTitle('Repeat Song')
-                .setDescription(`Oki, I will repeat the current song!`)
+                .setDescription(`Oki, I will repeat the current song for ya!`)
                 .setFooter({ text: 'Dweeber >> repeat'});
                 return interaction.followUp({embeds: [repeatSong]});
             }
@@ -73,7 +98,7 @@ module.exports = {
                 const repeatQueue = new MessageEmbed()
                 .setColor('#00ff00')
                 .setTitle('Repeat Queue')
-                .setDescription(`Oki, I will repeat the current queue!`)
+                .setDescription(`Oki, I will repeat the current queue for ya!`)
                 .setFooter({ text: 'Dweeber >> repeat'});
                 return interaction.followUp({embeds: [repeatQueue]});
             }
@@ -83,7 +108,7 @@ module.exports = {
                 const repeatOff = new MessageEmbed()
                 .setColor('#00ff00')
                 .setTitle('Repeat Off')
-                .setDescription(`Oki, I will not repeat anything!`)
+                .setDescription(`Oki, I will stop repeating!`)
                 .setFooter({ text: 'Dweeber >> repeat'});
                 return interaction.followUp({embeds: [repeatOff]});
             }

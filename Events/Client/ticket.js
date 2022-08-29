@@ -41,7 +41,7 @@ client.on("interactionCreate", async (interaction) => {
                         channel.setTopic(`**Close ID: ${channel.id}**`)
                         const embed = new MessageEmbed()
                             .setTitle(`Thankyou for creating a ticket in ${interaction.guild.name}`)
-                            .setDescription(`Please hold on while waiting for a staff member to assist you! \n\`\`\`→ Opened by ${interaction.user.tag}\`\`\`\n\`\`\`→ Category: ${ticketModule.Buttons[i]}\`\`\``)
+                            .setDescription(`Please hold on while waiting for a staff member to assist you! \n\`\`\`→ Opened by ${interaction.user.tag}\`\`\`\n\`\`\`→ Category: ${interaction.customId.toString().replace(`-${interaction.guild.id}`, '')}\`\`\``)
                             .addFields({name: 'Close ID', value: channel.id})
                         channel.send({ content: `<@!${interaction.user.id}>`, embeds: [embed] }).catch(console.log)
 

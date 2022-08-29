@@ -17,25 +17,31 @@ module.exports = {
         },
     ],
 	async run(client, interaction) {
-		await interaction.deferReply();
+		await interaction.deferReply({ ephemeral: true });
 
         const Target = interaction.member;
         const { member, channel } = interaction;
         const VoiceChannel = interaction.member.voice.channel;
-
-
         const songinput = interaction.options.getString('song');
 
-        if (!Target.voice.channel) { 
-           const noVoice = new MessageEmbed()
+        const noVoice = new MessageEmbed()
               .setColor('#ff0000')
-                .setTitle('Error')
-                .setDescription('You are not in a voice channel!')
+                .setTitle('<a:crossmark:1011568778942885909> Error')
+                .setDescription('Ya need to be in a voice channel so i can play music for you!')
                 .setFooter({ text: 'Dweeber >> play'});
-            return interaction.followUp({embeds: [noVoice], ephemeral: true});
+
+        const differentVoice = new MessageEmbed()
+                .setColor('#ff0000')
+                .setTitle('<a:crossmark:1011568778942885909> Error')
+                .setDescription('Ya need to be in the same voice channel as me so i can play music for you!')
+                .setFooter({ text: 'Dweeber >> play'});
+
+        if (!Target.voice.channel) { 
+           
+            return interaction.followUp({embeds: [noVoice]});
         }
 
-        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.followUp({ content: "You are not in my voice channel!", ephemeral: true });
+        if (interaction.guild.me.voice.channelId && interaction.member.voice.channelId !== interaction.guild.me.voice.channelId) return await interaction.followUp({embeds: [differentVoice]});
 
 
 
@@ -44,11 +50,11 @@ module.exports = {
             
             const searchingEmbed = new MessageEmbed()
             .setColor('RANDOM')
-            .setTitle('Searching...')
-            .setDescription(`<a:loading:986418430360047616> Searching for ${songinput}`)
+            .setTitle('<a:searching:1011889118780870697> Searching...')
+            .setDescription(`Hold on! Im looking up \`${songinput}\` for ya!!`)
             .setFooter({ text: 'Dweeber >> play'});
 
-            interaction.followUp({embeds: [searchingEmbed], ephemeral: true});
+            interaction.followUp({embeds: [searchingEmbed]});
 
             client.distube.play(VoiceChannel, songinput, { textChannel: channel, member: member})
 

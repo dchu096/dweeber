@@ -13,4 +13,4 @@ let Schema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('Ticket', Schema)
+module.exports = mongoose.model('ticketSetup', Schema)
