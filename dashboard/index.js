@@ -12,14 +12,15 @@ const Strategy = require(`passport-discord`).Strategy;
 const BotConfig = require("@root/config.json");
 const BotEmojis = require("@root/emojis.json");
 const BotFilters = require("@root/filters.json");
+const signale = require('signale');
 
 /**
  *  STARTING THE WEBSITE
  * @param {*} client THE DISCORD BOT CLIENT 
  */
 module.exports = client => {
-    //Start teh website
-    console.log("Loading DashBoard settings".brigthGreen)
+    //Start the website
+    signale.watch("Loading DashBoard settings, please wait...")
     const settings = require("./settings.json");
     // We instantiate express app and the session store.
     const app = express();
@@ -42,7 +43,15 @@ module.exports = client => {
       process.nextTick(() => done(null, profile));
     }));
 
-    
+
+    /**
+     * @INFO - Defining some informations
+     */
+
+    app.locals.ServerCount = client.guilds.cache.size;
+    app.locals.userCount = client.users.cache.size;
+    app.locals.ping = client.ws.ping;
+   
     /**
      * @INFO - ADD A SESSION SAVER
      */
