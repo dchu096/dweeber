@@ -39,6 +39,10 @@ The main features of this bot:
 
 > Economy: Dweeber has an economy system to also maintain your server's engagement rate. [WIP]
 
+> Tickets: We do understand some people like to use tickets to do support that's why Dweeber is also included a fully functional ticket system to make sure your server can be setup nice and easy. Members can also track their ticket ID on our dashboard to see the transcript! [WIP]
+
+> Giveaways: Giveaways commands is a useful feature for servers to entertain member in the server. That's why Dweeber are also fully loaded with giveaway commands so you can use it at your needs!
+
 
 Bot informations:
 
