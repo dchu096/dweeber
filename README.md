@@ -1,6 +1,8 @@
-# Dweeber < / slash commands>
+# Dweeber
 
-✅ This branch is actively maintained and updated
+❌ Dweeber v1 is now archived, if you want to see a complete rebuild, visit v2
+
+---
 
 **Please consider putting a ⭐ on this repo. It helps!!**
 
